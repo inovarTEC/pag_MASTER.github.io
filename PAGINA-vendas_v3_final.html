@@ -1,0 +1,1063 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Eletricista Power Apps</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#040d1a;--bg2:#071224;--surface:#0c1e35;--surface2:#112540;
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);
+  --accent:#f97316;--accent2:#fbbf24;--accent3:#38bdf8;
+  --txt:#f0f6ff;--txt2:#94a3b8;--txt3:#475569;
+  --green:#22c55e;--purple:#a855f7;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
+body{background:var(--bg);color:var(--txt);font-family:'Outfit',sans-serif;overflow-x:hidden;line-height:1.6;}
+
+/* ── PAGES ── */
+.page{display:none;min-height:100vh;}
+.page.active{display:block;animation:pageIn .3s ease both;}
+@keyframes pageIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
+
+/* ── GRID BG ── */
+.grid-bg{background-image:linear-gradient(rgba(56,189,248,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.03) 1px,transparent 1px);background-size:36px 36px;}
+
+/* ── NAV ── */
+nav{position:sticky;top:0;z-index:100;height:56px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;background:rgba(4,13,26,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:flex;align-items:center;gap:8px;cursor:pointer;}
+.nav-logo-icon{width:28px;height:28px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;-webkit-text-fill-color:initial;flex-shrink:0;}
+.nav-back{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--txt2);cursor:pointer;padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:transparent;transition:all .2s;-webkit-text-fill-color:var(--txt2);}
+.nav-back:hover{border-color:var(--border2);color:var(--txt);-webkit-text-fill-color:var(--txt);}
+.nav-cta-sm{background:linear-gradient(135deg,var(--accent),#ea580c);color:#fff;font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;border:none;cursor:pointer;box-shadow:0 4px 14px rgba(249,115,22,.3);transition:all .2s;-webkit-text-fill-color:#fff;white-space:nowrap;}
+
+/* ── BUTTONS ── */
+.btn-primary{display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,var(--accent),#ea580c);color:#fff;font-weight:800;font-size:15px;padding:17px;border-radius:12px;border:none;cursor:pointer;box-shadow:0 8px 28px rgba(249,115,22,.4);transition:all .25s;width:100%;-webkit-text-fill-color:#fff;}
+.btn-primary:hover{box-shadow:0 12px 44px rgba(249,115,22,.55);transform:translateY(-2px);}
+.btn-ghost{display:flex;align-items:center;justify-content:center;gap:8px;background:transparent;border:1.5px solid var(--border2);color:var(--txt2);font-weight:600;font-size:14px;padding:14px;border-radius:12px;cursor:pointer;transition:all .25s;width:100%;-webkit-text-fill-color:var(--txt2);}
+.btn-ghost:hover{border-color:rgba(255,255,255,.25);color:var(--txt);-webkit-text-fill-color:var(--txt);}
+
+/* ── HERO HOME ── */
+.hero{padding:36px 16px 44px;text-align:center;position:relative;overflow:hidden;}
+.hero-glow{position:absolute;width:480px;height:480px;background:radial-gradient(circle,rgba(249,115,22,.11),transparent 70%);top:-150px;left:50%;transform:translateX(-50%);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.3);padding:6px 14px;border-radius:99px;font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px;}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(46px,12vw,76px);line-height:.95;letter-spacing:2px;margin-bottom:16px;}
+.grad{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.grad-blue{background:linear-gradient(90deg,var(--accent3),#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero-sub{font-size:15px;color:var(--txt2);line-height:1.75;margin-bottom:26px;max-width:400px;margin-left:auto;margin-right:auto;}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px;max-width:400px;margin-left:auto;margin-right:auto;}
+.stat-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:13px 8px;}
+.stat-box strong{display:block;font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.stat-box span{font-size:10px;color:var(--txt3);font-weight:600;text-transform:uppercase;letter-spacing:.04em;line-height:1.3;display:block;}
+
+/* ── SECTION ── */
+.sec-label{display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--accent);margin-bottom:10px;}
+.sec-label::before{content:'';width:18px;height:2px;background:var(--accent);}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,7vw,46px);letter-spacing:2px;line-height:1;margin-bottom:10px;}
+.sec-sub{font-size:14px;color:var(--txt2);line-height:1.7;margin-bottom:26px;}
+section{padding:48px 16px;}
+.max480{max-width:480px;margin-left:auto;margin-right:auto;}
+.text-center{text-align:center;}
+
+/* ── APP CARDS HOME ── */
+.apps-grid{display:flex;flex-direction:column;gap:14px;max-width:480px;margin:0 auto;}
+.app-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;cursor:pointer;transition:all .3s;position:relative;}
+.app-card:active{transform:scale(.98);}
+.app-card.pro:hover{border-color:rgba(249,115,22,.5);box-shadow:0 16px 44px rgba(0,0,0,.4),0 0 0 1px rgba(249,115,22,.12);}
+.app-card.basic:hover{border-color:rgba(34,197,94,.5);box-shadow:0 16px 44px rgba(0,0,0,.4),0 0 0 1px rgba(34,197,94,.12);}
+.app-card.dev:hover{border-color:rgba(168,85,247,.4);box-shadow:0 16px 44px rgba(0,0,0,.4),0 0 0 1px rgba(168,85,247,.1);}
+.card-top{height:130px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.pro .card-top{background:linear-gradient(135deg,#160800,#2d1200,#080010);}
+.basic .card-top{background:linear-gradient(135deg,#001810,#002010,#001020);}
+.dev .card-top{background:linear-gradient(135deg,#0d0020,#160030,#000d20);}
+.card-glow{position:absolute;inset:0;}
+.pro .card-glow{background:radial-gradient(circle at 65% 35%,rgba(249,115,22,.26),transparent 65%);}
+.basic .card-glow{background:radial-gradient(circle at 65% 35%,rgba(34,197,94,.26),transparent 65%);}
+.dev .card-glow{background:radial-gradient(circle at 65% 35%,rgba(168,85,247,.26),transparent 65%);}
+.card-emoji{font-size:52px;position:relative;z-index:2;animation:float 4s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
+.card-badge{position:absolute;top:10px;right:10px;z-index:3;padding:4px 10px;border-radius:99px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;}
+.pro .card-badge{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;}
+.basic .card-badge{background:var(--green);color:#fff;}
+.dev .card-badge{background:rgba(168,85,247,.2);border:1px solid rgba(168,85,247,.4);color:#c084fc;}
+.card-body{padding:16px 16px 18px;}
+.card-name{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:1px;margin-bottom:6px;}
+.card-desc{font-size:13px;color:var(--txt2);line-height:1.6;margin-bottom:12px;}
+.card-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;}
+.tag{background:rgba(255,255,255,.04);border:1px solid var(--border);padding:3px 9px;border-radius:99px;font-size:11px;color:var(--txt3);}
+.card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border);}
+.card-price{font-family:'Bebas Neue',sans-serif;font-size:25px;letter-spacing:1px;}
+.pro .card-price{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.basic .card-price{color:var(--green);-webkit-text-fill-color:var(--green);}
+.dev .card-price{color:var(--purple);-webkit-text-fill-color:var(--purple);}
+.card-price small{font-family:'Outfit',sans-serif;font-size:11px;color:var(--txt3);-webkit-text-fill-color:var(--txt3);font-weight:500;}
+.card-arrow{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;transition:transform .2s;}
+.pro .card-arrow{background:rgba(249,115,22,.14);}
+.basic .card-arrow{background:rgba(34,197,94,.14);}
+.dev .card-arrow{background:rgba(168,85,247,.14);}
+.app-card:hover .card-arrow{transform:translateX(4px);}
+
+/* ── ABOUT ── */
+.about-sec{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.avatar-wrap{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2),var(--accent3));padding:3px;margin:0 auto 18px;position:relative;}
+.avatar-wrap::before{content:'';position:absolute;inset:-8px;border-radius:50%;background:conic-gradient(from 0deg,var(--accent),var(--accent2),var(--accent3),var(--accent));opacity:.22;animation:spin 8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.avatar-inner{width:100%;height:100%;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:40px;position:relative;z-index:1;}
+.cred-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px;}
+.cred-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:13px;text-align:left;transition:border-color .2s;}
+.cred-item:hover{border-color:rgba(249,115,22,.22);}
+.cred-item .ci-icon{font-size:18px;margin-bottom:5px;}
+.cred-item strong{display:block;font-size:12px;font-weight:700;margin-bottom:2px;}
+.cred-item span{font-size:11px;color:var(--txt3);line-height:1.4;}
+
+/* ── STEPS ── */
+.steps{display:flex;flex-direction:column;gap:11px;max-width:480px;margin:0 auto;}
+.step{background:var(--surface);border:1px solid var(--border);border-radius:15px;padding:18px;display:flex;align-items:flex-start;gap:14px;transition:all .2s;}
+.step:hover{border-color:rgba(249,115,22,.2);transform:translateX(3px);}
+.step-num{font-family:'Bebas Neue',sans-serif;font-size:38px;line-height:1;background:linear-gradient(135deg,rgba(249,115,22,.3),rgba(251,191,36,.15));-webkit-background-clip:text;-webkit-text-fill-color:transparent;flex-shrink:0;width:34px;}
+.step-icon{font-size:22px;margin-bottom:6px;}
+.step h3{font-size:14px;font-weight:700;margin-bottom:4px;}
+.step p{font-size:13px;color:var(--txt2);line-height:1.6;}
+
+/* ── VIDEO CARDS ── */
+.videos-grid{display:flex;flex-direction:column;gap:13px;max-width:480px;margin:0 auto;}
+.video-card{background:var(--surface);border:1px solid var(--border);border-radius:15px;overflow:hidden;transition:all .3s;}
+.video-card:hover{border-color:rgba(249,115,22,.28);}
+.video-thumb{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer;background:linear-gradient(135deg,#1a0a00,#2d1200);}
+.video-thumb::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50%,rgba(249,115,22,.2),transparent 70%);}
+.video-thumb-emoji{font-size:36px;position:absolute;opacity:.18;}
+.play-btn{width:50px;height:50px;background:linear-gradient(135deg,var(--accent),#ea580c);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;position:relative;z-index:1;box-shadow:0 6px 22px rgba(249,115,22,.5);transition:transform .2s;}
+.video-card:hover .play-btn{transform:scale(1.08);}
+.video-info{padding:13px 15px;}
+.vname{font-weight:700;font-size:14px;margin-bottom:2px;}
+.vrole{font-size:11px;color:var(--txt3);}
+.vquote{font-size:13px;color:var(--txt2);margin-top:7px;font-style:italic;line-height:1.65;}
+
+/* ── REVIEWS HOME ── */
+.reviews-grid{display:flex;flex-direction:column;gap:11px;max-width:480px;margin:0 auto;}
+.review-card{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px;transition:all .3s;}
+.review-card:hover{border-color:rgba(251,191,36,.22);}
+.stars{color:#fbbf24;font-size:14px;margin-bottom:9px;letter-spacing:2px;}
+.review-text{font-size:13px;color:var(--txt2);line-height:1.7;margin-bottom:13px;font-style:italic;}
+.review-author{display:flex;align-items:center;gap:9px;}
+.rav{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex-shrink:0;}
+.review-author strong{font-size:13px;font-weight:700;display:block;}
+.review-author span{font-size:11px;color:var(--txt3);}
+
+/* ── CTA HOME ── */
+.cta-sec{background:linear-gradient(135deg,#1a0800,#0d1a00,#001020);border-top:1px solid var(--border);text-align:center;padding:52px 16px;position:relative;overflow:hidden;}
+.cta-sec::before{content:'';position:absolute;width:380px;height:380px;background:radial-gradient(circle,rgba(249,115,22,.13),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.cta-sec>*{position:relative;z-index:2;}
+
+/* ── FOOTER ── */
+footer{background:var(--bg);border-top:1px solid var(--border);padding:28px 16px;text-align:center;}
+footer .fl{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;}
+footer p{font-size:12px;color:var(--txt3);margin-bottom:5px;line-height:1.6;}
+footer a{color:var(--accent);text-decoration:none;}
+
+/* ── WA ── */
+.wa-btn{position:fixed;bottom:20px;right:14px;width:50px;height:50px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 5px 18px rgba(37,211,102,.4);cursor:pointer;z-index:150;transition:all .2s;text-decoration:none;}
+.wa-btn:hover{transform:scale(1.1);}
+
+/* ── DETAIL HERO ── */
+.detail-hero{padding:28px 16px 38px;text-align:center;position:relative;overflow:hidden;}
+.detail-glow{position:absolute;width:400px;height:400px;top:-100px;left:50%;transform:translateX(-50%);pointer-events:none;border-radius:50%;}
+.detail-emoji{font-size:72px;margin-bottom:14px;display:block;animation:float 4s ease-in-out infinite;}
+.detail-tag{display:inline-block;padding:4px 13px;border-radius:99px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:13px;}
+.detail-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,9vw,58px);letter-spacing:2px;line-height:1;margin-bottom:12px;}
+.detail-sub{font-size:15px;color:var(--txt2);line-height:1.7;max-width:430px;margin:0 auto;}
+
+/* ── STORY ── */
+.story-sec{padding:40px 16px;background:var(--bg2);border-top:1px solid var(--border);}
+.story-box{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:22px;max-width:480px;margin:0 auto;position:relative;overflow:hidden;}
+.story-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));}
+.story-icon{font-size:34px;margin-bottom:14px;display:block;}
+.story-box h3{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;margin-bottom:13px;}
+.story-box p{font-size:14px;color:var(--txt2);line-height:1.85;margin-bottom:12px;}
+.story-box p:last-of-type{margin-bottom:0;}
+.story-box p strong{color:var(--txt);}
+.story-highlight{background:linear-gradient(135deg,rgba(249,115,22,.09),rgba(251,191,36,.04));border:1px solid rgba(249,115,22,.22);border-radius:12px;padding:14px;margin-top:14px;}
+.story-highlight p{margin-bottom:0!important;font-style:italic;font-size:14px;}
+.story-highlight p strong{color:var(--accent);}
+
+/* ── LATENT BOX ── */
+.latent-sec{padding:0 16px 40px;background:var(--bg2);}
+.latent-box{background:linear-gradient(135deg,rgba(249,115,22,.07),rgba(251,191,36,.03));border:1px solid rgba(249,115,22,.2);border-radius:16px;padding:20px;max-width:480px;margin:0 auto;}
+.latent-box h4{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--accent2);margin-bottom:14px;}
+.latent-item{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;}
+.latent-item:last-child{margin-bottom:0;}
+.latent-item .li-icon{font-size:18px;flex-shrink:0;margin-top:2px;}
+.latent-item p{font-size:13px;color:var(--txt2);line-height:1.65;}
+.latent-item p strong{color:var(--txt);}
+
+/* ── BENEFITS ── */
+.benefits-sec{padding:40px 16px;}
+.benefits-grid{display:flex;flex-direction:column;gap:11px;max-width:480px;margin:0 auto;}
+.benefit-item{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px;display:flex;gap:13px;align-items:flex-start;transition:all .22s;}
+.benefit-item:hover{border-color:rgba(249,115,22,.22);transform:translateX(3px);}
+.benefit-item .bi-icon{font-size:26px;flex-shrink:0;margin-top:2px;}
+.benefit-item strong{display:block;font-size:14px;font-weight:700;margin-bottom:4px;}
+.benefit-item p{font-size:13px;color:var(--txt2);line-height:1.6;}
+
+/* ── THINK ── */
+.think-sec{padding:40px 16px;background:var(--bg2);border-top:1px solid var(--border);}
+.think-box{background:linear-gradient(135deg,rgba(239,68,68,.07),rgba(249,115,22,.04));border:1px solid rgba(239,68,68,.18);border-radius:16px;padding:20px;max-width:480px;margin:0 auto;}
+.think-box h3{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:#fca5a5;margin-bottom:13px;}
+.think-item{display:flex;gap:11px;align-items:flex-start;margin-bottom:12px;}
+.think-item:last-child{margin-bottom:0;}
+.think-item .ti-icon{font-size:18px;flex-shrink:0;margin-top:2px;}
+.think-item p{font-size:13px;color:#fca5a5;line-height:1.65;}
+.think-item p strong{color:#fecaca;}
+.think-item p em{color:var(--txt2);font-style:normal;}
+
+/* ── DETAIL VIDEOS ── */
+.videos-sec{padding:40px 16px;}
+.detail-videos{display:flex;flex-direction:column;gap:18px;max-width:480px;margin:0 auto;}
+.dv-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+.dv-thumb{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#1a0a00,#2d1200);display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;overflow:hidden;}
+.dv-thumb::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50%,rgba(249,115,22,.2),transparent 70%);}
+.dv-thumb-emoji{font-size:38px;position:absolute;opacity:.14;}
+.dv-play{width:54px;height:54px;background:linear-gradient(135deg,var(--accent),#ea580c);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;position:relative;z-index:1;box-shadow:0 7px 22px rgba(249,115,22,.5);transition:transform .2s;}
+.dv-card:hover .dv-play{transform:scale(1.1);}
+.dv-info{padding:14px 16px 10px;}
+.dvname{font-weight:700;font-size:14px;margin-bottom:2px;}
+.dvrole{font-size:11px;color:var(--txt3);}
+.dvquote{font-size:13px;color:var(--txt2);margin-top:9px;font-style:italic;line-height:1.65;}
+.dv-comments{padding:12px 16px 16px;border-top:1px solid var(--border);margin-top:8px;}
+.dv-comment{display:flex;gap:9px;align-items:flex-start;margin-bottom:11px;}
+.dv-comment:last-child{margin-bottom:0;}
+.dc-av{width:30px;height:30px;border-radius:50%;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--txt2);flex-shrink:0;}
+.dc-top{display:flex;align-items:center;gap:7px;margin-bottom:2px;}
+.dc-name{font-size:12px;font-weight:700;}
+.dc-stars{font-size:11px;color:#fbbf24;}
+.dc-text{font-size:12px;color:var(--txt2);line-height:1.6;}
+
+/* ── ALL REVIEWS (detail) ── */
+.all-reviews-sec{padding:0 16px 40px;}
+.all-reviews-grid{display:flex;flex-direction:column;gap:11px;max-width:480px;margin:0 auto;}
+
+/* ── PRICE ── */
+.price-sec{padding:40px 16px;background:var(--bg2);border-top:1px solid var(--border);}
+.price-box{background:linear-gradient(135deg,rgba(249,115,22,.1),rgba(251,191,36,.04));border:1.5px solid rgba(249,115,22,.32);border-radius:18px;padding:24px 18px;max-width:480px;margin:0 auto;text-align:center;}
+.pb-label{font-size:12px;color:var(--txt2);margin-bottom:5px;text-decoration:line-through;}
+.pb-big{font-family:'Bebas Neue',sans-serif;font-size:64px;letter-spacing:2px;line-height:1;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px;}
+.pb-sub{font-size:13px;color:var(--txt2);margin-bottom:18px;}
+.price-includes{display:flex;flex-direction:column;gap:7px;margin-bottom:20px;text-align:left;}
+.pi{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--txt2);}
+.pi::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;}
+.btn-gap{display:flex;flex-direction:column;gap:10px;}
+.price-note{font-size:11px;color:var(--txt3);margin-top:11px;line-height:1.6;}
+.price-box.dev-box{background:rgba(168,85,247,.07);border-color:rgba(168,85,247,.28);}
+.price-box.dev-box .pb-big{background:linear-gradient(90deg,var(--purple),#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+
+/* ── PULSE ── */
+.pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--purple);display:inline-block;animation:pulseDot 1.5s ease-in-out infinite;}
+@keyframes pulseDot{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.6);opacity:.5;}}
+
+/* ── SCROLL REVEAL ── */
+.reveal{opacity:0;transform:translateY(22px);transition:all .52s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ══════════════════════════════════
+   ✏️ EDIT MODE
+══════════════════════════════════ */
+/* Toolbar */
+#edit-toolbar{
+  position:fixed;bottom:76px;right:14px;z-index:200;
+  display:flex;flex-direction:column;align-items:flex-end;gap:8px;
+}
+#btn-edit-toggle{
+  background:linear-gradient(135deg,#1e40af,#1d4ed8);
+  color:#fff;font-weight:700;font-size:12px;
+  padding:10px 16px;border-radius:99px;border:none;cursor:pointer;
+  box-shadow:0 4px 18px rgba(30,64,175,.5);
+  display:flex;align-items:center;gap:7px;
+  transition:all .2s;white-space:nowrap;
+}
+#btn-edit-toggle:hover{box-shadow:0 6px 26px rgba(30,64,175,.7);}
+#btn-save-edit{
+  background:linear-gradient(135deg,var(--green),#16a34a);
+  color:#fff;font-weight:700;font-size:12px;
+  padding:10px 16px;border-radius:99px;border:none;cursor:pointer;
+  box-shadow:0 4px 18px rgba(34,197,94,.45);
+  display:none;align-items:center;gap:7px;
+  transition:all .2s;white-space:nowrap;
+}
+#btn-save-edit.visible{display:flex;}
+#btn-save-edit:hover{box-shadow:0 6px 26px rgba(34,197,94,.65);}
+
+/* Editable elements in edit mode */
+body.edit-mode [data-editable]{
+  outline:2px dashed rgba(59,130,246,.5)!important;
+  outline-offset:2px;
+  border-radius:4px;
+  cursor:text;
+  min-width:20px;
+  display:inline-block;
+}
+body.edit-mode [data-editable]:hover{outline-color:rgba(59,130,246,.9)!important;}
+body.edit-mode [data-editable]:focus{outline-color:#3b82f6!important;background:rgba(59,130,246,.07);}
+body.edit-mode [data-video]{
+  outline:2px dashed rgba(168,85,247,.5)!important;
+  outline-offset:4px;border-radius:8px;cursor:pointer;position:relative;
+}
+body.edit-mode [data-video]::after{
+  content:'▶ Clique para trocar vídeo';
+  position:absolute;inset:0;background:rgba(0,0,0,.65);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;font-weight:700;color:#c084fc;border-radius:8px;
+}
+body.edit-mode [data-icon]{
+  outline:2px dashed rgba(251,191,36,.5)!important;
+  outline-offset:2px;cursor:pointer;border-radius:6px;
+}
+body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align:super;}
+
+/* Edit hint tooltip */
+#edit-hint{
+  position:fixed;top:64px;left:50%;transform:translateX(-50%);
+  background:rgba(30,64,175,.95);border:1px solid rgba(59,130,246,.4);
+  color:#bfdbfe;font-size:12px;font-weight:600;
+  padding:8px 16px;border-radius:99px;z-index:300;
+  white-space:nowrap;display:none;
+  box-shadow:0 4px 20px rgba(0,0,0,.4);
+}
+
+/* Edit dialog */
+#edit-dialog{
+  position:fixed;inset:0;z-index:500;
+  background:rgba(0,0,0,.8);backdrop-filter:blur(10px);
+  display:none;align-items:center;justify-content:center;padding:20px;
+}
+#edit-dialog.open{display:flex;}
+.edit-dialog-box{
+  background:var(--surface);border:1px solid rgba(59,130,246,.3);border-radius:18px;
+  padding:24px;width:100%;max-width:380px;
+}
+.edit-dialog-box h4{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;margin-bottom:16px;color:var(--accent3);}
+.edit-dialog-box input,.edit-dialog-box textarea{
+  width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:10px;
+  padding:12px;color:var(--txt);font-size:14px;font-family:'Outfit',sans-serif;outline:none;
+  margin-bottom:12px;
+}
+.edit-dialog-box input:focus,.edit-dialog-box textarea:focus{border-color:rgba(59,130,246,.6);}
+.edit-dialog-box textarea{resize:vertical;min-height:80px;}
+.edit-dialog-btns{display:flex;gap:10px;}
+.edit-dialog-btns button{flex:1;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:13px;}
+.edb-confirm{background:linear-gradient(135deg,#1e40af,#1d4ed8);color:#fff;}
+.edb-cancel{background:var(--surface2);color:var(--txt2);}
+
+@media(min-width:600px){section{padding:60px 24px;}.max480,.apps-grid,.steps,.videos-grid,.reviews-grid,.detail-videos,.benefits-grid,.all-reviews-grid{max-width:560px;}.story-box,.think-box,.price-box,.latent-box{max-width:560px;}}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════
+  ⚡ HOME PAGE
+═══════════════════════════ -->
+<div id="page-home" class="page active">
+<nav>
+  <div class="nav-logo"><div class="nav-logo-icon">⚡</div><span data-editable>ELETRICISTA POWER</span></div>
+  <button class="nav-cta-sm" onclick="document.getElementById('sec-apps').scrollIntoView({behavior:'smooth'})">Ver Apps ↗</button>
+</nav>
+
+<div class="hero grid-bg">
+  <div class="hero-glow"></div>
+  <div class="hero-badge">⚡ <span data-editable>Ferramentas Pro para Eletricistas</span></div>
+  <h1 class="hero-title">
+    <span class="grad" data-editable>TRABALHE MAIS</span><br>
+    <span style="color:var(--txt)" data-editable>RÁPIDO.</span><br>
+    <span class="grad-blue" data-editable>GANHE MAIS.</span>
+  </h1>
+  <p class="hero-sub" data-editable>Aplicativos desenvolvidos por engenheiro eletricista. Orçamentos em minutos, cálculos NBR na palma da mão.</p>
+  <div class="hero-stats">
+    <div class="stat-box"><strong data-editable>3 min</strong><span data-editable>para um orçamento</span></div>
+    <div class="stat-box"><strong data-editable>NBR</strong><span data-editable>5410 inclusa</span></div>
+    <div class="stat-box"><strong data-editable>24/7</strong><span data-editable>funciona offline</span></div>
+  </div>
+  <button class="btn-primary" style="max-width:320px;margin:0 auto;" onclick="document.getElementById('sec-apps').scrollIntoView({behavior:'smooth'})">⚡ Ver Aplicativos Disponíveis</button>
+</div>
+
+<!-- SOBRE -->
+<section class="about-sec">
+  <div class="max480 text-center reveal">
+    <div class="avatar-wrap"><div class="avatar-inner" data-icon title="Clique para trocar emoji">👷</div></div>
+    <div class="sec-label">Quem desenvolveu</div>
+    <h2 class="sec-title">UM PROFISSIONAL <span class="grad">DA ÁREA</span></h2>
+    <p class="sec-sub" data-editable>Formação em Engenharia Elétrica, anos de experiência em campo. Criado por quem sabe o que o eletricista precisa.</p>
+    <div class="cred-grid">
+      <div class="cred-item"><div class="ci-icon" data-icon>⚡</div><strong data-editable>Eng. Elétrica</strong><span data-editable>Formação sólida e campo</span></div>
+      <div class="cred-item"><div class="ci-icon" data-icon>💻</div><strong data-editable>Dev de Apps</strong><span data-editable>Foco em produtividade real</span></div>
+      <div class="cred-item"><div class="ci-icon" data-icon>📐</div><strong data-editable>NBR 5410</strong><span data-editable>Cálculos normatizados</span></div>
+      <div class="cred-item"><div class="ci-icon" data-icon>🏆</div><strong data-editable>Mercado Real</strong><span data-editable>Construído no dia a dia</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- APPS -->
+<section id="sec-apps">
+  <div class="text-center max480">
+    <div class="sec-label">Portfólio</div>
+    <h2 class="sec-title">ESCOLHA SUA <span class="grad">FERRAMENTA</span></h2>
+    <p class="sec-sub" data-editable>Clique em qualquer app para ver detalhes, como funciona e como comprar.</p>
+  </div>
+  <div class="apps-grid">
+
+    <div class="app-card pro reveal" onclick="openApp('pro')" tabindex="0" role="button">
+      <div class="card-top"><div class="card-glow"></div><span class="card-emoji" data-icon>⚡</span><div class="card-badge">PRO</div></div>
+      <div class="card-body">
+        <div class="card-name" data-editable>Eletricista Power PRO</div>
+        <div class="card-desc" data-editable>A ferramenta completa. Orçamento, NBR 5410, agenda, checklist, PDF profissional e muito mais.</div>
+        <div class="card-tags"><span class="tag" data-editable>Orçamentos</span><span class="tag" data-editable>NBR 5410</span><span class="tag" data-editable>Demanda</span><span class="tag" data-editable>Agenda</span><span class="tag" data-editable>PDF</span></div>
+        <div class="card-footer">
+          <div><div class="card-price" data-editable>R$ 97</div><div style="font-size:11px;color:var(--green);font-weight:600;" data-editable>✓ Acesso vitalício</div></div>
+          <div class="card-arrow">→</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-card basic reveal" onclick="openApp('basic')" tabindex="0" role="button" style="transition-delay:.08s">
+      <div class="card-top"><div class="card-glow"></div><span class="card-emoji" style="animation-delay:.5s" data-icon>🔧</span><div class="card-badge">BASIC</div></div>
+      <div class="card-body">
+        <div class="card-name" data-editable>Eletricista Power Basic</div>
+        <div class="card-desc" data-editable>Perfeito para começar. Orçamentos rápidos, agenda de clientes e histórico completo.</div>
+        <div class="card-tags"><span class="tag" data-editable>Orçamentos</span><span class="tag" data-editable>Catálogo</span><span class="tag" data-editable>Agenda</span><span class="tag" data-editable>Histórico</span></div>
+        <div class="card-footer">
+          <div><div class="card-price" data-editable>R$ 47</div><div style="font-size:11px;color:var(--green);font-weight:600;" data-editable>✓ Acesso vitalício</div></div>
+          <div class="card-arrow">→</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-card dev reveal" onclick="openApp('dim')" tabindex="0" role="button" style="transition-delay:.16s">
+      <div class="card-top"><div class="card-glow"></div><span class="card-emoji" style="animation-delay:1s" data-icon>📐</span><div class="card-badge"><span class="pulse-dot" style="margin-right:5px"></span>Em breve</div></div>
+      <div class="card-body">
+        <div class="card-name" data-editable>Dimensionador Elétrico Pro</div>
+        <div class="card-desc" data-editable>Dimensione cabos, disjuntores e DPS. Memorial de cálculo automático conforme NBR 5410.</div>
+        <div class="card-tags"><span class="tag" data-editable>Cabos</span><span class="tag" data-editable>Disjuntores</span><span class="tag" data-editable>DPS</span><span class="tag" data-editable>Memorial</span></div>
+        <div class="card-footer">
+          <div><div class="card-price" data-editable>Em breve</div><div style="font-size:11px;color:var(--purple);font-weight:600;" data-editable>📩 Avise-me</div></div>
+          <div class="card-arrow" style="background:rgba(168,85,247,.14)">→</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="app-card dev reveal" onclick="openApp('laudo')" tabindex="0" role="button" style="transition-delay:.24s">
+      <div class="card-top"><div class="card-glow"></div><span class="card-emoji" style="animation-delay:1.5s" data-icon>📋</span><div class="card-badge"><span class="pulse-dot" style="margin-right:5px"></span>Em breve</div></div>
+      <div class="card-body">
+        <div class="card-name" data-editable>Laudo & Inspeção Digital</div>
+        <div class="card-desc" data-editable>Laudos técnicos NR-10, fotos e assinatura digital. PDF pronto para entrega.</div>
+        <div class="card-tags"><span class="tag" data-editable>NR-10</span><span class="tag" data-editable>Laudos</span><span class="tag" data-editable>Fotos</span><span class="tag" data-editable>Assinatura</span></div>
+        <div class="card-footer">
+          <div><div class="card-price" data-editable>Em breve</div><div style="font-size:11px;color:var(--purple);font-weight:600;" data-editable>📩 Avise-me</div></div>
+          <div class="card-arrow" style="background:rgba(168,85,247,.14)">→</div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- COMO FUNCIONA -->
+<section style="background:var(--bg2);border-top:1px solid var(--border);">
+  <div class="text-center max480"><div class="sec-label">Simples assim</div><h2 class="sec-title">COMO <span class="grad">FUNCIONA</span></h2><p class="sec-sub" data-editable>Do download ao orçamento enviado em menos de 5 minutos.</p></div>
+  <div class="steps">
+    <div class="step reveal"><div class="step-num">01</div><div><div class="step-icon" data-icon>📱</div><h3 data-editable>Baixa e Instala</h3><p data-editable>Recebe o arquivo, salva na tela inicial do celular. Funciona como app nativo.</p></div></div>
+    <div class="step reveal" style="transition-delay:.08s"><div class="step-num">02</div><div><div class="step-icon" data-icon>⚙️</div><h3 data-editable>Configura seu Perfil</h3><p data-editable>Coloca nome, logo e preços dos serviços. Uma vez configurado, sempre pronto.</p></div></div>
+    <div class="step reveal" style="transition-delay:.16s"><div class="step-num">03</div><div><div class="step-icon" data-icon>🔧</div><h3 data-editable>Monta o Orçamento</h3><p data-editable>Busca os serviços, ajusta quantidades — valor calculado automaticamente.</p></div></div>
+    <div class="step reveal" style="transition-delay:.24s"><div class="step-num">04</div><div><div class="step-icon" data-icon>📤</div><h3 data-editable>Envia ao Cliente</h3><p data-editable>Gera PDF com sua logo e envia pelo WhatsApp na hora.</p></div></div>
+  </div>
+</section>
+
+<!-- VÍDEOS HOME -->
+<section>
+  <div class="text-center max480"><div class="sec-label">Quem já usa</div><h2 class="sec-title">O QUE ESTÃO <span class="grad">FALANDO</span></h2><p class="sec-sub" data-editable>Eletricistas de todo o Brasil aprovando.</p></div>
+  <div class="videos-grid">
+    <div class="video-card reveal">
+      <div class="video-thumb" data-video="home-v1"><div class="video-thumb-emoji">⚡</div><div class="play-btn">▶</div></div>
+      <div class="video-info"><div class="vname" data-editable>Carlos Henrique S.</div><div class="vrole" data-editable>Eletricista Autônomo · Recife, PE</div><div class="vquote" data-editable>"Antes eu demorava 1 hora pra montar um orçamento no papel. Hoje faço em 3 minutos."</div></div>
+    </div>
+    <div class="video-card reveal" style="transition-delay:.08s">
+      <div class="video-thumb" data-video="home-v2" style="background:linear-gradient(135deg,#001810,#002010)"><div class="video-thumb-emoji">🔧</div><div class="play-btn" style="background:linear-gradient(135deg,var(--green),#16a34a)">▶</div></div>
+      <div class="video-info"><div class="vname" data-editable>Rodrigo T.</div><div class="vrole" data-editable>Técnico Eletrotécnico · São Paulo, SP</div><div class="vquote" data-editable>"O cálculo de demanda e queda de tensão me salva toda hora. Tenho a NBR 5410 no bolso."</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- REVIEWS HOME -->
+<section style="background:var(--bg2);border-top:1px solid var(--border);">
+  <div class="text-center max480" style="margin-bottom:18px"><div style="font-size:14px;color:var(--txt2);font-weight:600">⭐ Avaliação média: <strong style="color:#fbbf24">4.9/5</strong> · +200 avaliações</div></div>
+  <div class="reviews-grid">
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"Me paguei no primeiro orçamento. Nunca mais perco serviço por demora em mandar proposta."</div><div class="review-author"><div class="rav" data-editable>M</div><div><strong data-editable>Marcos A.</strong><span data-editable>Eletricista · Fortaleza, CE</span></div></div></div>
+    <div class="review-card reveal" style="transition-delay:.06s"><div class="stars">★★★★★</div><div class="review-text" data-editable>"O PDF que sai é muito profissional. Os clientes ficam impressionados e confiam mais no trabalho."</div><div class="review-author"><div class="rav" data-editable>J</div><div><strong data-editable>João Pedro M.</strong><span data-editable>Eletricista · Porto Alegre, RS</span></div></div></div>
+    <div class="review-card reveal" style="transition-delay:.12s"><div class="stars">★★★★★</div><div class="review-text" data-editable>"Dimensiono a instalação na frente do cliente, na hora. Ele fica boquiaberto. Fecho mais serviço."</div><div class="review-author"><div class="rav" data-editable>P</div><div><strong data-editable>Paulo R.</strong><span data-editable>Técnico · Manaus, AM</span></div></div></div>
+  </div>
+</section>
+
+<!-- CTA HOME -->
+<section class="cta-sec">
+  <div class="sec-label" style="justify-content:center">Comece agora</div>
+  <h2 class="sec-title">PARE DE PERDER <span class="grad">DINHEIRO</span></h2>
+  <p style="font-size:15px;color:var(--txt2);margin-bottom:26px;line-height:1.75;max-width:400px;margin-left:auto;margin-right:auto" data-editable>Cada minuto fazendo orçamento na mão é dinheiro deixado na mesa. Comece agora.</p>
+  <div style="display:flex;flex-direction:column;gap:11px;max-width:300px;margin:0 auto">
+    <button class="btn-primary" onclick="openApp('pro')">⚡ Quero o PRO — R$ 97</button>
+    <button class="btn-ghost" onclick="openApp('basic')">🔧 Ver o Basic — R$ 47</button>
+  </div>
+  <p style="font-size:12px;color:var(--txt3);margin-top:16px" data-editable>✓ Acesso vitalício · ✓ Sem mensalidades · ✓ Funciona offline</p>
+</section>
+
+<footer>
+  <div class="fl">⚡ ELETRICISTA POWER</div>
+  <p data-editable>Aplicativos profissionais para eletricistas, técnicos e engenheiros.</p>
+  <p>Desenvolvido com ❤️ por profissional da área · <a href="https://wa.me/5581999999999">WhatsApp</a></p>
+  <p style="margin-top:10px;font-size:11px" data-editable>© 2025 Eletricista Power · Todos os direitos reservados</p>
+</footer>
+</div><!-- /home -->
+
+
+<!-- ═══════════════════════════
+  ⚡ PAGE PRO
+═══════════════════════════ -->
+<div id="page-pro" class="page">
+<nav>
+  <button class="nav-back" onclick="goHome()">← Voltar</button>
+  <div class="nav-logo"><div class="nav-logo-icon">⚡</div><span data-editable>PRO</span></div>
+  <button class="nav-cta-sm" onclick="window.open('https://wa.me/5581999999999?text=Quero comprar o PRO!','_blank')">Comprar R$97</button>
+</nav>
+
+<div class="detail-hero grid-bg">
+  <div class="detail-glow" style="background:radial-gradient(circle,rgba(249,115,22,.14),transparent 70%)"></div>
+  <span class="detail-emoji" data-icon>⚡</span>
+  <span class="detail-tag" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff" data-editable>PRO — Ferramenta Completa</span>
+  <h1 class="detail-title">ELETRICISTA POWER <span class="grad" data-editable>PRO</span></h1>
+  <p class="detail-sub" data-editable>A ferramenta mais completa para eletricistas que querem profissionalismo, velocidade e mais lucro.</p>
+</div>
+
+<!-- STORY PRO -->
+<section class="story-sec">
+  <div class="story-box reveal">
+    <span class="story-icon" data-icon>🤔</span>
+    <h3 data-editable>IMAGINA ESSA SITUAÇÃO...</h3>
+    <p data-editable>É segunda-feira, 8h da manhã. Você chega na casa do cliente. Ele pergunta: <strong>"Quanto vai custar?"</strong></p>
+    <p data-editable>Você vai embora, pega o papel, a calculadora... <strong>1 hora se foi.</strong> E o cliente? Já fechou com outro eletricista que respondeu mais rápido.</p>
+    <p data-editable>Agora imagina: você pega o celular, busca os serviços em segundos — e em <strong>menos de 3 minutos</strong> o cliente já recebeu um PDF profissional com sua logo. Ele pensa: <strong>"Esse cara é diferente. Vou fechar com ele."</strong></p>
+    <div class="story-highlight">
+      <p data-editable>Com o PRO, isso acontece <strong style="color:var(--accent)">todo santo dia</strong> — em cada visita, você fecha mais porque impressiona mais.</p>
+    </div>
+  </div>
+</section>
+
+<!-- LATENT PRO -->
+<section class="latent-sec">
+  <div class="latent-box reveal">
+    <h4 data-editable>🧠 VOCÊ SENTE ISSO TAMBÉM?</h4>
+    <div class="latent-item"><div class="li-icon">📞</div><p data-editable><strong>Cliente liga querendo agendar.</strong> Você não sabe de cabeça quais horários estão livres. Fica na dúvida, marca errado — e perde a confiança dele antes mesmo de visitar.</p></div>
+    <div class="latent-item"><div class="li-icon">😳</div><p data-editable><strong>Na frente do cliente, travou.</strong> Sem calculadora, sem referência de preço — você chuta um valor e sai com a sensação de que cobrou errado.</p></div>
+    <div class="latent-item"><div class="li-icon">📋</div><p data-editable><strong>Serviço concluído, mas e o controle?</strong> Garantia do serviço, material usado, data de entrega — tudo na cabeça ou num papel que vai se perder.</p></div>
+    <div class="latent-item"><div class="li-icon">💸</div><p data-editable>Com o PRO você <strong>agenda, orça, calcula, imprime e envia</strong> — tudo num app. O cliente sente que está contratando o melhor eletricista que já conheceu.</p></div>
+  </div>
+</section>
+
+<!-- BENEFITS PRO -->
+<section class="benefits-sec">
+  <div class="text-center max480"><div class="sec-label">O que você ganha</div><h2 class="sec-title">BENEFÍCIOS <span class="grad">REAIS</span></h2></div>
+  <div class="benefits-grid">
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>⚡</div><div><strong data-editable>Orçamento em 3 minutos</strong><p data-editable>Residencial, predial, industrial. Busca rápida, preços pré-configurados, cálculo automático.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📄</div><div><strong data-editable>PDF com sua Logo</strong><p data-editable>Orçamento com seu nome, CNPJ e logo. O cliente recebe algo que impressiona — não um texto no zap.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📐</div><div><strong data-editable>Cálculo de Demanda NBR</strong><p data-editable>Dimensione a instalação por cômodo. Calcula carga total e define mono ou trifásico na hora, na obra.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>⚡</div><div><strong data-editable>Queda de Tensão</strong><p data-editable>Verifica se o cabo atende a norma. Calcula o percentual e alerta quando ultrapassa o limite NBR.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📅</div><div><strong data-editable>Agenda Completa</strong><p data-editable>Agendamentos, clientes, controle de garantias e relatório financeiro — tudo no celular.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>✅</div><div><strong data-editable>Checklist por Serviço</strong><p data-editable>Não esquece mais nenhum passo. Checklists específicos para cada tipo de serviço elétrico.</p></div></div>
+  </div>
+</section>
+
+<!-- THINK PRO -->
+<section class="think-sec">
+  <div class="think-box reveal">
+    <h3 data-editable>⚠️ PENSE BEM NISSO...</h3>
+    <div class="think-item"><div class="ti-icon">😤</div><p data-editable><strong>Quantos clientes você perdeu</strong> por demorar no orçamento? <em>Aquele que disse "vou pensar" e sumiu?</em></p></div>
+    <div class="think-item"><div class="ti-icon">⏰</div><p data-editable><strong>Quanto tempo você perde</strong> toda semana montando orçamento no papel? <em>Isso é dinheiro que você não está ganhando.</em></p></div>
+    <div class="think-item"><div class="ti-icon">💰</div><p data-editable>Se o app te fizer <strong>fechar 1 serviço a mais por mês</strong> — <em>que antes você perdeu por demora</em> — ele já se pagou. Muitas vezes.</p></div>
+  </div>
+</section>
+
+<!-- VÍDEOS PRO -->
+<section class="videos-sec">
+  <div class="text-center max480"><div class="sec-label">Quem usa e aprova</div><h2 class="sec-title">VEJA O QUE <span class="grad">DIZEM</span></h2></div>
+  <div class="detail-videos">
+    <div class="dv-card reveal">
+      <div class="dv-thumb" data-video="pro-v1"><div class="dv-thumb-emoji">⚡</div><div class="dv-play">▶</div></div>
+      <div class="dv-info"><div class="dvname" data-editable>Carlos Henrique S.</div><div class="dvrole" data-editable>Eletricista Autônomo · Recife, PE · ⭐⭐⭐⭐⭐</div><div class="dvquote" data-editable>"Fiz o primeiro orçamento na frente do cliente. Ele aprovou na hora. Nunca tinha conseguido isso antes."</div></div>
+      <div class="dv-comments">
+        <div class="dv-comment"><div class="dc-av" data-editable>M</div><div><div class="dc-top"><span class="dc-name" data-editable>Marcos Lima</span><span class="dc-stars">★★★★★</span></div><div class="dc-text" data-editable>Fechei um contrato de R$4.500 porque o cliente adorou o PDF. Vale 10x o preço.</div></div></div>
+        <div class="dv-comment"><div class="dc-av" data-editable>J</div><div><div class="dc-top"><span class="dc-name" data-editable>João Ferreira</span><span class="dc-stars">★★★★★</span></div><div class="dc-text" data-editable>Antes eu reescrevia proposta 3 vezes. Agora em 3 cliques já está no WhatsApp do cliente.</div></div></div>
+        <div class="dv-comment"><div class="dc-av" data-editable>R</div><div><div class="dc-top"><span class="dc-name" data-editable>Roberto C.</span><span class="dc-stars">★★★★★</span></div><div class="dc-text" data-editable>O app me deu uma postura diferente na obra. O cliente percebe que eu sou organizado e profissional.</div></div></div>
+      </div>
+    </div>
+    <div class="dv-card reveal" style="transition-delay:.1s">
+      <div class="dv-thumb" data-video="pro-v2" style="background:linear-gradient(135deg,#001810,#002010)"><div class="dv-thumb-emoji">📐</div><div class="dv-play" style="background:linear-gradient(135deg,var(--accent3),#0ea5e9)">▶</div></div>
+      <div class="dv-info"><div class="dvname" data-editable>Eng. Fernanda L.</div><div class="dvrole" data-editable>Engenheira Eletricista · BH, MG · ⭐⭐⭐⭐⭐</div><div class="dvquote" data-editable>"O cálculo de demanda é preciso. Uso em visitas técnicas para dar estimativa rápida e impressionar o cliente."</div></div>
+      <div class="dv-comments">
+        <div class="dv-comment"><div class="dc-av" data-editable>A</div><div><div class="dc-top"><span class="dc-name" data-editable>Anderson L.</span><span class="dc-stars">★★★★⭐</span></div><div class="dc-text" data-editable>O checklist por tipo de serviço é ouro. Não esqueço nada e o cliente vê que sou organizado.</div></div></div>
+        <div class="dv-comment"><div class="dc-av" data-editable>F</div><div><div class="dc-top"><span class="dc-name" data-editable>Felipe S.</span><span class="dc-stars">★★★★★</span></div><div class="dc-text" data-editable>A tabela NBR offline me salva quando não tem internet na obra. Consulto e dimensiono na hora.</div></div></div>
+        <div class="dv-comment"><div class="dc-av" data-editable>D</div><div><div class="dc-top"><span class="dc-name" data-editable>Diego Alves</span><span class="dc-stars">★★★★★</span></div><div class="dc-text" data-editable>Meus clientes pedem indicação depois que veem o PDF profissional. Virei referência na cidade.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIS REVIEWS PRO -->
+<section class="all-reviews-sec">
+  <div class="text-center max480" style="margin-bottom:18px"><div style="font-size:14px;color:var(--txt2);font-weight:600">⭐ 4.9/5 · +200 avaliações verificadas</div></div>
+  <div class="all-reviews-grid">
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"Cobrei 20% a mais no último serviço porque apresentei o orçamento no tablet com o PRO. O cliente nem questionou o valor."</div><div class="review-author"><div class="rav" data-editable>S</div><div><strong data-editable>Sandro V.</strong><span data-editable>Eletricista Industrial · Curitiba, PR</span></div></div></div>
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"A agenda de garantias me salvou. Um cliente ligou 8 meses depois reclamando e eu mostrei que já tinha vencido o prazo."</div><div class="review-author"><div class="rav" data-editable>T</div><div><strong data-editable>Tiago N.</strong><span data-editable>Autônomo · Natal, RN</span></div></div></div>
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"Faço instalações industriais. O catálogo do PRO tem exatamente os serviços que eu uso. Configurei uma vez e uso todo dia."</div><div class="review-author"><div class="rav" data-editable>C</div><div><strong data-editable>César M.</strong><span data-editable>Eletricista Industrial · Campinas, SP</span></div></div></div>
+    <div class="review-card reveal"><div class="stars">★★★★⭐</div><div class="review-text" data-editable>"O relatório financeiro me mostrou que eu estava cobrando barato. Ajustei a tabela e aumentei o faturamento em 30%."</div><div class="review-author"><div class="rav" data-editable>L</div><div><strong data-editable>Lucas B.</strong><span data-editable>Eletricista · São Luís, MA</span></div></div></div>
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"Já indiquei pra 4 eletricistas da minha equipe. Todo mundo amou. Economizamos horas toda semana com os orçamentos."</div><div class="review-author"><div class="rav" data-editable>G</div><div><strong data-editable>Gustavo H.</strong><span data-editable>Empreiteiro Elétrico · Goiânia, GO</span></div></div></div>
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"Cliente pediu indicação depois do orçamento. Ele disse que eu era o eletricista mais profissional que já contratou."</div><div class="review-author"><div class="rav" data-editable>W</div><div><strong data-editable>Willian R.</strong><span data-editable>Eletricista Predial · Belém, PA</span></div></div></div>
+  </div>
+</section>
+
+<!-- PREÇO PRO -->
+<section class="price-sec">
+  <div class="price-box reveal">
+    <div class="pb-label" data-editable>De R$ 197,00</div>
+    <div class="pb-big" data-editable>R$ 97</div>
+    <div class="pb-sub" data-editable>Pagamento único · Sem mensalidades · Acesso vitalício</div>
+    <div class="price-includes">
+      <div class="pi" data-editable>App PRO completo</div>
+      <div class="pi" data-editable>Ferramentas NBR 5410 completas</div>
+      <div class="pi" data-editable>PDF profissional com sua logo</div>
+      <div class="pi" data-editable>Agenda + Checklist + Materiais</div>
+      <div class="pi" data-editable>Funciona offline no celular</div>
+      <div class="pi" data-editable>Suporte e atualizações via WhatsApp</div>
+    </div>
+    <div class="btn-gap">
+      <button class="btn-primary" onclick="window.open('https://wa.me/5581999999999?text=Quero comprar o Eletricista Power PRO!','_blank')">⚡ COMPRAR AGORA — R$ 97</button>
+      <button class="btn-ghost" onclick="window.open('https://wa.me/5581999999999?text=Tenho dúvidas sobre o PRO','_blank')">💬 Tirar dúvidas antes</button>
+    </div>
+    <p class="price-note" data-editable>Após o pagamento você recebe o arquivo + instruções pelo WhatsApp em até 30 minutos</p>
+  </div>
+</section>
+<footer><div class="fl">⚡ ELETRICISTA POWER</div><p><a href="#" onclick="goHome();return false">← Voltar para todos os apps</a></p></footer>
+</div><!-- /pro -->
+
+
+<!-- ═══════════════════════════
+  🔧 PAGE BASIC
+═══════════════════════════ -->
+<div id="page-basic" class="page">
+<nav>
+  <button class="nav-back" onclick="goHome()">← Voltar</button>
+  <div class="nav-logo" style="font-size:17px"><div class="nav-logo-icon" style="background:var(--green)">🔧</div><span data-editable>BASIC</span></div>
+  <button class="nav-cta-sm" style="background:var(--green)" onclick="window.open('https://wa.me/5581999999999?text=Quero comprar o Basic!','_blank')">Comprar R$47</button>
+</nav>
+
+<div class="detail-hero grid-bg">
+  <div class="detail-glow" style="background:radial-gradient(circle,rgba(34,197,94,.14),transparent 70%)"></div>
+  <span class="detail-emoji" data-icon>🔧</span>
+  <span class="detail-tag" style="background:var(--green);color:#fff" data-editable>BASIC — Ideal para começar</span>
+  <h1 class="detail-title">ELETRICISTA POWER <span style="color:var(--green)" data-editable>BASIC</span></h1>
+  <p class="detail-sub" data-editable>A ferramenta essencial para parecer mais profissional, fechar mais serviços e organizar sua vida de eletricista.</p>
+</div>
+
+<section class="story-sec">
+  <div class="story-box reveal" style="border-top-color:var(--green)">
+    <span class="story-icon" data-icon>💡</span>
+    <h3 data-editable>E SE VOCÊ PARECESSE MAIOR DO QUE É?</h3>
+    <p data-editable>O cliente não contrata só o serviço — ele contrata <strong>a impressão que você passa.</strong></p>
+    <p data-editable>Quando você manda um texto bagunçado no WhatsApp, ele pensa: <em style="color:var(--txt3)">"Será que esse cara é confiável?"</em></p>
+    <p data-editable>Mas quando você manda um <strong>PDF com sua logo, seus dados e o orçamento detalhado</strong>, ele pensa: <strong>"Esse eletricista é profissional. Vou fechar com ele."</strong></p>
+    <div class="story-highlight" style="background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.22)">
+      <p data-editable>Tudo isso por <strong style="color:var(--green)">R$ 47 — menos do que uma hora do seu trabalho.</strong></p>
+    </div>
+  </div>
+</section>
+
+<section class="latent-sec">
+  <div class="latent-box reveal" style="background:linear-gradient(135deg,rgba(34,197,94,.07),rgba(16,185,129,.03));border-color:rgba(34,197,94,.18)">
+    <h4 style="color:#86efac" data-editable>🧠 VOCÊ JÁ PASSOU POR ISSO?</h4>
+    <div class="latent-item"><div class="li-icon">📱</div><p data-editable><strong>Cliente liga para marcar horário.</strong> Você não tem a agenda organizada, fica na dúvida se já tem compromisso — e o cliente sente que você não é organizado.</p></div>
+    <div class="latent-item"><div class="li-icon">📝</div><p data-editable><strong>Manda orçamento no WhatsApp.</strong> O cliente recebe aquele textão confuso e perde a confiança antes mesmo de ver o preço.</p></div>
+    <div class="latent-item"><div class="li-icon">🤝</div><p data-editable>Com o Basic você <strong>organiza, orça e envia PDF</strong> em minutos. O cliente te vê diferente — e você pode cobrar mais por isso.</p></div>
+  </div>
+</section>
+
+<section class="benefits-sec">
+  <div class="text-center max480"><div class="sec-label">O que você ganha</div><h2 class="sec-title">TUDO QUE <span style="color:var(--green)">VOCÊ PRECISA</span></h2></div>
+  <div class="benefits-grid">
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📋</div><div><strong data-editable>Orçamento Rápido e Profissional</strong><p data-editable>Seleciona o serviço, ajusta a quantidade — valor calculado. Pronto para enviar.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📤</div><div><strong data-editable>PDF e WhatsApp Direto</strong><p data-editable>PDF com seu nome e logo. Enviado pelo WhatsApp em segundos. Impressiona qualquer cliente.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📅</div><div><strong data-editable>Agenda e Controle de Clientes</strong><p data-editable>Agendamentos, garantias e relatório básico de receita. Nunca mais perde um compromisso.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📜</div><div><strong data-editable>Histórico de Orçamentos</strong><p data-editable>Todos os orçamentos salvos. Consulte ou reenvie quando o cliente ligar meses depois.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📦</div><div><strong data-editable>Catálogo Editável</strong><p data-editable>Ajuste preços para a sua região. Adicione seus próprios serviços e materiais.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>🌙</div><div><strong data-editable>Tema Claro e Escuro</strong><p data-editable>Alterne conforme o ambiente. Funciona bem tanto em escritório quanto na obra.</p></div></div>
+  </div>
+</section>
+
+<section class="think-sec">
+  <div class="think-box reveal">
+    <h3 data-editable>⚠️ VALE A PENA MESMO?</h3>
+    <div class="think-item"><div class="ti-icon">💸</div><p data-editable>R$ 47 é <strong>menos de uma hora do seu trabalho.</strong> <em>Se fechar 1 serviço a mais por pareceer mais profissional, já pagou 10x.</em></p></div>
+    <div class="think-item"><div class="ti-icon">📱</div><p data-editable>Você já usa o celular pra tudo. <strong>Por que não usar pra mandar orçamento profissional</strong> <em>em vez de texto bagunçado no zap?</em></p></div>
+    <div class="think-item"><div class="ti-icon">🏆</div><p data-editable><strong>Seus concorrentes podem estar usando.</strong> <em>O cliente sempre escolhe quem pareceu mais organizado e profissional.</em></p></div>
+  </div>
+</section>
+
+<section class="videos-sec">
+  <div class="text-center max480"><div class="sec-label">Quem usa</div><h2 class="sec-title">VEJA O QUE <span style="color:var(--green)">DIZEM</span></h2></div>
+  <div class="detail-videos">
+    <div class="dv-card reveal">
+      <div class="dv-thumb" data-video="basic-v1" style="background:linear-gradient(135deg,#001810,#002010)"><div class="dv-thumb-emoji">🔧</div><div class="dv-play" style="background:linear-gradient(135deg,var(--green),#16a34a)">▶</div></div>
+      <div class="dv-info"><div class="dvname" data-editable>Anderson L.</div><div class="dvrole" data-editable>Eletricista Autônomo · Salvador, BA · ⭐⭐⭐⭐⭐</div><div class="dvquote" data-editable>"A agenda e as garantias salvas são perfeitas. Não perco mais o controle de nenhum serviço."</div></div>
+      <div class="dv-comments">
+        <div class="dv-comment"><div class="dc-av" data-editable>F</div><div><div class="dc-top"><span class="dc-name" data-editable>Felipe S.</span><span class="dc-stars">★★★★★</span></div><div class="dc-text" data-editable>O histórico de orçamentos salvou minha vida. Cliente ligou 3 meses depois e eu tinha tudo registrado.</div></div></div>
+        <div class="dv-comment"><div class="dc-av" data-editable>D</div><div><div class="dc-top"><span class="dc-name" data-editable>Diego M.</span><span class="dc-stars">★★★★★</span></div><div class="dc-text" data-editable>Simples e fácil de usar. Em 10 minutos já estava fazendo o primeiro orçamento. Muito bom!</div></div></div>
+        <div class="dv-comment"><div class="dc-av" data-editable>P</div><div><div class="dc-top"><span class="dc-name" data-editable>Pedro A.</span><span class="dc-stars">★★★★⭐</span></div><div class="dc-text" data-editable>Comecei com o Basic e já me pagou no primeiro mês. Pretendo subir pro PRO em breve.</div></div></div>
+      </div>
+    </div>
+    <div class="dv-card reveal" style="transition-delay:.1s">
+      <div class="dv-thumb" data-video="basic-v2" style="background:linear-gradient(135deg,#001020,#002010)"><div class="dv-thumb-emoji">📱</div><div class="dv-play" style="background:linear-gradient(135deg,var(--green),#16a34a)">▶</div></div>
+      <div class="dv-info"><div class="dvname" data-editable>Sandro V.</div><div class="dvrole" data-editable>Eletricista Residencial · Curitiba, PR · ⭐⭐⭐⭐⭐</div><div class="dvquote" data-editable>"Meus clientes acham que eu tenho empresa grande. Tenho só eu mesmo — mas o PDF parece de empresa."</div></div>
+      <div class="dv-comments">
+        <div class="dv-comment"><div class="dc-av" data-editable>L</div><div><div class="dc-top"><span class="dc-name" data-editable>Lucas B.</span><span class="dc-stars">★★★★★</span></div><div class="dc-text" data-editable>Mesmo aconteceu comigo! Cliente perguntou quantos funcionários eu tinha kkk. Melhor sensação!</div></div></div>
+        <div class="dv-comment"><div class="dc-av" data-editable>T</div><div><div class="dc-top"><span class="dc-name" data-editable>Tiago N.</span><span class="dc-stars">★★★★★</span></div><div class="dc-text" data-editable>Passei pro PRO depois de 1 mês. Mas o Basic já resolveu muito antes disso. Recomendo pra começar.</div></div></div>
+        <div class="dv-comment"><div class="dc-av" data-editable>V</div><div><div class="dc-top"><span class="dc-name" data-editable>Vitor H.</span><span class="dc-stars">★★★★★</span></div><div class="dc-text" data-editable>Cobro mais caro agora porque o cliente vê que sou organizado. O app se pagou na segunda semana.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- MAIS REVIEWS BASIC -->
+<section class="all-reviews-sec">
+  <div class="all-reviews-grid">
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"Nunca mais perdi cliente por demorar no orçamento. Agora eu mando em 3 minutos e fecho na hora."</div><div class="review-author"><div class="rav" data-editable>R</div><div><strong data-editable>Rafael P.</strong><span data-editable>Eletricista · Recife, PE</span></div></div></div>
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"A agenda de clientes é perfeita. Sei exatamente quem agendou, quando e qual serviço. Acabou a bagunça."</div><div class="review-author"><div class="rav" data-editable>M</div><div><strong data-editable>Mateus F.</strong><span data-editable>Eletricista · Fortaleza, CE</span></div></div></div>
+    <div class="review-card reveal"><div class="stars">★★★★⭐</div><div class="review-text" data-editable>"Investi R$47 e no mesmo mês fechei um serviço de R$800 a mais porque o cliente ficou impressionado com o PDF."</div><div class="review-author"><div class="rav" data-editable>B</div><div><strong data-editable>Bruno M.</strong><span data-editable>Autônomo · Porto Alegre, RS</span></div></div></div>
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"Minha esposa ficou surpresa quando eu mandei o PDF pro cliente. Ela disse: 'Você parece um engenheiro!'"</div><div class="review-author"><div class="rav" data-editable>E</div><div><strong data-editable>Eduardo S.</strong><span data-editable>Eletricista · Manaus, AM</span></div></div></div>
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"Parei de cobrar barato depois que comecei a entregar orçamentos profissionais. O app me deu postura."</div><div class="review-author"><div class="rav" data-editable>G</div><div><strong data-editable>Gabriel T.</strong><span data-editable>Eletricista · Salvador, BA</span></div></div></div>
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"Recomendei para o meu cunhado que é eletricista. Agora os dois usamos e os dois aumentamos o faturamento."</div><div class="review-author"><div class="rav" data-editable>C</div><div><strong data-editable>Carlos E.</strong><span data-editable>Eletricista · Cuiabá, MT</span></div></div></div>
+  </div>
+</section>
+
+<!-- PREÇO BASIC -->
+<section class="price-sec">
+  <div class="price-box reveal" style="background:linear-gradient(135deg,rgba(34,197,94,.1),rgba(16,185,129,.04));border-color:rgba(34,197,94,.32)">
+    <div class="pb-label" data-editable>Profissionalismo por apenas</div>
+    <div class="pb-big" style="background:linear-gradient(90deg,var(--green),#16a34a);-webkit-background-clip:text;-webkit-text-fill-color:transparent" data-editable>R$ 47</div>
+    <div class="pb-sub" data-editable>Pagamento único · Sem mensalidades · Acesso vitalício</div>
+    <div class="price-includes">
+      <div class="pi" data-editable>App Basic completo</div>
+      <div class="pi" data-editable>PDF profissional com sua logo</div>
+      <div class="pi" data-editable>Catálogo editável de serviços</div>
+      <div class="pi" data-editable>Agenda + Clientes + Garantias</div>
+      <div class="pi" data-editable>Histórico de orçamentos</div>
+      <div class="pi" data-editable>Suporte via WhatsApp</div>
+    </div>
+    <div class="btn-gap">
+      <button class="btn-primary" style="background:linear-gradient(135deg,var(--green),#16a34a);box-shadow:0 8px 28px rgba(34,197,94,.4)" onclick="window.open('https://wa.me/5581999999999?text=Quero comprar o Basic!','_blank')">🔧 COMPRAR AGORA — R$ 47</button>
+      <button class="btn-ghost" onclick="window.open('https://wa.me/5581999999999?text=Dúvidas sobre o Basic','_blank')">💬 Tirar dúvidas antes</button>
+    </div>
+    <p class="price-note" data-editable>Após o pagamento você recebe o arquivo + instruções pelo WhatsApp em até 30 minutos</p>
+  </div>
+</section>
+<footer><div class="fl">⚡ ELETRICISTA POWER</div><p><a href="#" onclick="goHome();return false">← Voltar para todos os apps</a></p></footer>
+</div><!-- /basic -->
+
+
+<!-- ═══════════════════════════
+  📐 PAGE DIM (Em breve)
+═══════════════════════════ -->
+<div id="page-dim" class="page">
+<nav><button class="nav-back" onclick="goHome()">← Voltar</button><div class="nav-logo" style="font-size:15px"><div class="nav-logo-icon" style="background:var(--purple)">📐</div><span>DIMENSIONADOR</span></div><button class="nav-cta-sm" style="background:var(--purple)" onclick="window.open('https://wa.me/5581999999999?text=Quero ser avisado do Dimensionador!','_blank')">📩 Avise-me</button></nav>
+<div class="detail-hero grid-bg">
+  <div class="detail-glow" style="background:radial-gradient(circle,rgba(168,85,247,.14),transparent 70%)"></div>
+  <span class="detail-emoji" data-icon>📐</span>
+  <span class="detail-tag" style="background:rgba(168,85,247,.2);border:1px solid rgba(168,85,247,.4);color:#c084fc"><span class="pulse-dot" style="margin-right:5px"></span>EM DESENVOLVIMENTO</span>
+  <h1 class="detail-title">DIMENSIONADOR <span style="color:var(--purple)" data-editable>ELÉTRICO PRO</span></h1>
+  <p class="detail-sub" data-editable>Dimensione toda a instalação — cabos, disjuntores, DPS — e gere memorial de cálculo automático conforme NBR 5410.</p>
+</div>
+<section class="story-sec">
+  <div class="story-box reveal" style="border-top-color:var(--purple)">
+    <span class="story-icon" data-icon>🎯</span>
+    <h3 data-editable>PARA O PROFISSIONAL TÉCNICO</h3>
+    <p data-editable>Você sabe a resposta — mas confirmar os cálculos direto na norma leva tempo e às vezes você não tem o livro na obra.</p>
+    <p data-editable>Com o Dimensionador, você <strong>digita os dados do circuito e o app calcula tudo em segundos</strong> — seção do cabo, disjuntor, DPS — exatamente como manda a NBR 5410.</p>
+    <div class="story-highlight" style="background:rgba(168,85,247,.08);border-color:rgba(168,85,247,.22)">
+      <p data-editable>E ainda gera o <strong style="color:var(--purple)">memorial de cálculo pronto para assinar e entregar.</strong></p>
+    </div>
+  </div>
+</section>
+<section class="benefits-sec">
+  <div class="text-center max480"><div class="sec-label">O que terá</div><h2 class="sec-title">FUNCIONALIDADES <span style="color:var(--purple)">PREVISTAS</span></h2></div>
+  <div class="benefits-grid">
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>🔌</div><div><strong data-editable>Dimensionamento de Cabos</strong><p data-editable>Seção mínima corrigida por temperatura, método e agrupamento conforme NBR 5410.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>⚡</div><div><strong data-editable>Disjuntores e DR</strong><p data-editable>Corrente nominal e proteção automática. Seleção da curva do disjuntor.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>🛡️</div><div><strong data-editable>DPS Automático</strong><p data-editable>Nível de proteção e seleção do DPS para cada aplicação — residencial, predial ou industrial.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📄</div><div><strong data-editable>Memorial de Cálculo</strong><p data-editable>Documento técnico automático com todos os dimensionamentos, pronto para assinar.</p></div></div>
+  </div>
+</section>
+<section class="price-sec">
+  <div class="price-box dev-box reveal">
+    <div class="pb-big">Em breve</div>
+    <div class="pb-sub" data-editable>Cadastre-se e seja avisado no lançamento com condição especial</div>
+    <div class="price-includes">
+      <div class="pi" style="color:var(--purple)">Primeiro a saber quando lançar</div>
+      <div class="pi" style="color:var(--purple)">Condição exclusiva de pré-venda</div>
+    </div>
+    <button class="btn-primary" style="background:linear-gradient(135deg,var(--purple),#7c3aed);box-shadow:0 8px 28px rgba(168,85,247,.4)" onclick="window.open('https://wa.me/5581999999999?text=Quero ser avisado do Dimensionador!','_blank')">📩 QUERO SER AVISADO NO LANÇAMENTO</button>
+  </div>
+</section>
+<footer><div class="fl">⚡ ELETRICISTA POWER</div><p><a href="#" onclick="goHome();return false">← Voltar</a></p></footer>
+</div><!-- /dim -->
+
+
+<!-- ═══════════════════════════
+  📋 PAGE LAUDO (Em breve)
+═══════════════════════════ -->
+<div id="page-laudo" class="page">
+<nav><button class="nav-back" onclick="goHome()">← Voltar</button><div class="nav-logo" style="font-size:15px"><div class="nav-logo-icon" style="background:var(--purple)">📋</div><span>LAUDO DIGITAL</span></div><button class="nav-cta-sm" style="background:var(--purple)" onclick="window.open('https://wa.me/5581999999999?text=Quero ser avisado do Laudo Digital!','_blank')">📩 Avise-me</button></nav>
+<div class="detail-hero grid-bg">
+  <div class="detail-glow" style="background:radial-gradient(circle,rgba(168,85,247,.14),transparent 70%)"></div>
+  <span class="detail-emoji" data-icon>📋</span>
+  <span class="detail-tag" style="background:rgba(168,85,247,.2);border:1px solid rgba(168,85,247,.4);color:#c084fc"><span class="pulse-dot" style="margin-right:5px"></span>EM DESENVOLVIMENTO</span>
+  <h1 class="detail-title">LAUDO & INSPEÇÃO <span style="color:var(--purple)" data-editable>DIGITAL</span></h1>
+  <p class="detail-sub" data-editable>Laudos técnicos NR-10, fotos e assinatura digital direto do celular. PDF pronto para entregar ao cliente.</p>
+</div>
+<section class="story-sec">
+  <div class="story-box reveal" style="border-top-color:var(--purple)">
+    <span class="story-icon" data-icon>📸</span>
+    <h3 data-editable>LAUDO NO PAPEL? ISSO É DO PASSADO.</h3>
+    <p data-editable>Você anota na obra, chega em casa, digita tudo, monta o PDF, adiciona as fotos... Horas perdidas.</p>
+    <p data-editable>Com o Laudo Digital, você faz <strong>tudo na própria obra, no celular</strong> — preenche, tira foto, o cliente assina na tela e o PDF está pronto.</p>
+    <div class="story-highlight" style="background:rgba(168,85,247,.08);border-color:rgba(168,85,247,.22)">
+      <p data-editable>Ideal para <strong style="color:var(--purple)">inspeções NR-10, laudos ABNT e vistorias elétricas</strong> — agregando mais valor e cobrando mais pelo serviço.</p>
+    </div>
+  </div>
+</section>
+<section class="benefits-sec">
+  <div class="text-center max480"><div class="sec-label">O que terá</div><h2 class="sec-title">FUNCIONALIDADES <span style="color:var(--purple)">PREVISTAS</span></h2></div>
+  <div class="benefits-grid">
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>🔍</div><div><strong data-editable>Checklist NR-10</strong><p data-editable>Checklist completo de segurança conforme a Norma Regulamentadora 10.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📸</div><div><strong data-editable>Registro Fotográfico</strong><p data-editable>Adicione fotos da câmera ao laudo para documentar com evidências visuais.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>✍️</div><div><strong data-editable>Assinatura Digital</strong><p data-editable>Responsável e cliente assinam na tela. Laudo com validade técnica e jurídica.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📄</div><div><strong data-editable>PDF Técnico Formatado</strong><p data-editable>Relatório com cabeçalho, fotos, tabelas e parecer final — pronto para entregar.</p></div></div>
+  </div>
+</section>
+<section class="price-sec">
+  <div class="price-box dev-box reveal">
+    <div class="pb-big">Em breve</div>
+    <div class="pb-sub" data-editable>Cadastre-se e ganhe condição especial no lançamento</div>
+    <div class="price-includes">
+      <div class="pi" style="color:var(--purple)">Primeiro a saber quando lançar</div>
+      <div class="pi" style="color:var(--purple)">Condição exclusiva de pré-venda</div>
+    </div>
+    <button class="btn-primary" style="background:linear-gradient(135deg,var(--purple),#7c3aed);box-shadow:0 8px 28px rgba(168,85,247,.4)" onclick="window.open('https://wa.me/5581999999999?text=Quero ser avisado do Laudo Digital!','_blank')">📩 QUERO SER AVISADO NO LANÇAMENTO</button>
+  </div>
+</section>
+<footer><div class="fl">⚡ ELETRICISTA POWER</div><p><a href="#" onclick="goHome();return false">← Voltar</a></p></footer>
+</div><!-- /laudo -->
+
+
+<!-- ═══════════════════════════
+  WA BUTTON
+═══════════════════════════ -->
+<a href="https://wa.me/5581999999999?text=Olá! Vi os aplicativos e quero saber mais." class="wa-btn" target="_blank">💬</a>
+
+<!-- ═══════════════════════════
+  ✏️ EDIT TOOLBAR
+═══════════════════════════ -->
+<div id="edit-toolbar">
+  <button id="btn-save-edit" onclick="saveEdits()">💾 Salvar Edições</button>
+  <button id="btn-edit-toggle" onclick="toggleEditMode()">✏️ Modo Edição</button>
+</div>
+<div id="edit-hint">✏️ Toque em qualquer texto para editar · 🎨 Emojis e vídeos clicáveis</div>
+
+<!-- Edit Dialog -->
+<div id="edit-dialog">
+  <div class="edit-dialog-box">
+    <h4 id="edit-dialog-title">EDITAR</h4>
+    <input id="edit-input" type="text" placeholder="Novo valor...">
+    <div class="edit-dialog-btns">
+      <button class="edb-cancel" onclick="closeEditDialog()">Cancelar</button>
+      <button class="edb-confirm" onclick="confirmEdit()">Confirmar ✓</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ══ PAGE SYSTEM ══ */
+function openApp(app){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+app).classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+  initReveal();
+}
+function goHome(){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-home').classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+}
+
+/* ══ SCROLL REVEAL ══ */
+function initReveal(){
+  const obs=new IntersectionObserver(entries=>{
+    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+  },{threshold:.1});
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el=>obs.observe(el));
+}
+initReveal();
+
+/* ══ EDIT MODE ══ */
+let editMode=false;
+let editTarget=null;
+let editType=null;
+let editOriginal=null;
+
+// Load saved edits from localStorage
+function loadEdits(){
+  const saved=localStorage.getItem('ep-edits');
+  if(!saved)return;
+  try{
+    const edits=JSON.parse(saved);
+    edits.forEach(e=>{
+      const el=document.querySelector(`[data-edit-id="${e.id}"]`);
+      if(el)el.innerHTML=e.val;
+    });
+  }catch(err){}
+}
+
+// Assign unique IDs to all editable elements
+let editCounter=0;
+function assignIds(){
+  document.querySelectorAll('[data-editable],[data-icon],[data-video]').forEach(el=>{
+    if(!el.dataset.editId){
+      el.dataset.editId='ep-'+(++editCounter);
+    }
+  });
+}
+
+function toggleEditMode(){
+  editMode=!editMode;
+  document.body.classList.toggle('edit-mode',editMode);
+  const btn=document.getElementById('btn-edit-toggle');
+  const save=document.getElementById('btn-save-edit');
+  const hint=document.getElementById('edit-hint');
+  if(editMode){
+    btn.innerHTML='✕ Sair da Edição';
+    btn.style.background='linear-gradient(135deg,#dc2626,#b91c1c)';
+    save.classList.add('visible');
+    hint.style.display='block';
+    // Make text editable
+    document.querySelectorAll('[data-editable]').forEach(el=>{
+      el.contentEditable='true';
+    });
+    // Bind icon and video clicks
+    document.querySelectorAll('[data-icon]').forEach(el=>{
+      el.onclick=function(e){e.stopPropagation();openEditDialog('icon',this);};
+    });
+    document.querySelectorAll('[data-video]').forEach(el=>{
+      el.onclick=function(e){e.stopPropagation();openEditDialog('video',this);};
+    });
+  } else {
+    btn.innerHTML='✏️ Modo Edição';
+    btn.style.background='linear-gradient(135deg,#1e40af,#1d4ed8)';
+    save.classList.remove('visible');
+    hint.style.display='none';
+    document.querySelectorAll('[data-editable]').forEach(el=>{
+      el.contentEditable='false';
+    });
+    document.querySelectorAll('[data-icon]').forEach(el=>{el.onclick=null;});
+    document.querySelectorAll('[data-video]').forEach(el=>{el.onclick=null;});
+  }
+}
+
+function openEditDialog(type,el){
+  editTarget=el;
+  editType=type;
+  editOriginal=el.innerHTML;
+  const dialog=document.getElementById('edit-dialog');
+  const title=document.getElementById('edit-dialog-title');
+  const input=document.getElementById('edit-input');
+  if(type==='icon'){
+    title.textContent='TROCAR EMOJI/ÍCONE';
+    input.placeholder='Ex: 🔧 ou ⚡ ou 👷';
+    input.value=el.textContent.trim().replace(/✏️/g,'');
+  } else {
+    title.textContent='LINK DO VÍDEO';
+    input.placeholder='Cole o link do YouTube ou MP4';
+    input.value=el.dataset.videoUrl||'';
+  }
+  dialog.classList.add('open');
+  setTimeout(()=>input.focus(),100);
+}
+
+function confirmEdit(){
+  const input=document.getElementById('edit-input');
+  if(editType==='icon'&&editTarget){
+    editTarget.textContent=input.value;
+  } else if(editType==='video'&&editTarget){
+    editTarget.dataset.videoUrl=input.value;
+    // Show indicator that video has URL
+    if(input.value){
+      const existing=editTarget.querySelector('.video-set-badge');
+      if(!existing){
+        const badge=document.createElement('div');
+        badge.className='video-set-badge';
+        badge.style.cssText='position:absolute;bottom:8px;right:8px;background:rgba(34,197,94,.9);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;z-index:5';
+        badge.textContent='✓ Vídeo configurado';
+        editTarget.appendChild(badge);
+      }
+    }
+  }
+  closeEditDialog();
+}
+
+function closeEditDialog(){
+  document.getElementById('edit-dialog').classList.remove('open');
+  editTarget=null;editType=null;
+}
+document.getElementById('edit-dialog').addEventListener('click',function(e){
+  if(e.target===this)closeEditDialog();
+});
+
+function saveEdits(){
+  const edits=[];
+  document.querySelectorAll('[data-editable]').forEach(el=>{
+    edits.push({id:el.dataset.editId,val:el.innerHTML});
+  });
+  document.querySelectorAll('[data-icon]').forEach(el=>{
+    edits.push({id:el.dataset.editId,val:el.textContent.replace(/✏️/g,'').trim()});
+  });
+  document.querySelectorAll('[data-video]').forEach(el=>{
+    if(el.dataset.videoUrl) edits.push({id:'v-'+el.dataset.editId,val:el.dataset.videoUrl});
+  });
+  localStorage.setItem('ep-edits',JSON.stringify(edits));
+  showSaveToast();
+}
+
+function showSaveToast(){
+  const t=document.createElement('div');
+  t.style.cssText='position:fixed;top:70px;left:50%;transform:translateX(-50%);background:#22c55e;color:#fff;font-weight:700;font-size:13px;padding:10px 22px;border-radius:99px;z-index:600;box-shadow:0 4px 20px rgba(34,197,94,.5);animation:fadeDown .3s ease both';
+  t.textContent='✓ Edições salvas com sucesso!';
+  document.body.appendChild(t);
+  setTimeout(()=>t.remove(),3000);
+}
+
+// Prevent clicks on editable from triggering page navigation
+document.querySelectorAll('[data-editable]').forEach(el=>{
+  el.addEventListener('click',function(e){
+    if(editMode)e.stopPropagation();
+  });
+});
+
+// Init
+assignIds();
+loadEdits();
+</script>
+</body>
+</html>
