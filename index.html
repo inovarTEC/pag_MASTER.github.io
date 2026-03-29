@@ -18,15 +18,12 @@
 html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
 body{background:var(--bg);color:var(--txt);font-family:'Outfit',sans-serif;overflow-x:hidden;line-height:1.6;}
 
-/* ── PAGES ── */
 .page{display:none;min-height:100vh;}
 .page.active{display:block;animation:pageIn .3s ease both;}
 @keyframes pageIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
 
-/* ── GRID BG ── */
 .grid-bg{background-image:linear-gradient(rgba(56,189,248,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.03) 1px,transparent 1px);background-size:36px 36px;}
 
-/* ── NAV ── */
 nav{position:sticky;top:0;z-index:100;height:56px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;background:rgba(4,13,26,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
 .nav-logo{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:flex;align-items:center;gap:8px;cursor:pointer;}
 .nav-logo-icon{width:28px;height:28px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;-webkit-text-fill-color:initial;flex-shrink:0;}
@@ -34,13 +31,11 @@ nav{position:sticky;top:0;z-index:100;height:56px;padding:0 14px;display:flex;al
 .nav-back:hover{border-color:var(--border2);color:var(--txt);-webkit-text-fill-color:var(--txt);}
 .nav-cta-sm{background:linear-gradient(135deg,var(--accent),#ea580c);color:#fff;font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;border:none;cursor:pointer;box-shadow:0 4px 14px rgba(249,115,22,.3);transition:all .2s;-webkit-text-fill-color:#fff;white-space:nowrap;}
 
-/* ── BUTTONS ── */
 .btn-primary{display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,var(--accent),#ea580c);color:#fff;font-weight:800;font-size:15px;padding:17px;border-radius:12px;border:none;cursor:pointer;box-shadow:0 8px 28px rgba(249,115,22,.4);transition:all .25s;width:100%;-webkit-text-fill-color:#fff;}
 .btn-primary:hover{box-shadow:0 12px 44px rgba(249,115,22,.55);transform:translateY(-2px);}
 .btn-ghost{display:flex;align-items:center;justify-content:center;gap:8px;background:transparent;border:1.5px solid var(--border2);color:var(--txt2);font-weight:600;font-size:14px;padding:14px;border-radius:12px;cursor:pointer;transition:all .25s;width:100%;-webkit-text-fill-color:var(--txt2);}
 .btn-ghost:hover{border-color:rgba(255,255,255,.25);color:var(--txt);-webkit-text-fill-color:var(--txt);}
 
-/* ── HERO HOME ── */
 .hero{padding:36px 16px 44px;text-align:center;position:relative;overflow:hidden;}
 .hero-glow{position:absolute;width:480px;height:480px;background:radial-gradient(circle,rgba(249,115,22,.11),transparent 70%);top:-150px;left:50%;transform:translateX(-50%);pointer-events:none;}
 .hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.3);padding:6px 14px;border-radius:99px;font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px;}
@@ -53,7 +48,6 @@ nav{position:sticky;top:0;z-index:100;height:56px;padding:0 14px;display:flex;al
 .stat-box strong{display:block;font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .stat-box span{font-size:10px;color:var(--txt3);font-weight:600;text-transform:uppercase;letter-spacing:.04em;line-height:1.3;display:block;}
 
-/* ── SECTION ── */
 .sec-label{display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--accent);margin-bottom:10px;}
 .sec-label::before{content:'';width:18px;height:2px;background:var(--accent);}
 .sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,7vw,46px);letter-spacing:2px;line-height:1;margin-bottom:10px;}
@@ -62,7 +56,6 @@ section{padding:48px 16px;}
 .max480{max-width:480px;margin-left:auto;margin-right:auto;}
 .text-center{text-align:center;}
 
-/* ── APP CARDS HOME ── */
 .apps-grid{display:flex;flex-direction:column;gap:14px;max-width:480px;margin:0 auto;}
 .app-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;cursor:pointer;transition:all .3s;position:relative;}
 .app-card:active{transform:scale(.98);}
@@ -100,7 +93,6 @@ section{padding:48px 16px;}
 .dev .card-arrow{background:rgba(168,85,247,.14);}
 .app-card:hover .card-arrow{transform:translateX(4px);}
 
-/* ── ABOUT ── */
 .about-sec{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
 .avatar-wrap{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2),var(--accent3));padding:3px;margin:0 auto 18px;position:relative;}
 .avatar-wrap::before{content:'';position:absolute;inset:-8px;border-radius:50%;background:conic-gradient(from 0deg,var(--accent),var(--accent2),var(--accent3),var(--accent));opacity:.22;animation:spin 8s linear infinite;}
@@ -113,7 +105,6 @@ section{padding:48px 16px;}
 .cred-item strong{display:block;font-size:12px;font-weight:700;margin-bottom:2px;}
 .cred-item span{font-size:11px;color:var(--txt3);line-height:1.4;}
 
-/* ── STEPS ── */
 .steps{display:flex;flex-direction:column;gap:11px;max-width:480px;margin:0 auto;}
 .step{background:var(--surface);border:1px solid var(--border);border-radius:15px;padding:18px;display:flex;align-items:flex-start;gap:14px;transition:all .2s;}
 .step:hover{border-color:rgba(249,115,22,.2);transform:translateX(3px);}
@@ -122,7 +113,6 @@ section{padding:48px 16px;}
 .step h3{font-size:14px;font-weight:700;margin-bottom:4px;}
 .step p{font-size:13px;color:var(--txt2);line-height:1.6;}
 
-/* ── VIDEO CARDS ── */
 .videos-grid{display:flex;flex-direction:column;gap:13px;max-width:480px;margin:0 auto;}
 .video-card{background:var(--surface);border:1px solid var(--border);border-radius:15px;overflow:hidden;transition:all .3s;}
 .video-card:hover{border-color:rgba(249,115,22,.28);}
@@ -136,7 +126,6 @@ section{padding:48px 16px;}
 .vrole{font-size:11px;color:var(--txt3);}
 .vquote{font-size:13px;color:var(--txt2);margin-top:7px;font-style:italic;line-height:1.65;}
 
-/* ── REVIEWS HOME ── */
 .reviews-grid{display:flex;flex-direction:column;gap:11px;max-width:480px;margin:0 auto;}
 .review-card{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px;transition:all .3s;}
 .review-card:hover{border-color:rgba(251,191,36,.22);}
@@ -147,22 +136,18 @@ section{padding:48px 16px;}
 .review-author strong{font-size:13px;font-weight:700;display:block;}
 .review-author span{font-size:11px;color:var(--txt3);}
 
-/* ── CTA HOME ── */
 .cta-sec{background:linear-gradient(135deg,#1a0800,#0d1a00,#001020);border-top:1px solid var(--border);text-align:center;padding:52px 16px;position:relative;overflow:hidden;}
 .cta-sec::before{content:'';position:absolute;width:380px;height:380px;background:radial-gradient(circle,rgba(249,115,22,.13),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
 .cta-sec>*{position:relative;z-index:2;}
 
-/* ── FOOTER ── */
 footer{background:var(--bg);border-top:1px solid var(--border);padding:28px 16px;text-align:center;}
 footer .fl{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;}
 footer p{font-size:12px;color:var(--txt3);margin-bottom:5px;line-height:1.6;}
 footer a{color:var(--accent);text-decoration:none;}
 
-/* ── WA ── */
 .wa-btn{position:fixed;bottom:20px;right:14px;width:50px;height:50px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 5px 18px rgba(37,211,102,.4);cursor:pointer;z-index:150;transition:all .2s;text-decoration:none;}
 .wa-btn:hover{transform:scale(1.1);}
 
-/* ── DETAIL HERO ── */
 .detail-hero{padding:28px 16px 38px;text-align:center;position:relative;overflow:hidden;}
 .detail-glow{position:absolute;width:400px;height:400px;top:-100px;left:50%;transform:translateX(-50%);pointer-events:none;border-radius:50%;}
 .detail-emoji{font-size:72px;margin-bottom:14px;display:block;animation:float 4s ease-in-out infinite;}
@@ -170,7 +155,6 @@ footer a{color:var(--accent);text-decoration:none;}
 .detail-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,9vw,58px);letter-spacing:2px;line-height:1;margin-bottom:12px;}
 .detail-sub{font-size:15px;color:var(--txt2);line-height:1.7;max-width:430px;margin:0 auto;}
 
-/* ── STORY ── */
 .story-sec{padding:40px 16px;background:var(--bg2);border-top:1px solid var(--border);}
 .story-box{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:22px;max-width:480px;margin:0 auto;position:relative;overflow:hidden;}
 .story-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));}
@@ -183,7 +167,6 @@ footer a{color:var(--accent);text-decoration:none;}
 .story-highlight p{margin-bottom:0!important;font-style:italic;font-size:14px;}
 .story-highlight p strong{color:var(--accent);}
 
-/* ── LATENT BOX ── */
 .latent-sec{padding:0 16px 40px;background:var(--bg2);}
 .latent-box{background:linear-gradient(135deg,rgba(249,115,22,.07),rgba(251,191,36,.03));border:1px solid rgba(249,115,22,.2);border-radius:16px;padding:20px;max-width:480px;margin:0 auto;}
 .latent-box h4{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--accent2);margin-bottom:14px;}
@@ -193,7 +176,6 @@ footer a{color:var(--accent);text-decoration:none;}
 .latent-item p{font-size:13px;color:var(--txt2);line-height:1.65;}
 .latent-item p strong{color:var(--txt);}
 
-/* ── BENEFITS ── */
 .benefits-sec{padding:40px 16px;}
 .benefits-grid{display:flex;flex-direction:column;gap:11px;max-width:480px;margin:0 auto;}
 .benefit-item{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px;display:flex;gap:13px;align-items:flex-start;transition:all .22s;}
@@ -202,7 +184,6 @@ footer a{color:var(--accent);text-decoration:none;}
 .benefit-item strong{display:block;font-size:14px;font-weight:700;margin-bottom:4px;}
 .benefit-item p{font-size:13px;color:var(--txt2);line-height:1.6;}
 
-/* ── THINK ── */
 .think-sec{padding:40px 16px;background:var(--bg2);border-top:1px solid var(--border);}
 .think-box{background:linear-gradient(135deg,rgba(239,68,68,.07),rgba(249,115,22,.04));border:1px solid rgba(239,68,68,.18);border-radius:16px;padding:20px;max-width:480px;margin:0 auto;}
 .think-box h3{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:#fca5a5;margin-bottom:13px;}
@@ -213,7 +194,6 @@ footer a{color:var(--accent);text-decoration:none;}
 .think-item p strong{color:#fecaca;}
 .think-item p em{color:var(--txt2);font-style:normal;}
 
-/* ── DETAIL VIDEOS ── */
 .videos-sec{padding:40px 16px;}
 .detail-videos{display:flex;flex-direction:column;gap:18px;max-width:480px;margin:0 auto;}
 .dv-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
@@ -235,11 +215,9 @@ footer a{color:var(--accent);text-decoration:none;}
 .dc-stars{font-size:11px;color:#fbbf24;}
 .dc-text{font-size:12px;color:var(--txt2);line-height:1.6;}
 
-/* ── ALL REVIEWS (detail) ── */
 .all-reviews-sec{padding:0 16px 40px;}
 .all-reviews-grid{display:flex;flex-direction:column;gap:11px;max-width:480px;margin:0 auto;}
 
-/* ── PRICE ── */
 .price-sec{padding:40px 16px;background:var(--bg2);border-top:1px solid var(--border);}
 .price-box{background:linear-gradient(135deg,rgba(249,115,22,.1),rgba(251,191,36,.04));border:1.5px solid rgba(249,115,22,.32);border-radius:18px;padding:24px 18px;max-width:480px;margin:0 auto;text-align:center;}
 .pb-label{font-size:12px;color:var(--txt2);margin-bottom:5px;text-decoration:line-through;}
@@ -253,102 +231,65 @@ footer a{color:var(--accent);text-decoration:none;}
 .price-box.dev-box{background:rgba(168,85,247,.07);border-color:rgba(168,85,247,.28);}
 .price-box.dev-box .pb-big{background:linear-gradient(90deg,var(--purple),#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
-/* ── PULSE ── */
 .pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--purple);display:inline-block;animation:pulseDot 1.5s ease-in-out infinite;}
 @keyframes pulseDot{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.6);opacity:.5;}}
 
-/* ── SCROLL REVEAL ── */
 .reveal{opacity:0;transform:translateY(22px);transition:all .52s ease;}
 .reveal.visible{opacity:1;transform:translateY(0);}
 
-/* ══════════════════════════════════
-   ✏️ EDIT MODE
-══════════════════════════════════ */
-/* Toolbar */
-#edit-toolbar{
-  position:fixed;bottom:76px;right:14px;z-index:200;
-  display:flex;flex-direction:column;align-items:flex-end;gap:8px;
-}
-#btn-edit-toggle{
-  background:linear-gradient(135deg,#1e40af,#1d4ed8);
-  color:#fff;font-weight:700;font-size:12px;
-  padding:10px 16px;border-radius:99px;border:none;cursor:pointer;
-  box-shadow:0 4px 18px rgba(30,64,175,.5);
-  display:flex;align-items:center;gap:7px;
-  transition:all .2s;white-space:nowrap;
-}
+/* ══ SHARE BUTTON ══ */
+.share-bar{display:flex;align-items:center;justify-content:center;padding:12px 16px 0;}
+.btn-share{display:inline-flex;align-items:center;gap:8px;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.25);color:var(--accent3);font-size:12px;font-weight:700;padding:9px 18px;border-radius:99px;cursor:pointer;transition:all .2s;-webkit-text-fill-color:var(--accent3);}
+.btn-share:hover{background:rgba(56,189,248,.14);border-color:rgba(56,189,248,.45);}
+.btn-share.copied{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.3);color:var(--green);-webkit-text-fill-color:var(--green);}
+
+/* ══ EDIT MODE ══ */
+#edit-toolbar{position:fixed;bottom:76px;right:14px;z-index:200;display:flex;flex-direction:column;align-items:flex-end;gap:8px;}
+#btn-edit-toggle{background:linear-gradient(135deg,#1e40af,#1d4ed8);color:#fff;font-weight:700;font-size:12px;padding:10px 16px;border-radius:99px;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(30,64,175,.5);display:flex;align-items:center;gap:7px;transition:all .2s;white-space:nowrap;}
 #btn-edit-toggle:hover{box-shadow:0 6px 26px rgba(30,64,175,.7);}
-#btn-save-edit{
-  background:linear-gradient(135deg,var(--green),#16a34a);
-  color:#fff;font-weight:700;font-size:12px;
-  padding:10px 16px;border-radius:99px;border:none;cursor:pointer;
-  box-shadow:0 4px 18px rgba(34,197,94,.45);
-  display:none;align-items:center;gap:7px;
-  transition:all .2s;white-space:nowrap;
-}
+#btn-save-edit{background:linear-gradient(135deg,var(--green),#16a34a);color:#fff;font-weight:700;font-size:12px;padding:10px 16px;border-radius:99px;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(34,197,94,.45);display:none;align-items:center;gap:7px;transition:all .2s;white-space:nowrap;}
 #btn-save-edit.visible{display:flex;}
 #btn-save-edit:hover{box-shadow:0 6px 26px rgba(34,197,94,.65);}
 
-/* Editable elements in edit mode */
-body.edit-mode [data-editable]{
-  outline:2px dashed rgba(59,130,246,.5)!important;
-  outline-offset:2px;
-  border-radius:4px;
-  cursor:text;
-  min-width:20px;
-  display:inline-block;
-}
+body.edit-mode [data-editable]{outline:2px dashed rgba(59,130,246,.5)!important;outline-offset:2px;border-radius:4px;cursor:text;min-width:20px;display:inline-block;}
 body.edit-mode [data-editable]:hover{outline-color:rgba(59,130,246,.9)!important;}
 body.edit-mode [data-editable]:focus{outline-color:#3b82f6!important;background:rgba(59,130,246,.07);}
-body.edit-mode [data-video]{
-  outline:2px dashed rgba(168,85,247,.5)!important;
-  outline-offset:4px;border-radius:8px;cursor:pointer;position:relative;
-}
-body.edit-mode [data-video]::after{
-  content:'▶ Clique para trocar vídeo';
-  position:absolute;inset:0;background:rgba(0,0,0,.65);
-  display:flex;align-items:center;justify-content:center;
-  font-size:12px;font-weight:700;color:#c084fc;border-radius:8px;
-}
-body.edit-mode [data-icon]{
-  outline:2px dashed rgba(251,191,36,.5)!important;
-  outline-offset:2px;cursor:pointer;border-radius:6px;
-}
+body.edit-mode [data-video]{outline:2px dashed rgba(168,85,247,.5)!important;outline-offset:4px;border-radius:8px;cursor:pointer;position:relative;}
+body.edit-mode [data-video]::after{content:'▶ Clique para trocar vídeo';position:absolute;inset:0;background:rgba(0,0,0,.65);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#c084fc;border-radius:8px;}
+body.edit-mode [data-icon]{outline:2px dashed rgba(251,191,36,.5)!important;outline-offset:2px;cursor:pointer;border-radius:6px;}
 body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align:super;}
+body.edit-mode [data-wanumber]{outline:2px dashed rgba(37,211,102,.6)!important;outline-offset:3px;border-radius:4px;cursor:pointer;}
+body.edit-mode [data-wanumber]:hover{outline-color:#25d366!important;}
+body.edit-mode [data-price]{outline:2px dashed rgba(251,191,36,.7)!important;outline-offset:3px;border-radius:4px;cursor:pointer;}
+body.edit-mode [data-price]:hover{outline-color:#fbbf24!important;}
+body.edit-mode [data-color]{outline:2px dashed rgba(168,85,247,.6)!important;outline-offset:3px;border-radius:4px;cursor:pointer;}
 
-/* Edit hint tooltip */
-#edit-hint{
-  position:fixed;top:64px;left:50%;transform:translateX(-50%);
-  background:rgba(30,64,175,.95);border:1px solid rgba(59,130,246,.4);
-  color:#bfdbfe;font-size:12px;font-weight:600;
-  padding:8px 16px;border-radius:99px;z-index:300;
-  white-space:nowrap;display:none;
-  box-shadow:0 4px 20px rgba(0,0,0,.4);
-}
+#edit-hint{position:fixed;top:64px;left:50%;transform:translateX(-50%);background:rgba(30,64,175,.95);border:1px solid rgba(59,130,246,.4);color:#bfdbfe;font-size:12px;font-weight:600;padding:8px 16px;border-radius:99px;z-index:300;white-space:nowrap;display:none;box-shadow:0 4px 20px rgba(0,0,0,.4);}
 
-/* Edit dialog */
-#edit-dialog{
-  position:fixed;inset:0;z-index:500;
-  background:rgba(0,0,0,.8);backdrop-filter:blur(10px);
-  display:none;align-items:center;justify-content:center;padding:20px;
-}
-#edit-dialog.open{display:flex;}
-.edit-dialog-box{
-  background:var(--surface);border:1px solid rgba(59,130,246,.3);border-radius:18px;
-  padding:24px;width:100%;max-width:380px;
-}
-.edit-dialog-box h4{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;margin-bottom:16px;color:var(--accent3);}
-.edit-dialog-box input,.edit-dialog-box textarea{
-  width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:10px;
-  padding:12px;color:var(--txt);font-size:14px;font-family:'Outfit',sans-serif;outline:none;
-  margin-bottom:12px;
-}
-.edit-dialog-box input:focus,.edit-dialog-box textarea:focus{border-color:rgba(59,130,246,.6);}
-.edit-dialog-box textarea{resize:vertical;min-height:80px;}
-.edit-dialog-btns{display:flex;gap:10px;}
-.edit-dialog-btns button{flex:1;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:13px;}
+/* Edit Panel */
+#edit-panel{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);display:none;align-items:flex-end;justify-content:center;padding:0;}
+#edit-panel.open{display:flex;}
+.edit-panel-box{background:var(--surface);border:1px solid rgba(59,130,246,.3);border-radius:22px 22px 0 0;padding:24px 20px 34px;width:100%;max-width:480px;max-height:85vh;overflow-y:auto;}
+.edit-panel-box h4{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;margin-bottom:6px;color:var(--accent3);}
+.edit-panel-box .ep-sub{font-size:12px;color:var(--txt3);margin-bottom:16px;}
+.edit-panel-box input,.edit-panel-box textarea{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:10px;padding:12px;color:var(--txt);font-size:14px;font-family:'Outfit',sans-serif;outline:none;margin-bottom:12px;}
+.edit-panel-box input:focus,.edit-panel-box textarea:focus{border-color:rgba(59,130,246,.6);}
+.edit-panel-box textarea{resize:vertical;min-height:80px;}
+.edit-btns{display:flex;gap:10px;}
+.edit-btns button{flex:1;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:13px;}
 .edb-confirm{background:linear-gradient(135deg,#1e40af,#1d4ed8);color:#fff;}
 .edb-cancel{background:var(--surface2);color:var(--txt2);}
+
+/* Settings panel */
+.settings-section{margin-bottom:20px;}
+.settings-section h5{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--txt3);margin-bottom:10px;border-bottom:1px solid var(--border);padding-bottom:6px;}
+.setting-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.setting-row label{font-size:13px;color:var(--txt2);}
+.setting-row input[type=color]{width:44px;height:30px;border-radius:7px;border:1px solid var(--border2);background:var(--bg);cursor:pointer;padding:2px;}
+.setting-row input[type=text]{max-width:180px;margin-bottom:0;padding:8px 10px;font-size:13px;}
+
+/* Drag handle */
+.panel-drag{width:40px;height:4px;background:var(--border2);border-radius:99px;margin:0 auto 18px;}
 
 @media(min-width:600px){section{padding:60px 24px;}.max480,.apps-grid,.steps,.videos-grid,.reviews-grid,.detail-videos,.benefits-grid,.all-reviews-grid{max-width:560px;}.story-box,.think-box,.price-box,.latent-box{max-width:560px;}}
 </style>
@@ -360,7 +301,7 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
 ═══════════════════════════ -->
 <div id="page-home" class="page active">
 <nav>
-  <div class="nav-logo"><div class="nav-logo-icon">⚡</div><span data-editable>ELETRICISTA POWER</span></div>
+  <div class="nav-logo" onclick="goHome()"><div class="nav-logo-icon">⚡</div><span data-editable>ELETRICISTA POWER</span></div>
   <button class="nav-cta-sm" onclick="document.getElementById('sec-apps').scrollIntoView({behavior:'smooth'})">Ver Apps ↗</button>
 </nav>
 
@@ -381,7 +322,6 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
   <button class="btn-primary" style="max-width:320px;margin:0 auto;" onclick="document.getElementById('sec-apps').scrollIntoView({behavior:'smooth'})">⚡ Ver Aplicativos Disponíveis</button>
 </div>
 
-<!-- SOBRE -->
 <section class="about-sec">
   <div class="max480 text-center reveal">
     <div class="avatar-wrap"><div class="avatar-inner" data-icon title="Clique para trocar emoji">👷</div></div>
@@ -397,7 +337,6 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
   </div>
 </section>
 
-<!-- APPS -->
 <section id="sec-apps">
   <div class="text-center max480">
     <div class="sec-label">Portfólio</div>
@@ -405,7 +344,6 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
     <p class="sec-sub" data-editable>Clique em qualquer app para ver detalhes, como funciona e como comprar.</p>
   </div>
   <div class="apps-grid">
-
     <div class="app-card pro reveal" onclick="openApp('pro')" tabindex="0" role="button">
       <div class="card-top"><div class="card-glow"></div><span class="card-emoji" data-icon>⚡</span><div class="card-badge">PRO</div></div>
       <div class="card-body">
@@ -413,12 +351,11 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
         <div class="card-desc" data-editable>A ferramenta completa. Orçamento, NBR 5410, agenda, checklist, PDF profissional e muito mais.</div>
         <div class="card-tags"><span class="tag" data-editable>Orçamentos</span><span class="tag" data-editable>NBR 5410</span><span class="tag" data-editable>Demanda</span><span class="tag" data-editable>Agenda</span><span class="tag" data-editable>PDF</span></div>
         <div class="card-footer">
-          <div><div class="card-price" data-editable>R$ 97</div><div style="font-size:11px;color:var(--green);font-weight:600;" data-editable>✓ Acesso vitalício</div></div>
+          <div><div class="card-price" data-price data-price-key="pro-price">R$ 97</div><div style="font-size:11px;color:var(--green);font-weight:600;" data-editable>✓ Acesso vitalício</div></div>
           <div class="card-arrow">→</div>
         </div>
       </div>
     </div>
-
     <div class="app-card basic reveal" onclick="openApp('basic')" tabindex="0" role="button" style="transition-delay:.08s">
       <div class="card-top"><div class="card-glow"></div><span class="card-emoji" style="animation-delay:.5s" data-icon>🔧</span><div class="card-badge">BASIC</div></div>
       <div class="card-body">
@@ -426,12 +363,11 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
         <div class="card-desc" data-editable>Perfeito para começar. Orçamentos rápidos, agenda de clientes e histórico completo.</div>
         <div class="card-tags"><span class="tag" data-editable>Orçamentos</span><span class="tag" data-editable>Catálogo</span><span class="tag" data-editable>Agenda</span><span class="tag" data-editable>Histórico</span></div>
         <div class="card-footer">
-          <div><div class="card-price" data-editable>R$ 47</div><div style="font-size:11px;color:var(--green);font-weight:600;" data-editable>✓ Acesso vitalício</div></div>
+          <div><div class="card-price" data-price data-price-key="basic-price">R$ 47</div><div style="font-size:11px;color:var(--green);font-weight:600;" data-editable>✓ Acesso vitalício</div></div>
           <div class="card-arrow">→</div>
         </div>
       </div>
     </div>
-
     <div class="app-card dev reveal" onclick="openApp('dim')" tabindex="0" role="button" style="transition-delay:.16s">
       <div class="card-top"><div class="card-glow"></div><span class="card-emoji" style="animation-delay:1s" data-icon>📐</span><div class="card-badge"><span class="pulse-dot" style="margin-right:5px"></span>Em breve</div></div>
       <div class="card-body">
@@ -444,7 +380,6 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
         </div>
       </div>
     </div>
-
     <div class="app-card dev reveal" onclick="openApp('laudo')" tabindex="0" role="button" style="transition-delay:.24s">
       <div class="card-top"><div class="card-glow"></div><span class="card-emoji" style="animation-delay:1.5s" data-icon>📋</span><div class="card-badge"><span class="pulse-dot" style="margin-right:5px"></span>Em breve</div></div>
       <div class="card-body">
@@ -457,11 +392,9 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
         </div>
       </div>
     </div>
-
   </div>
 </section>
 
-<!-- COMO FUNCIONA -->
 <section style="background:var(--bg2);border-top:1px solid var(--border);">
   <div class="text-center max480"><div class="sec-label">Simples assim</div><h2 class="sec-title">COMO <span class="grad">FUNCIONA</span></h2><p class="sec-sub" data-editable>Do download ao orçamento enviado em menos de 5 minutos.</p></div>
   <div class="steps">
@@ -472,7 +405,6 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
   </div>
 </section>
 
-<!-- VÍDEOS HOME -->
 <section>
   <div class="text-center max480"><div class="sec-label">Quem já usa</div><h2 class="sec-title">O QUE ESTÃO <span class="grad">FALANDO</span></h2><p class="sec-sub" data-editable>Eletricistas de todo o Brasil aprovando.</p></div>
   <div class="videos-grid">
@@ -487,7 +419,6 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
   </div>
 </section>
 
-<!-- REVIEWS HOME -->
 <section style="background:var(--bg2);border-top:1px solid var(--border);">
   <div class="text-center max480" style="margin-bottom:18px"><div style="font-size:14px;color:var(--txt2);font-weight:600">⭐ Avaliação média: <strong style="color:#fbbf24">4.9/5</strong> · +200 avaliações</div></div>
   <div class="reviews-grid">
@@ -497,14 +428,13 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
   </div>
 </section>
 
-<!-- CTA HOME -->
 <section class="cta-sec">
   <div class="sec-label" style="justify-content:center">Comece agora</div>
   <h2 class="sec-title">PARE DE PERDER <span class="grad">DINHEIRO</span></h2>
   <p style="font-size:15px;color:var(--txt2);margin-bottom:26px;line-height:1.75;max-width:400px;margin-left:auto;margin-right:auto" data-editable>Cada minuto fazendo orçamento na mão é dinheiro deixado na mesa. Comece agora.</p>
   <div style="display:flex;flex-direction:column;gap:11px;max-width:300px;margin:0 auto">
-    <button class="btn-primary" onclick="openApp('pro')">⚡ Quero o PRO — R$ 97</button>
-    <button class="btn-ghost" onclick="openApp('basic')">🔧 Ver o Basic — R$ 47</button>
+    <button class="btn-primary" onclick="openApp('pro')">⚡ Quero o PRO — <span data-price data-price-key="pro-price">R$ 97</span></button>
+    <button class="btn-ghost" onclick="openApp('basic')">🔧 Ver o Basic — <span data-price data-price-key="basic-price">R$ 47</span></button>
   </div>
   <p style="font-size:12px;color:var(--txt3);margin-top:16px" data-editable>✓ Acesso vitalício · ✓ Sem mensalidades · ✓ Funciona offline</p>
 </section>
@@ -512,10 +442,10 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
 <footer>
   <div class="fl">⚡ ELETRICISTA POWER</div>
   <p data-editable>Aplicativos profissionais para eletricistas, técnicos e engenheiros.</p>
-  <p>Desenvolvido com ❤️ por profissional da área · <a href="https://wa.me/5581999999999">WhatsApp</a></p>
+  <p>Desenvolvido com ❤️ por profissional da área · <a class="wa-link" href="#">WhatsApp</a></p>
   <p style="margin-top:10px;font-size:11px" data-editable>© 2025 Eletricista Power · Todos os direitos reservados</p>
 </footer>
-</div><!-- /home -->
+</div>
 
 
 <!-- ═══════════════════════════
@@ -525,8 +455,11 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
 <nav>
   <button class="nav-back" onclick="goHome()">← Voltar</button>
   <div class="nav-logo"><div class="nav-logo-icon">⚡</div><span data-editable>PRO</span></div>
-  <button class="nav-cta-sm" onclick="window.open('https://wa.me/5581999999999?text=Quero comprar o PRO!','_blank')">Comprar R$97</button>
+  <button class="nav-cta-sm" onclick="openWA('Quero comprar o PRO!')">Comprar <span data-price data-price-key="pro-price">R$97</span></button>
 </nav>
+<div class="share-bar">
+  <button class="btn-share" onclick="copyLink('pro')">🔗 Copiar link desta página</button>
+</div>
 
 <div class="detail-hero grid-bg">
   <div class="detail-glow" style="background:radial-gradient(circle,rgba(249,115,22,.14),transparent 70%)"></div>
@@ -536,7 +469,6 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
   <p class="detail-sub" data-editable>A ferramenta mais completa para eletricistas que querem profissionalismo, velocidade e mais lucro.</p>
 </div>
 
-<!-- STORY PRO -->
 <section class="story-sec">
   <div class="story-box reveal">
     <span class="story-icon" data-icon>🤔</span>
@@ -550,7 +482,6 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
   </div>
 </section>
 
-<!-- LATENT PRO -->
 <section class="latent-sec">
   <div class="latent-box reveal">
     <h4 data-editable>🧠 VOCÊ SENTE ISSO TAMBÉM?</h4>
@@ -561,7 +492,6 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
   </div>
 </section>
 
-<!-- BENEFITS PRO -->
 <section class="benefits-sec">
   <div class="text-center max480"><div class="sec-label">O que você ganha</div><h2 class="sec-title">BENEFÍCIOS <span class="grad">REAIS</span></h2></div>
   <div class="benefits-grid">
@@ -574,7 +504,6 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
   </div>
 </section>
 
-<!-- THINK PRO -->
 <section class="think-sec">
   <div class="think-box reveal">
     <h3 data-editable>⚠️ PENSE BEM NISSO...</h3>
@@ -584,7 +513,6 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
   </div>
 </section>
 
-<!-- VÍDEOS PRO -->
 <section class="videos-sec">
   <div class="text-center max480"><div class="sec-label">Quem usa e aprova</div><h2 class="sec-title">VEJA O QUE <span class="grad">DIZEM</span></h2></div>
   <div class="detail-videos">
@@ -609,7 +537,6 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
   </div>
 </section>
 
-<!-- MAIS REVIEWS PRO -->
 <section class="all-reviews-sec">
   <div class="text-center max480" style="margin-bottom:18px"><div style="font-size:14px;color:var(--txt2);font-weight:600">⭐ 4.9/5 · +200 avaliações verificadas</div></div>
   <div class="all-reviews-grid">
@@ -622,11 +549,10 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
   </div>
 </section>
 
-<!-- PREÇO PRO -->
 <section class="price-sec">
   <div class="price-box reveal">
     <div class="pb-label" data-editable>De R$ 197,00</div>
-    <div class="pb-big" data-editable>R$ 97</div>
+    <div class="pb-big" data-price data-price-key="pro-price">R$ 97</div>
     <div class="pb-sub" data-editable>Pagamento único · Sem mensalidades · Acesso vitalício</div>
     <div class="price-includes">
       <div class="pi" data-editable>App PRO completo</div>
@@ -637,14 +563,14 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
       <div class="pi" data-editable>Suporte e atualizações via WhatsApp</div>
     </div>
     <div class="btn-gap">
-      <button class="btn-primary" onclick="window.open('https://wa.me/5581999999999?text=Quero comprar o Eletricista Power PRO!','_blank')">⚡ COMPRAR AGORA — R$ 97</button>
-      <button class="btn-ghost" onclick="window.open('https://wa.me/5581999999999?text=Tenho dúvidas sobre o PRO','_blank')">💬 Tirar dúvidas antes</button>
+      <button class="btn-primary" onclick="openWA('Quero comprar o Eletricista Power PRO!')">⚡ COMPRAR AGORA — <span data-price data-price-key="pro-price">R$ 97</span></button>
+      <button class="btn-ghost" onclick="openWA('Tenho dúvidas sobre o PRO')">💬 Tirar dúvidas antes</button>
     </div>
     <p class="price-note" data-editable>Após o pagamento você recebe o arquivo + instruções pelo WhatsApp em até 30 minutos</p>
   </div>
 </section>
 <footer><div class="fl">⚡ ELETRICISTA POWER</div><p><a href="#" onclick="goHome();return false">← Voltar para todos os apps</a></p></footer>
-</div><!-- /pro -->
+</div>
 
 
 <!-- ═══════════════════════════
@@ -654,8 +580,11 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
 <nav>
   <button class="nav-back" onclick="goHome()">← Voltar</button>
   <div class="nav-logo" style="font-size:17px"><div class="nav-logo-icon" style="background:var(--green)">🔧</div><span data-editable>BASIC</span></div>
-  <button class="nav-cta-sm" style="background:var(--green)" onclick="window.open('https://wa.me/5581999999999?text=Quero comprar o Basic!','_blank')">Comprar R$47</button>
+  <button class="nav-cta-sm" style="background:var(--green)" onclick="openWA('Quero comprar o Basic!')">Comprar <span data-price data-price-key="basic-price">R$47</span></button>
 </nav>
+<div class="share-bar">
+  <button class="btn-share" onclick="copyLink('basic')">🔗 Copiar link desta página</button>
+</div>
 
 <div class="detail-hero grid-bg">
   <div class="detail-glow" style="background:radial-gradient(circle,rgba(34,197,94,.14),transparent 70%)"></div>
@@ -702,7 +631,7 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
 <section class="think-sec">
   <div class="think-box reveal">
     <h3 data-editable>⚠️ VALE A PENA MESMO?</h3>
-    <div class="think-item"><div class="ti-icon">💸</div><p data-editable>R$ 47 é <strong>menos de uma hora do seu trabalho.</strong> <em>Se fechar 1 serviço a mais por pareceer mais profissional, já pagou 10x.</em></p></div>
+    <div class="think-item"><div class="ti-icon">💸</div><p data-editable>R$ 47 é <strong>menos de uma hora do seu trabalho.</strong> <em>Se fechar 1 serviço a mais por parecer mais profissional, já pagou 10x.</em></p></div>
     <div class="think-item"><div class="ti-icon">📱</div><p data-editable>Você já usa o celular pra tudo. <strong>Por que não usar pra mandar orçamento profissional</strong> <em>em vez de texto bagunçado no zap?</em></p></div>
     <div class="think-item"><div class="ti-icon">🏆</div><p data-editable><strong>Seus concorrentes podem estar usando.</strong> <em>O cliente sempre escolhe quem pareceu mais organizado e profissional.</em></p></div>
   </div>
@@ -732,7 +661,6 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
   </div>
 </section>
 
-<!-- MAIS REVIEWS BASIC -->
 <section class="all-reviews-sec">
   <div class="all-reviews-grid">
     <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"Nunca mais perdi cliente por demorar no orçamento. Agora eu mando em 3 minutos e fecho na hora."</div><div class="review-author"><div class="rav" data-editable>R</div><div><strong data-editable>Rafael P.</strong><span data-editable>Eletricista · Recife, PE</span></div></div></div>
@@ -744,11 +672,10 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
   </div>
 </section>
 
-<!-- PREÇO BASIC -->
 <section class="price-sec">
   <div class="price-box reveal" style="background:linear-gradient(135deg,rgba(34,197,94,.1),rgba(16,185,129,.04));border-color:rgba(34,197,94,.32)">
     <div class="pb-label" data-editable>Profissionalismo por apenas</div>
-    <div class="pb-big" style="background:linear-gradient(90deg,var(--green),#16a34a);-webkit-background-clip:text;-webkit-text-fill-color:transparent" data-editable>R$ 47</div>
+    <div class="pb-big" style="background:linear-gradient(90deg,var(--green),#16a34a);-webkit-background-clip:text;-webkit-text-fill-color:transparent" data-price data-price-key="basic-price">R$ 47</div>
     <div class="pb-sub" data-editable>Pagamento único · Sem mensalidades · Acesso vitalício</div>
     <div class="price-includes">
       <div class="pi" data-editable>App Basic completo</div>
@@ -759,21 +686,22 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
       <div class="pi" data-editable>Suporte via WhatsApp</div>
     </div>
     <div class="btn-gap">
-      <button class="btn-primary" style="background:linear-gradient(135deg,var(--green),#16a34a);box-shadow:0 8px 28px rgba(34,197,94,.4)" onclick="window.open('https://wa.me/5581999999999?text=Quero comprar o Basic!','_blank')">🔧 COMPRAR AGORA — R$ 47</button>
-      <button class="btn-ghost" onclick="window.open('https://wa.me/5581999999999?text=Dúvidas sobre o Basic','_blank')">💬 Tirar dúvidas antes</button>
+      <button class="btn-primary" style="background:linear-gradient(135deg,var(--green),#16a34a);box-shadow:0 8px 28px rgba(34,197,94,.4)" onclick="openWA('Quero comprar o Basic!')">🔧 COMPRAR AGORA — <span data-price data-price-key="basic-price">R$ 47</span></button>
+      <button class="btn-ghost" onclick="openWA('Dúvidas sobre o Basic')">💬 Tirar dúvidas antes</button>
     </div>
     <p class="price-note" data-editable>Após o pagamento você recebe o arquivo + instruções pelo WhatsApp em até 30 minutos</p>
   </div>
 </section>
 <footer><div class="fl">⚡ ELETRICISTA POWER</div><p><a href="#" onclick="goHome();return false">← Voltar para todos os apps</a></p></footer>
-</div><!-- /basic -->
+</div>
 
 
 <!-- ═══════════════════════════
-  📐 PAGE DIM (Em breve)
+  📐 PAGE DIM
 ═══════════════════════════ -->
 <div id="page-dim" class="page">
-<nav><button class="nav-back" onclick="goHome()">← Voltar</button><div class="nav-logo" style="font-size:15px"><div class="nav-logo-icon" style="background:var(--purple)">📐</div><span>DIMENSIONADOR</span></div><button class="nav-cta-sm" style="background:var(--purple)" onclick="window.open('https://wa.me/5581999999999?text=Quero ser avisado do Dimensionador!','_blank')">📩 Avise-me</button></nav>
+<nav><button class="nav-back" onclick="goHome()">← Voltar</button><div class="nav-logo" style="font-size:15px"><div class="nav-logo-icon" style="background:var(--purple)">📐</div><span>DIMENSIONADOR</span></div><button class="nav-cta-sm" style="background:var(--purple)" onclick="openWA('Quero ser avisado do Dimensionador!')">📩 Avise-me</button></nav>
+<div class="share-bar"><button class="btn-share" onclick="copyLink('dim')">🔗 Copiar link desta página</button></div>
 <div class="detail-hero grid-bg">
   <div class="detail-glow" style="background:radial-gradient(circle,rgba(168,85,247,.14),transparent 70%)"></div>
   <span class="detail-emoji" data-icon>📐</span>
@@ -809,18 +737,19 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
       <div class="pi" style="color:var(--purple)">Primeiro a saber quando lançar</div>
       <div class="pi" style="color:var(--purple)">Condição exclusiva de pré-venda</div>
     </div>
-    <button class="btn-primary" style="background:linear-gradient(135deg,var(--purple),#7c3aed);box-shadow:0 8px 28px rgba(168,85,247,.4)" onclick="window.open('https://wa.me/5581999999999?text=Quero ser avisado do Dimensionador!','_blank')">📩 QUERO SER AVISADO NO LANÇAMENTO</button>
+    <button class="btn-primary" style="background:linear-gradient(135deg,var(--purple),#7c3aed);box-shadow:0 8px 28px rgba(168,85,247,.4)" onclick="openWA('Quero ser avisado do Dimensionador!')">📩 QUERO SER AVISADO NO LANÇAMENTO</button>
   </div>
 </section>
 <footer><div class="fl">⚡ ELETRICISTA POWER</div><p><a href="#" onclick="goHome();return false">← Voltar</a></p></footer>
-</div><!-- /dim -->
+</div>
 
 
 <!-- ═══════════════════════════
-  📋 PAGE LAUDO (Em breve)
+  📋 PAGE LAUDO
 ═══════════════════════════ -->
 <div id="page-laudo" class="page">
-<nav><button class="nav-back" onclick="goHome()">← Voltar</button><div class="nav-logo" style="font-size:15px"><div class="nav-logo-icon" style="background:var(--purple)">📋</div><span>LAUDO DIGITAL</span></div><button class="nav-cta-sm" style="background:var(--purple)" onclick="window.open('https://wa.me/5581999999999?text=Quero ser avisado do Laudo Digital!','_blank')">📩 Avise-me</button></nav>
+<nav><button class="nav-back" onclick="goHome()">← Voltar</button><div class="nav-logo" style="font-size:15px"><div class="nav-logo-icon" style="background:var(--purple)">📋</div><span>LAUDO DIGITAL</span></div><button class="nav-cta-sm" style="background:var(--purple)" onclick="openWA('Quero ser avisado do Laudo Digital!')">📩 Avise-me</button></nav>
+<div class="share-bar"><button class="btn-share" onclick="copyLink('laudo')">🔗 Copiar link desta página</button></div>
 <div class="detail-hero grid-bg">
   <div class="detail-glow" style="background:radial-gradient(circle,rgba(168,85,247,.14),transparent 70%)"></div>
   <span class="detail-emoji" data-icon>📋</span>
@@ -856,208 +785,468 @@ body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align
       <div class="pi" style="color:var(--purple)">Primeiro a saber quando lançar</div>
       <div class="pi" style="color:var(--purple)">Condição exclusiva de pré-venda</div>
     </div>
-    <button class="btn-primary" style="background:linear-gradient(135deg,var(--purple),#7c3aed);box-shadow:0 8px 28px rgba(168,85,247,.4)" onclick="window.open('https://wa.me/5581999999999?text=Quero ser avisado do Laudo Digital!','_blank')">📩 QUERO SER AVISADO NO LANÇAMENTO</button>
+    <button class="btn-primary" style="background:linear-gradient(135deg,var(--purple),#7c3aed);box-shadow:0 8px 28px rgba(168,85,247,.4)" onclick="openWA('Quero ser avisado do Laudo Digital!')">📩 QUERO SER AVISADO NO LANÇAMENTO</button>
   </div>
 </section>
 <footer><div class="fl">⚡ ELETRICISTA POWER</div><p><a href="#" onclick="goHome();return false">← Voltar</a></p></footer>
-</div><!-- /laudo -->
+</div>
 
 
-<!-- ═══════════════════════════
-  WA BUTTON
-═══════════════════════════ -->
-<a href="https://wa.me/5581999999999?text=Olá! Vi os aplicativos e quero saber mais." class="wa-btn" target="_blank">💬</a>
+<!-- WA BUTTON -->
+<a id="wa-float" href="#" class="wa-btn" target="_blank">💬</a>
 
-<!-- ═══════════════════════════
-  ✏️ EDIT TOOLBAR
-═══════════════════════════ -->
+<!-- EDIT TOOLBAR -->
 <div id="edit-toolbar">
   <button id="btn-save-edit" onclick="saveEdits()">💾 Salvar Edições</button>
   <button id="btn-edit-toggle" onclick="toggleEditMode()">✏️ Modo Edição</button>
 </div>
-<div id="edit-hint">✏️ Toque em qualquer texto para editar · 🎨 Emojis e vídeos clicáveis</div>
+<div id="edit-hint">✏️ Texto: toque direto · 💛 Emoji: clique · 🟢 WhatsApp · 💰 Preço · 🎨 Cores</div>
 
-<!-- Edit Dialog -->
-<div id="edit-dialog">
-  <div class="edit-dialog-box">
-    <h4 id="edit-dialog-title">EDITAR</h4>
-    <input id="edit-input" type="text" placeholder="Novo valor...">
-    <div class="edit-dialog-btns">
-      <button class="edb-cancel" onclick="closeEditDialog()">Cancelar</button>
-      <button class="edb-confirm" onclick="confirmEdit()">Confirmar ✓</button>
+<!-- EDIT PANEL (bottom sheet) -->
+<div id="edit-panel">
+  <div class="edit-panel-box">
+    <div class="panel-drag"></div>
+    <div id="panel-content-text">
+      <h4>✏️ EDITAR TEXTO</h4>
+      <p class="ep-sub">Edite o conteúdo diretamente na página ao clicar nos elementos destacados em azul.</p>
+    </div>
+    <div id="panel-content-icon" style="display:none">
+      <h4>🎨 TROCAR EMOJI</h4>
+      <p class="ep-sub">Cole ou escreva o novo emoji abaixo</p>
+      <input id="icon-input" type="text" placeholder="Ex: ⚡ 🔧 📐 👷">
+      <div class="edit-btns">
+        <button class="edb-cancel" onclick="closePanel()">Cancelar</button>
+        <button class="edb-confirm" onclick="confirmIconEdit()">Confirmar ✓</button>
+      </div>
+    </div>
+    <div id="panel-content-wa" style="display:none">
+      <h4>📱 NÚMERO DO WHATSAPP</h4>
+      <p class="ep-sub">Número com DDI e DDD, sem espaços. Ex: 5581999999999</p>
+      <input id="wa-input" type="text" placeholder="5581999999999" maxlength="20">
+      <div class="edit-btns">
+        <button class="edb-cancel" onclick="closePanel()">Cancelar</button>
+        <button class="edb-confirm" onclick="confirmWaEdit()">Salvar em todos ✓</button>
+      </div>
+    </div>
+    <div id="panel-content-price" style="display:none">
+      <h4>💰 EDITAR PREÇO</h4>
+      <p class="ep-sub" id="price-panel-sub">Novo valor (aparece em todos os botões desse produto)</p>
+      <input id="price-input" type="text" placeholder="Ex: R$ 97">
+      <div class="edit-btns">
+        <button class="edb-cancel" onclick="closePanel()">Cancelar</button>
+        <button class="edb-confirm" onclick="confirmPriceEdit()">Atualizar todos ✓</button>
+      </div>
+    </div>
+    <div id="panel-content-colors" style="display:none">
+      <h4>🎨 CORES DO TEMA</h4>
+      <p class="ep-sub">Personalize as cores principais da página</p>
+      <div class="settings-section">
+        <h5>Cor de Destaque (Laranja)</h5>
+        <div class="setting-row"><label>Cor principal (accent)</label><input type="color" id="color-accent" value="#f97316" oninput="previewColor('--accent',this.value)"></div>
+        <div class="setting-row"><label>Cor secundária (accent2)</label><input type="color" id="color-accent2" value="#fbbf24" oninput="previewColor('--accent2',this.value)"></div>
+        <div class="setting-row"><label>Cor azul (accent3)</label><input type="color" id="color-accent3" value="#38bdf8" oninput="previewColor('--accent3',this.value)"></div>
+      </div>
+      <div class="settings-section">
+        <h5>Fundo</h5>
+        <div class="setting-row"><label>Fundo principal</label><input type="color" id="color-bg" value="#040d1a" oninput="previewColor('--bg',this.value)"></div>
+        <div class="setting-row"><label>Fundo secundário</label><input type="color" id="color-bg2" value="#071224" oninput="previewColor('--bg2',this.value)"></div>
+        <div class="setting-row"><label>Superfície</label><input type="color" id="color-surface" value="#0c1e35" oninput="previewColor('--surface',this.value)"></div>
+      </div>
+      <div class="edit-btns" style="margin-top:8px">
+        <button class="edb-cancel" onclick="resetColors()">↺ Restaurar</button>
+        <button class="edb-confirm" onclick="saveColors()">💾 Salvar cores</button>
+      </div>
     </div>
   </div>
 </div>
 
+<!-- Settings trigger -->
+<div id="settings-trigger" style="display:none;position:fixed;bottom:76px;left:14px;z-index:200;">
+  <button onclick="openColorPanel()" style="background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;font-weight:700;font-size:12px;padding:10px 14px;border-radius:99px;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(168,85,247,.4);display:flex;align-items:center;gap:6px;">🎨 Cores</button>
+  <button onclick="openWaPanel()" style="background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;font-weight:700;font-size:12px;padding:10px 14px;border-radius:99px;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(34,197,94,.4);display:flex;align-items:center;gap:6px;margin-top:8px;">📱 WhatsApp</button>
+</div>
+
 <script>
+/* ══ CONFIG STORAGE ══ */
+const STORAGE_KEY = 'ep-v2';
+
+function getStore(){
+  try{ return JSON.parse(localStorage.getItem(STORAGE_KEY))||{}; }catch(e){ return {}; }
+}
+function setStore(data){
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+}
+
+/* ══ WA NUMBER ══ */
+let waNumber = '5581999999999';
+
+function openWA(msg){
+  const n = getStore().waNumber || waNumber;
+  window.open(`https://wa.me/${n}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+function updateWALinks(){
+  const n = getStore().waNumber || waNumber;
+  document.querySelectorAll('.wa-link').forEach(a => {
+    a.href = `https://wa.me/${n}`;
+  });
+  document.getElementById('wa-float').href = `https://wa.me/${n}?text=${encodeURIComponent('Olá! Vi os aplicativos e quero saber mais.')}`;
+}
+
+/* ══ PRICES ══ */
+const defaultPrices = { 'pro-price': 'R$ 97', 'basic-price': 'R$ 47' };
+
+function updatePrices(){
+  const store = getStore();
+  document.querySelectorAll('[data-price-key]').forEach(el => {
+    const key = el.dataset.priceKey;
+    const val = (store.prices && store.prices[key]) || defaultPrices[key];
+    if(val) el.textContent = val;
+  });
+}
+
+/* ══ COLORS ══ */
+const defaultColors = {
+  '--accent':'#f97316','--accent2':'#fbbf24','--accent3':'#38bdf8',
+  '--bg':'#040d1a','--bg2':'#071224','--surface':'#0c1e35'
+};
+
+function applyColors(colors){
+  Object.entries(colors).forEach(([k,v]) => {
+    document.documentElement.style.setProperty(k, v);
+  });
+}
+
+function previewColor(varName, val){
+  document.documentElement.style.setProperty(varName, val);
+}
+
+function saveColors(){
+  const colors = {};
+  Object.keys(defaultColors).forEach(k => {
+    const inputMap = {
+      '--accent':'color-accent','--accent2':'color-accent2','--accent3':'color-accent3',
+      '--bg':'color-bg','--bg2':'color-bg2','--surface':'color-surface'
+    };
+    const inp = document.getElementById(inputMap[k]);
+    if(inp) colors[k] = inp.value;
+  });
+  const store = getStore();
+  store.colors = colors;
+  setStore(store);
+  closePanel();
+  showToast('🎨 Cores salvas!');
+}
+
+function resetColors(){
+  applyColors(defaultColors);
+  Object.entries(defaultColors).forEach(([k,v]) => {
+    const inputMap = {
+      '--accent':'color-accent','--accent2':'color-accent2','--accent3':'color-accent3',
+      '--bg':'color-bg','--bg2':'color-bg2','--surface':'color-surface'
+    };
+    const inp = document.getElementById(inputMap[k]);
+    if(inp) inp.value = v;
+  });
+}
+
+function loadColors(){
+  const store = getStore();
+  if(store.colors) applyColors(store.colors);
+}
+
+/* ══ COPY LINK (HASH) ══ */
+function copyLink(page){
+  const url = window.location.href.split('#')[0] + '#' + page;
+  navigator.clipboard.writeText(url).then(() => {
+    // feedback on the button
+    const btn = event.target.closest('.btn-share');
+    if(btn){
+      btn.textContent = '✓ Link copiado!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '🔗 Copiar link desta página';
+        btn.classList.remove('copied');
+      }, 2500);
+    }
+  }).catch(() => {
+    // fallback
+    const ta = document.createElement('textarea');
+    ta.value = window.location.href.split('#')[0] + '#' + page;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+    showToast('🔗 Link copiado!');
+  });
+}
+
+/* ══ HASH ROUTING ══ */
+function handleHash(){
+  const hash = window.location.hash.replace('#','');
+  const validPages = ['pro','basic','dim','laudo'];
+  if(validPages.includes(hash)){
+    openApp(hash, false);
+  } else {
+    goHome(false);
+  }
+}
+
 /* ══ PAGE SYSTEM ══ */
-function openApp(app){
+function openApp(app, pushState=true){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+app).classList.add('active');
   window.scrollTo({top:0,behavior:'instant'});
+  if(pushState) history.pushState(null, '', '#'+app);
   initReveal();
 }
-function goHome(){
+
+function goHome(pushState=true){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-home').classList.add('active');
   window.scrollTo({top:0,behavior:'instant'});
+  if(pushState) history.pushState(null, '', window.location.pathname);
 }
+
+window.addEventListener('popstate', handleHash);
 
 /* ══ SCROLL REVEAL ══ */
 function initReveal(){
-  const obs=new IntersectionObserver(entries=>{
-    entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
   },{threshold:.1});
   document.querySelectorAll('.reveal:not(.visible)').forEach(el=>obs.observe(el));
 }
 initReveal();
 
 /* ══ EDIT MODE ══ */
-let editMode=false;
-let editTarget=null;
-let editType=null;
-let editOriginal=null;
-
-// Load saved edits from localStorage
-function loadEdits(){
-  const saved=localStorage.getItem('ep-edits');
-  if(!saved)return;
-  try{
-    const edits=JSON.parse(saved);
-    edits.forEach(e=>{
-      const el=document.querySelector(`[data-edit-id="${e.id}"]`);
-      if(el)el.innerHTML=e.val;
-    });
-  }catch(err){}
-}
-
-// Assign unique IDs to all editable elements
-let editCounter=0;
-function assignIds(){
-  document.querySelectorAll('[data-editable],[data-icon],[data-video]').forEach(el=>{
-    if(!el.dataset.editId){
-      el.dataset.editId='ep-'+(++editCounter);
-    }
-  });
-}
+let editMode = false;
+let editTarget = null;
+let activePriceKey = null;
 
 function toggleEditMode(){
-  editMode=!editMode;
-  document.body.classList.toggle('edit-mode',editMode);
-  const btn=document.getElementById('btn-edit-toggle');
-  const save=document.getElementById('btn-save-edit');
-  const hint=document.getElementById('edit-hint');
+  editMode = !editMode;
+  document.body.classList.toggle('edit-mode', editMode);
+  const btn = document.getElementById('btn-edit-toggle');
+  const save = document.getElementById('btn-save-edit');
+  const hint = document.getElementById('edit-hint');
+  const settingsTrigger = document.getElementById('settings-trigger');
+
   if(editMode){
-    btn.innerHTML='✕ Sair da Edição';
-    btn.style.background='linear-gradient(135deg,#dc2626,#b91c1c)';
+    btn.innerHTML = '✕ Sair da Edição';
+    btn.style.background = 'linear-gradient(135deg,#dc2626,#b91c1c)';
     save.classList.add('visible');
-    hint.style.display='block';
-    // Make text editable
-    document.querySelectorAll('[data-editable]').forEach(el=>{
-      el.contentEditable='true';
+    hint.style.display = 'block';
+    settingsTrigger.style.display = 'flex';
+    settingsTrigger.style.flexDirection = 'column';
+
+    // Text editable
+    document.querySelectorAll('[data-editable]').forEach(el => {
+      el.contentEditable = 'true';
     });
-    // Bind icon and video clicks
-    document.querySelectorAll('[data-icon]').forEach(el=>{
-      el.onclick=function(e){e.stopPropagation();openEditDialog('icon',this);};
+
+    // Icon clicks
+    document.querySelectorAll('[data-icon]').forEach(el => {
+      el.onclick = function(e){ e.stopPropagation(); openIconPanel(this); };
     });
-    document.querySelectorAll('[data-video]').forEach(el=>{
-      el.onclick=function(e){e.stopPropagation();openEditDialog('video',this);};
+
+    // Video clicks
+    document.querySelectorAll('[data-video]').forEach(el => {
+      el.onclick = function(e){ e.stopPropagation(); openVideoPanel(this); };
     });
+
+    // Price clicks
+    document.querySelectorAll('[data-price]').forEach(el => {
+      el.style.cursor = 'pointer';
+      el.onclick = function(e){ e.stopPropagation(); openPricePanel(this); };
+    });
+
   } else {
-    btn.innerHTML='✏️ Modo Edição';
-    btn.style.background='linear-gradient(135deg,#1e40af,#1d4ed8)';
+    btn.innerHTML = '✏️ Modo Edição';
+    btn.style.background = 'linear-gradient(135deg,#1e40af,#1d4ed8)';
     save.classList.remove('visible');
-    hint.style.display='none';
-    document.querySelectorAll('[data-editable]').forEach(el=>{
-      el.contentEditable='false';
+    hint.style.display = 'none';
+    settingsTrigger.style.display = 'none';
+
+    document.querySelectorAll('[data-editable]').forEach(el => {
+      el.contentEditable = 'false';
     });
-    document.querySelectorAll('[data-icon]').forEach(el=>{el.onclick=null;});
-    document.querySelectorAll('[data-video]').forEach(el=>{el.onclick=null;});
+    document.querySelectorAll('[data-icon],[data-video],[data-price]').forEach(el => {
+      el.onclick = null;
+      el.style.cursor = '';
+    });
+    closePanel();
   }
 }
 
-function openEditDialog(type,el){
-  editTarget=el;
-  editType=type;
-  editOriginal=el.innerHTML;
-  const dialog=document.getElementById('edit-dialog');
-  const title=document.getElementById('edit-dialog-title');
-  const input=document.getElementById('edit-input');
-  if(type==='icon'){
-    title.textContent='TROCAR EMOJI/ÍCONE';
-    input.placeholder='Ex: 🔧 ou ⚡ ou 👷';
-    input.value=el.textContent.trim().replace(/✏️/g,'');
-  } else {
-    title.textContent='LINK DO VÍDEO';
-    input.placeholder='Cole o link do YouTube ou MP4';
-    input.value=el.dataset.videoUrl||'';
-  }
-  dialog.classList.add('open');
-  setTimeout(()=>input.focus(),100);
+/* ══ PANEL SYSTEM ══ */
+function showPanel(sectionId){
+  ['panel-content-text','panel-content-icon','panel-content-wa','panel-content-price','panel-content-colors']
+    .forEach(id => document.getElementById(id).style.display = 'none');
+  document.getElementById(sectionId).style.display = 'block';
+  document.getElementById('edit-panel').classList.add('open');
 }
 
-function confirmEdit(){
-  const input=document.getElementById('edit-input');
-  if(editType==='icon'&&editTarget){
-    editTarget.textContent=input.value;
-  } else if(editType==='video'&&editTarget){
-    editTarget.dataset.videoUrl=input.value;
-    // Show indicator that video has URL
-    if(input.value){
-      const existing=editTarget.querySelector('.video-set-badge');
-      if(!existing){
-        const badge=document.createElement('div');
-        badge.className='video-set-badge';
-        badge.style.cssText='position:absolute;bottom:8px;right:8px;background:rgba(34,197,94,.9);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:6px;z-index:5';
-        badge.textContent='✓ Vídeo configurado';
-        editTarget.appendChild(badge);
-      }
-    }
-  }
-  closeEditDialog();
+function closePanel(){
+  document.getElementById('edit-panel').classList.remove('open');
+  editTarget = null;
+  activePriceKey = null;
 }
 
-function closeEditDialog(){
-  document.getElementById('edit-dialog').classList.remove('open');
-  editTarget=null;editType=null;
-}
-document.getElementById('edit-dialog').addEventListener('click',function(e){
-  if(e.target===this)closeEditDialog();
+document.getElementById('edit-panel').addEventListener('click', function(e){
+  if(e.target === this) closePanel();
 });
 
+/* Icon panel */
+function openIconPanel(el){
+  editTarget = el;
+  document.getElementById('icon-input').value = el.textContent.trim().replace(/✏️/g,'');
+  showPanel('panel-content-icon');
+  setTimeout(() => document.getElementById('icon-input').focus(), 150);
+}
+
+function confirmIconEdit(){
+  if(editTarget){
+    editTarget.textContent = document.getElementById('icon-input').value;
+  }
+  closePanel();
+}
+
+/* Video panel */
+function openVideoPanel(el){
+  editTarget = el;
+  document.getElementById('icon-input').value = el.dataset.videoUrl || '';
+  showPanel('panel-content-icon');
+  document.getElementById('panel-content-icon').querySelector('h4').textContent = '▶ LINK DO VÍDEO';
+  document.getElementById('icon-input').placeholder = 'Cole o link do YouTube...';
+  setTimeout(() => document.getElementById('icon-input').focus(), 150);
+}
+
+/* WA panel */
+function openWaPanel(){
+  const store = getStore();
+  document.getElementById('wa-input').value = store.waNumber || waNumber;
+  showPanel('panel-content-wa');
+  setTimeout(() => document.getElementById('wa-input').focus(), 150);
+}
+
+function confirmWaEdit(){
+  const num = document.getElementById('wa-input').value.replace(/\D/g,'');
+  if(num.length < 10){ showToast('⚠️ Número inválido'); return; }
+  const store = getStore();
+  store.waNumber = num;
+  setStore(store);
+  waNumber = num;
+  updateWALinks();
+  closePanel();
+  showToast('📱 WhatsApp atualizado em toda a página!');
+}
+
+/* Price panel */
+function openPricePanel(el){
+  editTarget = el;
+  activePriceKey = el.dataset.priceKey;
+  const labels = { 'pro-price': 'PRO', 'basic-price': 'Basic' };
+  document.getElementById('price-panel-sub').textContent =
+    `Preço do ${labels[activePriceKey]||''} (atualiza em todos os botões e cards)`;
+  const store = getStore();
+  const current = (store.prices && store.prices[activePriceKey]) || defaultPrices[activePriceKey] || '';
+  document.getElementById('price-input').value = current;
+  showPanel('panel-content-price');
+  setTimeout(() => document.getElementById('price-input').focus(), 150);
+}
+
+function confirmPriceEdit(){
+  if(!activePriceKey) return;
+  const val = document.getElementById('price-input').value.trim();
+  if(!val){ closePanel(); return; }
+  const store = getStore();
+  if(!store.prices) store.prices = {};
+  store.prices[activePriceKey] = val;
+  setStore(store);
+  updatePrices();
+  closePanel();
+  showToast('💰 Preço atualizado em toda a página!');
+}
+
+/* Color panel */
+function openColorPanel(){
+  const store = getStore();
+  const colors = store.colors || defaultColors;
+  const inputMap = {
+    '--accent':'color-accent','--accent2':'color-accent2','--accent3':'color-accent3',
+    '--bg':'color-bg','--bg2':'color-bg2','--surface':'color-surface'
+  };
+  Object.entries(inputMap).forEach(([k,id]) => {
+    const inp = document.getElementById(id);
+    if(inp) inp.value = colors[k] || defaultColors[k];
+  });
+  showPanel('panel-content-colors');
+}
+
+/* ══ SAVE ALL ══ */
 function saveEdits(){
-  const edits=[];
-  document.querySelectorAll('[data-editable]').forEach(el=>{
-    edits.push({id:el.dataset.editId,val:el.innerHTML});
+  const store = getStore();
+  const texts = [];
+
+  document.querySelectorAll('[data-editable]').forEach((el,i) => {
+    if(!el.dataset.editId) el.dataset.editId = 'ep-'+i;
+    texts.push({ id: el.dataset.editId, val: el.innerHTML });
   });
-  document.querySelectorAll('[data-icon]').forEach(el=>{
-    edits.push({id:el.dataset.editId,val:el.textContent.replace(/✏️/g,'').trim()});
+
+  document.querySelectorAll('[data-icon]').forEach((el,i) => {
+    if(!el.dataset.editId) el.dataset.editId = 'icon-'+i;
+    texts.push({ id: 'icon-'+el.dataset.editId, val: el.textContent.replace(/✏️/g,'').trim() });
   });
-  document.querySelectorAll('[data-video]').forEach(el=>{
-    if(el.dataset.videoUrl) edits.push({id:'v-'+el.dataset.editId,val:el.dataset.videoUrl});
-  });
-  localStorage.setItem('ep-edits',JSON.stringify(edits));
-  showSaveToast();
+
+  store.texts = texts;
+  setStore(store);
+  showToast('✓ Todas as edições salvas!');
 }
 
-function showSaveToast(){
-  const t=document.createElement('div');
-  t.style.cssText='position:fixed;top:70px;left:50%;transform:translateX(-50%);background:#22c55e;color:#fff;font-weight:700;font-size:13px;padding:10px 22px;border-radius:99px;z-index:600;box-shadow:0 4px 20px rgba(34,197,94,.5);animation:fadeDown .3s ease both';
-  t.textContent='✓ Edições salvas com sucesso!';
+function loadEdits(){
+  const store = getStore();
+  if(!store.texts) return;
+
+  const editable = document.querySelectorAll('[data-editable]');
+  editable.forEach((el,i) => {
+    if(!el.dataset.editId) el.dataset.editId = 'ep-'+i;
+  });
+
+  const icons = document.querySelectorAll('[data-icon]');
+  icons.forEach((el,i) => {
+    if(!el.dataset.editId) el.dataset.editId = 'icon-'+i;
+  });
+
+  store.texts.forEach(item => {
+    if(item.id.startsWith('icon-')){
+      const realId = item.id.replace('icon-','');
+      const el = document.querySelector(`[data-icon][data-edit-id="${realId}"]`);
+      if(el) el.textContent = item.val;
+    } else {
+      const el = document.querySelector(`[data-editable][data-edit-id="${item.id}"]`);
+      if(el) el.innerHTML = item.val;
+    }
+  });
+}
+
+/* ══ TOAST ══ */
+function showToast(msg){
+  const t = document.createElement('div');
+  t.style.cssText = 'position:fixed;top:70px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;font-weight:700;font-size:13px;padding:10px 22px;border-radius:99px;z-index:600;box-shadow:0 4px 20px rgba(34,197,94,.5);white-space:nowrap;';
+  t.textContent = msg;
   document.body.appendChild(t);
-  setTimeout(()=>t.remove(),3000);
+  setTimeout(() => t.remove(), 3000);
 }
 
-// Prevent clicks on editable from triggering page navigation
-document.querySelectorAll('[data-editable]').forEach(el=>{
-  el.addEventListener('click',function(e){
-    if(editMode)e.stopPropagation();
-  });
-});
-
-// Init
-assignIds();
+/* ══ INIT ══ */
+loadColors();
+updatePrices();
 loadEdits();
+updateWALinks();
+handleHash();
 </script>
 </body>
 </html>
