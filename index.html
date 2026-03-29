@@ -260,6 +260,10 @@ body.edit-mode [data-icon]{outline:2px dashed rgba(251,191,36,.5)!important;outl
 body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align:super;}
 body.edit-mode [data-wanumber]{outline:2px dashed rgba(37,211,102,.6)!important;outline-offset:3px;border-radius:4px;cursor:pointer;}
 body.edit-mode [data-wanumber]:hover{outline-color:#25d366!important;}
+body.edit-mode [data-wa-btn]{outline:2px dashed rgba(37,211,102,.8)!important;outline-offset:3px;border-radius:10px;cursor:pointer;position:relative;}
+body.edit-mode [data-wa-btn]::after{content:'💬 Editar link';position:absolute;top:-22px;left:50%;transform:translateX(-50%);background:#25d366;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:99px;white-space:nowrap;pointer-events:none;z-index:10;}
+body.edit-mode .wa-btn[data-wa-btn]{outline-offset:5px;border-radius:50%;}
+body.edit-mode .wa-btn[data-wa-btn]::after{top:-26px;}
 body.edit-mode [data-price]{outline:2px dashed rgba(251,191,36,.7)!important;outline-offset:3px;border-radius:4px;cursor:pointer;}
 body.edit-mode [data-price]:hover{outline-color:#fbbf24!important;}
 body.edit-mode [data-color]{outline:2px dashed rgba(168,85,247,.6)!important;outline-offset:3px;border-radius:4px;cursor:pointer;}
@@ -455,7 +459,7 @@ body.edit-mode [data-color]{outline:2px dashed rgba(168,85,247,.6)!important;out
 <nav>
   <button class="nav-back" onclick="goHome()">← Voltar</button>
   <div class="nav-logo"><div class="nav-logo-icon">⚡</div><span data-editable>PRO</span></div>
-  <button class="nav-cta-sm" onclick="openWA('Quero comprar o PRO!')">Comprar <span data-price data-price-key="pro-price">R$97</span></button>
+  <button class="nav-cta-sm" data-wa-btn data-wa-key="nav-pro-buy" onclick="openWA('Quero comprar o PRO!')">Comprar <span data-price data-price-key="pro-price">R$97</span></button>
 </nav>
 <div class="share-bar">
   <button class="btn-share" onclick="copyLink('pro')">🔗 Copiar link desta página</button>
@@ -563,8 +567,8 @@ body.edit-mode [data-color]{outline:2px dashed rgba(168,85,247,.6)!important;out
       <div class="pi" data-editable>Suporte e atualizações via WhatsApp</div>
     </div>
     <div class="btn-gap">
-      <button class="btn-primary" onclick="openWA('Quero comprar o Eletricista Power PRO!')">⚡ COMPRAR AGORA — <span data-price data-price-key="pro-price">R$ 97</span></button>
-      <button class="btn-ghost" onclick="openWA('Tenho dúvidas sobre o PRO')">💬 Tirar dúvidas antes</button>
+      <button class="btn-primary" data-wa-btn data-wa-key="pro-buy" onclick="openWA('Quero comprar o Eletricista Power PRO!')">⚡ COMPRAR AGORA — <span data-price data-price-key="pro-price">R$ 97</span></button>
+      <button class="btn-ghost" data-wa-btn data-wa-key="pro-doubt" onclick="openWA('Tenho dúvidas sobre o PRO')">💬 Tirar dúvidas antes</button>
     </div>
     <p class="price-note" data-editable>Após o pagamento você recebe o arquivo + instruções pelo WhatsApp em até 30 minutos</p>
   </div>
@@ -580,7 +584,7 @@ body.edit-mode [data-color]{outline:2px dashed rgba(168,85,247,.6)!important;out
 <nav>
   <button class="nav-back" onclick="goHome()">← Voltar</button>
   <div class="nav-logo" style="font-size:17px"><div class="nav-logo-icon" style="background:var(--green)">🔧</div><span data-editable>BASIC</span></div>
-  <button class="nav-cta-sm" style="background:var(--green)" onclick="openWA('Quero comprar o Basic!')">Comprar <span data-price data-price-key="basic-price">R$47</span></button>
+  <button class="nav-cta-sm" style="background:var(--green)" data-wa-btn data-wa-key="nav-basic-buy" onclick="openWA('Quero comprar o Basic!')">Comprar <span data-price data-price-key="basic-price">R$47</span></button>
 </nav>
 <div class="share-bar">
   <button class="btn-share" onclick="copyLink('basic')">🔗 Copiar link desta página</button>
@@ -686,8 +690,8 @@ body.edit-mode [data-color]{outline:2px dashed rgba(168,85,247,.6)!important;out
       <div class="pi" data-editable>Suporte via WhatsApp</div>
     </div>
     <div class="btn-gap">
-      <button class="btn-primary" style="background:linear-gradient(135deg,var(--green),#16a34a);box-shadow:0 8px 28px rgba(34,197,94,.4)" onclick="openWA('Quero comprar o Basic!')">🔧 COMPRAR AGORA — <span data-price data-price-key="basic-price">R$ 47</span></button>
-      <button class="btn-ghost" onclick="openWA('Dúvidas sobre o Basic')">💬 Tirar dúvidas antes</button>
+      <button class="btn-primary" style="background:linear-gradient(135deg,var(--green),#16a34a);box-shadow:0 8px 28px rgba(34,197,94,.4)" data-wa-btn data-wa-key="basic-buy" onclick="openWA('Quero comprar o Basic!')">🔧 COMPRAR AGORA — <span data-price data-price-key="basic-price">R$ 47</span></button>
+      <button class="btn-ghost" data-wa-btn data-wa-key="basic-doubt" onclick="openWA('Dúvidas sobre o Basic')">💬 Tirar dúvidas antes</button>
     </div>
     <p class="price-note" data-editable>Após o pagamento você recebe o arquivo + instruções pelo WhatsApp em até 30 minutos</p>
   </div>
@@ -700,7 +704,7 @@ body.edit-mode [data-color]{outline:2px dashed rgba(168,85,247,.6)!important;out
   📐 PAGE DIM
 ═══════════════════════════ -->
 <div id="page-dim" class="page">
-<nav><button class="nav-back" onclick="goHome()">← Voltar</button><div class="nav-logo" style="font-size:15px"><div class="nav-logo-icon" style="background:var(--purple)">📐</div><span>DIMENSIONADOR</span></div><button class="nav-cta-sm" style="background:var(--purple)" onclick="openWA('Quero ser avisado do Dimensionador!')">📩 Avise-me</button></nav>
+<nav><button class="nav-back" onclick="goHome()">← Voltar</button><div class="nav-logo" style="font-size:15px"><div class="nav-logo-icon" style="background:var(--purple)">📐</div><span>DIMENSIONADOR</span></div><button class="nav-cta-sm" style="background:var(--purple)" data-wa-btn data-wa-key="nav-dim-notify" onclick="openWA('Quero ser avisado do Dimensionador!')">📩 Avise-me</button></nav>
 <div class="share-bar"><button class="btn-share" onclick="copyLink('dim')">🔗 Copiar link desta página</button></div>
 <div class="detail-hero grid-bg">
   <div class="detail-glow" style="background:radial-gradient(circle,rgba(168,85,247,.14),transparent 70%)"></div>
@@ -737,7 +741,7 @@ body.edit-mode [data-color]{outline:2px dashed rgba(168,85,247,.6)!important;out
       <div class="pi" style="color:var(--purple)">Primeiro a saber quando lançar</div>
       <div class="pi" style="color:var(--purple)">Condição exclusiva de pré-venda</div>
     </div>
-    <button class="btn-primary" style="background:linear-gradient(135deg,var(--purple),#7c3aed);box-shadow:0 8px 28px rgba(168,85,247,.4)" onclick="openWA('Quero ser avisado do Dimensionador!')">📩 QUERO SER AVISADO NO LANÇAMENTO</button>
+    <button class="btn-primary" style="background:linear-gradient(135deg,var(--purple),#7c3aed);box-shadow:0 8px 28px rgba(168,85,247,.4)" data-wa-btn data-wa-key="dim-notify" onclick="openWA('Quero ser avisado do Dimensionador!')">📩 QUERO SER AVISADO NO LANÇAMENTO</button>
   </div>
 </section>
 <footer><div class="fl">⚡ ELETRICISTA POWER</div><p><a href="#" onclick="goHome();return false">← Voltar</a></p></footer>
@@ -748,7 +752,7 @@ body.edit-mode [data-color]{outline:2px dashed rgba(168,85,247,.6)!important;out
   📋 PAGE LAUDO
 ═══════════════════════════ -->
 <div id="page-laudo" class="page">
-<nav><button class="nav-back" onclick="goHome()">← Voltar</button><div class="nav-logo" style="font-size:15px"><div class="nav-logo-icon" style="background:var(--purple)">📋</div><span>LAUDO DIGITAL</span></div><button class="nav-cta-sm" style="background:var(--purple)" onclick="openWA('Quero ser avisado do Laudo Digital!')">📩 Avise-me</button></nav>
+<nav><button class="nav-back" onclick="goHome()">← Voltar</button><div class="nav-logo" style="font-size:15px"><div class="nav-logo-icon" style="background:var(--purple)">📋</div><span>LAUDO DIGITAL</span></div><button class="nav-cta-sm" style="background:var(--purple)" data-wa-btn data-wa-key="nav-laudo-notify" onclick="openWA('Quero ser avisado do Laudo Digital!')">📩 Avise-me</button></nav>
 <div class="share-bar"><button class="btn-share" onclick="copyLink('laudo')">🔗 Copiar link desta página</button></div>
 <div class="detail-hero grid-bg">
   <div class="detail-glow" style="background:radial-gradient(circle,rgba(168,85,247,.14),transparent 70%)"></div>
@@ -785,7 +789,7 @@ body.edit-mode [data-color]{outline:2px dashed rgba(168,85,247,.6)!important;out
       <div class="pi" style="color:var(--purple)">Primeiro a saber quando lançar</div>
       <div class="pi" style="color:var(--purple)">Condição exclusiva de pré-venda</div>
     </div>
-    <button class="btn-primary" style="background:linear-gradient(135deg,var(--purple),#7c3aed);box-shadow:0 8px 28px rgba(168,85,247,.4)" onclick="openWA('Quero ser avisado do Laudo Digital!')">📩 QUERO SER AVISADO NO LANÇAMENTO</button>
+    <button class="btn-primary" style="background:linear-gradient(135deg,var(--purple),#7c3aed);box-shadow:0 8px 28px rgba(168,85,247,.4)" data-wa-btn data-wa-key="laudo-notify" onclick="openWA('Quero ser avisado do Laudo Digital!')">📩 QUERO SER AVISADO NO LANÇAMENTO</button>
   </div>
 </section>
 <footer><div class="fl">⚡ ELETRICISTA POWER</div><p><a href="#" onclick="goHome();return false">← Voltar</a></p></footer>
@@ -793,14 +797,14 @@ body.edit-mode [data-color]{outline:2px dashed rgba(168,85,247,.6)!important;out
 
 
 <!-- WA BUTTON -->
-<a id="wa-float" href="#" class="wa-btn" target="_blank">💬</a>
+<a id="wa-float" href="#" class="wa-btn" data-wa-btn data-wa-key="float-wa" target="_blank">💬</a>
 
 <!-- EDIT TOOLBAR -->
 <div id="edit-toolbar">
   <button id="btn-save-edit" onclick="saveEdits()">💾 Salvar Edições</button>
   <button id="btn-edit-toggle" onclick="toggleEditMode()">✏️ Modo Edição</button>
 </div>
-<div id="edit-hint">✏️ Texto: toque direto · 💛 Emoji: clique · 🟢 WhatsApp · 💰 Preço · 🎨 Cores</div>
+<div id="edit-hint">✏️ Texto: toque direto · 💛 Emoji: clique · 🟢 WhatsApp/Links · 💰 Preço · 🎨 Cores</div>
 
 <!-- EDIT PANEL (bottom sheet) -->
 <div id="edit-panel">
@@ -835,6 +839,28 @@ body.edit-mode [data-color]{outline:2px dashed rgba(168,85,247,.6)!important;out
       <div class="edit-btns">
         <button class="edb-cancel" onclick="closePanel()">Cancelar</button>
         <button class="edb-confirm" onclick="confirmPriceEdit()">Atualizar todos ✓</button>
+      </div>
+    </div>
+    <div id="panel-content-walink" style="display:none">
+      <h4>🔗 EDITAR LINK DO BOTÃO</h4>
+      <p class="ep-sub" id="walink-panel-sub">Configure o destino deste botão</p>
+      <div id="walink-tabs" style="display:flex;gap:6px;margin-bottom:14px;">
+        <button id="walink-tab-wa" onclick="waLinkTab('wa')" style="flex:1;padding:8px;border-radius:8px;border:none;cursor:pointer;font-weight:700;font-size:12px;background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;">📱 WhatsApp</button>
+        <button id="walink-tab-url" onclick="waLinkTab('url')" style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--border2);cursor:pointer;font-weight:700;font-size:12px;background:var(--surface2);color:var(--txt2);">🔗 Link personalizado</button>
+      </div>
+      <div id="walink-wa-fields">
+        <label style="font-size:11px;color:var(--txt3);font-weight:700;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:4px;">Número (deixe vazio para usar o número global)</label>
+        <input id="walink-phone" type="text" placeholder="Ex: 5581999999999 (opcional)" maxlength="20" style="margin-bottom:8px;">
+        <label style="font-size:11px;color:var(--txt3);font-weight:700;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:4px;">Mensagem</label>
+        <input id="walink-input" type="text" placeholder="Ex: Quero comprar o PRO!">
+      </div>
+      <div id="walink-url-fields" style="display:none">
+        <label style="font-size:11px;color:var(--txt3);font-weight:700;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:4px;">URL de destino</label>
+        <input id="walink-url" type="text" placeholder="Ex: https://hotmart.com/produto/...">
+      </div>
+      <div class="edit-btns" style="margin-top:4px">
+        <button class="edb-cancel" onclick="closePanel()">Cancelar</button>
+        <button class="edb-confirm" onclick="confirmWaLinkEdit()">Salvar ✓</button>
       </div>
     </div>
     <div id="panel-content-colors" style="display:none">
@@ -890,7 +916,8 @@ function updateWALinks(){
   document.querySelectorAll('.wa-link').forEach(a => {
     a.href = `https://wa.me/${n}`;
   });
-  document.getElementById('wa-float').href = `https://wa.me/${n}?text=${encodeURIComponent('Olá! Vi os aplicativos e quero saber mais.')}`;
+  const floatMsg = getWaMsg('float-wa');
+  document.getElementById('wa-float').href = `https://wa.me/${n}?text=${encodeURIComponent(floatMsg)}`;
 }
 
 /* ══ PRICES ══ */
@@ -997,7 +1024,7 @@ function openApp(app, pushState=true){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-'+app).classList.add('active');
   window.scrollTo({top:0,behavior:'instant'});
-  if(pushState) history.pushState(null, '', '#'+app);
+  if(pushState) try{ history.pushState(null, '', '#'+app); }catch(e){}
   initReveal();
 }
 
@@ -1005,7 +1032,7 @@ function goHome(pushState=true){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
   document.getElementById('page-home').classList.add('active');
   window.scrollTo({top:0,behavior:'instant'});
-  if(pushState) history.pushState(null, '', window.location.pathname);
+  if(pushState) try{ history.pushState(null, '', window.location.pathname); }catch(e){}
 }
 
 window.addEventListener('popstate', handleHash);
@@ -1063,6 +1090,12 @@ function toggleEditMode(){
       el.onclick = function(e){ e.stopPropagation(); openPricePanel(this); };
     });
 
+    // WA button link clicks
+    document.querySelectorAll('[data-wa-btn]').forEach(el => {
+      el.style.cursor = 'pointer';
+      el.onclick = function(e){ e.preventDefault(); e.stopPropagation(); openWaLinkPanel(this); };
+    });
+
   } else {
     btn.innerHTML = '✏️ Modo Edição';
     btn.style.background = 'linear-gradient(135deg,#1e40af,#1d4ed8)';
@@ -1077,13 +1110,17 @@ function toggleEditMode(){
       el.onclick = null;
       el.style.cursor = '';
     });
+    document.querySelectorAll('[data-wa-btn]').forEach(el => {
+      el.style.cursor = '';
+    });
+    applyWaMsgs();
     closePanel();
   }
 }
 
 /* ══ PANEL SYSTEM ══ */
 function showPanel(sectionId){
-  ['panel-content-text','panel-content-icon','panel-content-wa','panel-content-price','panel-content-colors']
+  ['panel-content-text','panel-content-icon','panel-content-wa','panel-content-price','panel-content-colors','panel-content-walink']
     .forEach(id => document.getElementById(id).style.display = 'none');
   document.getElementById(sectionId).style.display = 'block';
   document.getElementById('edit-panel').classList.add('open');
@@ -1093,6 +1130,7 @@ function closePanel(){
   document.getElementById('edit-panel').classList.remove('open');
   editTarget = null;
   activePriceKey = null;
+  activeWaKey = null;
 }
 
 document.getElementById('edit-panel').addEventListener('click', function(e){
@@ -1142,6 +1180,136 @@ function confirmWaEdit(){
   updateWALinks();
   closePanel();
   showToast('📱 WhatsApp atualizado em toda a página!');
+}
+
+/* ══ WA LINK MESSAGES ══ */
+const defaultWaMsgs = {
+  'nav-pro-buy':    'Quero comprar o PRO!',
+  'pro-buy':        'Quero comprar o Eletricista Power PRO!',
+  'pro-doubt':      'Tenho dúvidas sobre o PRO',
+  'nav-basic-buy':  'Quero comprar o Basic!',
+  'basic-buy':      'Quero comprar o Basic!',
+  'basic-doubt':    'Dúvidas sobre o Basic',
+  'nav-dim-notify': 'Quero ser avisado do Dimensionador!',
+  'dim-notify':     'Quero ser avisado do Dimensionador!',
+  'nav-laudo-notify':'Quero ser avisado do Laudo Digital!',
+  'laudo-notify':   'Quero ser avisado do Laudo Digital!',
+  'float-wa':       'Olá! Vi os aplicativos e quero saber mais.'
+};
+
+const waBtnLabels = {
+  'nav-pro-buy':    'Botão Nav — Comprar PRO',
+  'pro-buy':        'Botão — COMPRAR PRO',
+  'pro-doubt':      'Botão — Tirar dúvidas PRO',
+  'nav-basic-buy':  'Botão Nav — Comprar Basic',
+  'basic-buy':      'Botão — COMPRAR Basic',
+  'basic-doubt':    'Botão — Tirar dúvidas Basic',
+  'nav-dim-notify': 'Botão Nav — Avise-me Dimensionador',
+  'dim-notify':     'Botão — Avise-me Dimensionador',
+  'nav-laudo-notify':'Botão Nav — Avise-me Laudo',
+  'laudo-notify':   'Botão — Avise-me Laudo',
+  'float-wa':       'Botão Flutuante WhatsApp'
+};
+
+let activeWaKey = null;
+
+function getWaMsgs(){
+  const store = getStore();
+  return store.waMsgs || {};
+}
+
+function getWaMsg(key){
+  return getWaMsgs()[key] || defaultWaMsgs[key] || '';
+}
+
+function applyWaMsgs(){
+  const store = getStore();
+  const msgs = store.waMsgs || {};
+  const globalNum = store.waNumber || waNumber;
+  document.querySelectorAll('[data-wa-btn]').forEach(el => {
+    const key = el.dataset.waKey;
+    if(!key) return;
+    const customUrl = msgs[key+'__url'];
+    const customPhone = msgs[key+'__phone'] || globalNum;
+    const msg = msgs[key] || defaultWaMsgs[key] || '';
+    el.onclick = function(e){
+      if(editMode){ e.preventDefault(); e.stopPropagation(); openWaLinkPanel(this); return; }
+      e.preventDefault();
+      if(customUrl) window.open(customUrl, '_blank');
+      else window.open(`https://wa.me/${customPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+    };
+  });
+  const floatEl = document.getElementById('wa-float');
+  if(floatEl){
+    const floatUrl = msgs['float-wa__url'];
+    const floatPhone = msgs['float-wa__phone'] || globalNum;
+    const floatMsg = msgs['float-wa'] || defaultWaMsgs['float-wa'];
+    floatEl.href = floatUrl || `https://wa.me/${floatPhone}?text=${encodeURIComponent(floatMsg)}`;
+  }
+}
+
+let activeWaLinkType = 'wa'; // 'wa' or 'url'
+
+function waLinkTab(type){
+  activeWaLinkType = type;
+  const wa = document.getElementById('walink-wa-fields');
+  const url = document.getElementById('walink-url-fields');
+  const tabWa = document.getElementById('walink-tab-wa');
+  const tabUrl = document.getElementById('walink-tab-url');
+  if(type === 'wa'){
+    wa.style.display = 'block'; url.style.display = 'none';
+    tabWa.style.background = 'linear-gradient(135deg,#16a34a,#22c55e)'; tabWa.style.color = '#fff'; tabWa.style.border = 'none';
+    tabUrl.style.background = 'var(--surface2)'; tabUrl.style.color = 'var(--txt2)'; tabUrl.style.border = '1px solid var(--border2)';
+  } else {
+    wa.style.display = 'none'; url.style.display = 'block';
+    tabUrl.style.background = 'linear-gradient(135deg,#1e40af,#1d4ed8)'; tabUrl.style.color = '#fff'; tabUrl.style.border = 'none';
+    tabWa.style.background = 'var(--surface2)'; tabWa.style.color = 'var(--txt2)'; tabWa.style.border = '1px solid var(--border2)';
+  }
+}
+
+function openWaLinkPanel(el){
+  editTarget = el;
+  activeWaKey = el.dataset.waKey;
+  const label = waBtnLabels[activeWaKey] || activeWaKey;
+  document.getElementById('walink-panel-sub').textContent = label;
+  const store = getStore();
+  const saved = (store.waMsgs && store.waMsgs[activeWaKey]) ? store.waMsgs[activeWaKey] : null;
+  const savedPhone = (store.waMsgs && store.waMsgs[activeWaKey+'__phone']) || '';
+  const savedUrl = (store.waMsgs && store.waMsgs[activeWaKey+'__url']) || '';
+  if(savedUrl){
+    document.getElementById('walink-url').value = savedUrl;
+    document.getElementById('walink-input').value = saved || defaultWaMsgs[activeWaKey] || '';
+    document.getElementById('walink-phone').value = savedPhone;
+    waLinkTab('url');
+  } else {
+    document.getElementById('walink-input').value = saved || defaultWaMsgs[activeWaKey] || '';
+    document.getElementById('walink-phone').value = savedPhone;
+    document.getElementById('walink-url').value = '';
+    waLinkTab('wa');
+  }
+  showPanel('panel-content-walink');
+  setTimeout(() => document.getElementById(activeWaLinkType==='wa'?'walink-input':'walink-url').focus(), 150);
+}
+
+function confirmWaLinkEdit(){
+  if(!activeWaKey) return;
+  const store = getStore();
+  if(!store.waMsgs) store.waMsgs = {};
+  if(activeWaLinkType === 'url'){
+    const url = document.getElementById('walink-url').value.trim();
+    if(url) store.waMsgs[activeWaKey+'__url'] = url;
+    else delete store.waMsgs[activeWaKey+'__url'];
+  } else {
+    const msg = document.getElementById('walink-input').value.trim();
+    const phone = document.getElementById('walink-phone').value.replace(/\D/g,'');
+    if(msg) store.waMsgs[activeWaKey] = msg; else delete store.waMsgs[activeWaKey];
+    if(phone) store.waMsgs[activeWaKey+'__phone'] = phone; else delete store.waMsgs[activeWaKey+'__phone'];
+    delete store.waMsgs[activeWaKey+'__url'];
+  }
+  setStore(store);
+  applyWaMsgs();
+  closePanel();
+  showToast('🔗 Link do botão atualizado!');
 }
 
 /* Price panel */
@@ -1246,6 +1414,7 @@ loadColors();
 updatePrices();
 loadEdits();
 updateWALinks();
+applyWaMsgs();
 handleHash();
 </script>
 </body>
