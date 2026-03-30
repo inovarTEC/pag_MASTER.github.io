@@ -890,7 +890,6 @@ const firebaseConfig = {
   messagingSenderId: "111779689903",
   appId: "1:111779689903:web:3999844c7ccaa1ec71ab5a"
 };
-const EDIT_PASSWORD = 'ELETRICISTAPRO2026';
 let db = null;
 
 /* ══ STORE — em memória; salva no Firebase só se autenticado ══ */
@@ -958,21 +957,29 @@ function requestEditMode(){
 }
 
 async function checkPassword(){
-  const val = document.getElementById('pwd-input').value;
-  if(val !== EDIT_PASSWORD){
-    const err = document.getElementById('pwd-error');
-    err.style.display = 'block';
-    setTimeout(() => err.style.display = 'none', 2000);
-    return;
-  }
-  document.getElementById('pwd-modal').classList.remove('open');
-  document.getElementById('pwd-input').value = '';
-  showToast('☁️ Conectando...');
+  const val = document.getElementById('pwd-input').value.trim();
+  if(!val){ return; }
+  showToast('☁️ Verificando...');
   try {
     await loadFirebaseSDK();
+    if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+    const tempDb = firebase.database();
+    /* Senha salva no Firebase em: /ep-config/pwd (hash SHA-256) */
+    const pwdSnap = await tempDb.ref('ep-config/pwd').once('value');
+    const correctPwd = pwdSnap.val();
+    const hashInput = await crypto.subtle.digest('SHA-256', new TextEncoder().encode(val));
+    const hashHex = Array.from(new Uint8Array(hashInput)).map(b=>b.toString(16).padStart(2,'0')).join('');
+    if(hashHex !== correctPwd){
+      const err = document.getElementById('pwd-error');
+      err.style.display = 'block';
+      setTimeout(() => err.style.display = 'none', 2000);
+      showToast('❌ Senha incorreta');
+      return;
+    }
+    document.getElementById('pwd-modal').classList.remove('open');
+    document.getElementById('pwd-input').value = '';
     if(!db){
-      if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
-      db = firebase.database();
+      db = tempDb;
       const [storeSnap, videosSnap] = await Promise.all([
         db.ref('ep-data').once('value'),
         db.ref('ep-videos').once('value')
@@ -989,10 +996,7 @@ async function checkPassword(){
       toggleEditMode();
     }, 500);
   } catch(e){
-    showToast('⚠️ Offline — editando sem nuvem');
-    document.getElementById('edit-toolbar').classList.add('unlocked');
-    document.getElementById('btn-video-edit').classList.add('unlocked');
-    toggleEditMode();
+    showToast('⚠️ Erro ao verificar senha');
   }
 }
 
