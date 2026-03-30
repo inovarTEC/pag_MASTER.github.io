@@ -140,7 +140,7 @@ section{padding:48px 16px;}
 .cta-sec::before{content:'';position:absolute;width:380px;height:380px;background:radial-gradient(circle,rgba(249,115,22,.13),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
 .cta-sec>*{position:relative;z-index:2;}
 
-footer{background:var(--bg);border-top:1px solid var(--border);padding:28px 16px;text-align:center;}
+footer{background:var(--bg);border-top:1px solid var(--border);padding:28px 16px;text-align:center;cursor:default;-webkit-tap-highlight-color:transparent;}
 footer .fl{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;}
 footer p{font-size:12px;color:var(--txt3);margin-bottom:5px;line-height:1.6;}
 footer a{color:var(--accent);text-decoration:none;}
@@ -926,13 +926,29 @@ function loadFirebaseSDK(){
   });
 }
 
-/* ══ ATALHO SECRETO — digita "edit" em qualquer lugar ══ */
+/* ══ ATALHO SECRETO — digita "edit" no teclado (desktop) ══ */
 let _keyBuffer = '';
 document.addEventListener('keydown', function(e){
   if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
   _keyBuffer += e.key.toLowerCase();
   if(_keyBuffer.length > 4) _keyBuffer = _keyBuffer.slice(-4);
   if(_keyBuffer === 'edit') requestEditMode();
+});
+
+/* ══ ATALHO MOBILE — 5 toques rápidos no rodapé ══ */
+let _tapCount = 0;
+let _tapTimer = null;
+document.addEventListener('click', function(e){
+  const footer = e.target.closest('footer');
+  if(!footer) return;
+  _tapCount++;
+  clearTimeout(_tapTimer);
+  if(_tapCount >= 5){
+    _tapCount = 0;
+    requestEditMode();
+  } else {
+    _tapTimer = setTimeout(() => { _tapCount = 0; }, 1500);
+  }
 });
 
 /* ══ PASSWORD ══ */
