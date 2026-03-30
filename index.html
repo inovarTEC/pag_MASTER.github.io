@@ -2,1172 +2,1744 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Guia — Página HTML + GitHub + Firebase + Claude</title>
-<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Eletricista Power Apps</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Outfit:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
 :root{
   --bg:#040d1a;--bg2:#071224;--surface:#0c1e35;--surface2:#112540;
-  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.15);
+  --border:rgba(255,255,255,.07);--border2:rgba(255,255,255,.12);
   --accent:#f97316;--accent2:#fbbf24;--accent3:#38bdf8;
-  --green:#22c55e;--purple:#a855f7;--red:#ef4444;
   --txt:#f0f6ff;--txt2:#94a3b8;--txt3:#475569;
+  --green:#22c55e;--purple:#a855f7;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth;-webkit-tap-highlight-color:transparent}
-body{background:var(--bg);color:var(--txt);font-family:'Outfit',sans-serif;overflow-x:hidden;line-height:1.6;min-height:100vh;}
+body{background:var(--bg);color:var(--txt);font-family:'Outfit',sans-serif;overflow-x:hidden;line-height:1.6;}
 
-/* ── TABS NAV ── */
-.tab-nav{position:sticky;top:0;z-index:100;background:rgba(4,13,26,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);display:flex;align-items:center;gap:0;padding:0 16px;height:56px;}
-.tab-logo{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-right:20px;white-space:nowrap;flex-shrink:0;}
-.tabs{display:flex;gap:4px;flex:1;}
-.tab-btn{display:flex;align-items:center;gap:7px;padding:8px 16px;border-radius:8px;border:none;background:transparent;color:var(--txt3);font-family:'Outfit',sans-serif;font-size:13px;font-weight:700;cursor:pointer;transition:all .2s;white-space:nowrap;}
-.tab-btn:hover{color:var(--txt2);background:rgba(255,255,255,.04);}
-.tab-btn.active{background:rgba(249,115,22,.12);color:var(--accent);border:1px solid rgba(249,115,22,.25);}
-.tab-btn .tab-icon{font-size:15px;}
+.page{display:none;min-height:100vh;}
+.page.active{display:block;animation:pageIn .3s ease both;}
+@keyframes pageIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
 
-/* ── PAGES ── */
-.page{display:none;min-height:calc(100vh - 56px);animation:fadeIn .3s ease;}
-.page.active{display:block;}
-@keyframes fadeIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+.grid-bg{background-image:linear-gradient(rgba(56,189,248,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(56,189,248,.03) 1px,transparent 1px);background-size:36px 36px;}
 
-/* ── HERO ── */
-.hero{padding:40px 16px 32px;text-align:center;position:relative;overflow:hidden;border-bottom:1px solid var(--border);}
-.hero::before{content:'';position:absolute;width:500px;height:500px;background:radial-gradient(circle,rgba(249,115,22,.08),transparent 70%);top:-150px;left:50%;transform:translateX(-50%);pointer-events:none;}
-.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.25);padding:5px 14px;border-radius:99px;font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:16px;}
-.hero h1{font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,8vw,56px);letter-spacing:2px;line-height:1;margin-bottom:12px;}
+nav{position:sticky;top:0;z-index:100;height:56px;padding:0 14px;display:flex;align-items:center;justify-content:space-between;background:rgba(4,13,26,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);}
+.nav-logo{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;display:flex;align-items:center;gap:8px;cursor:pointer;}
+.nav-logo-icon{width:28px;height:28px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:15px;-webkit-text-fill-color:initial;flex-shrink:0;}
+.nav-back{display:flex;align-items:center;gap:6px;font-size:13px;font-weight:700;color:var(--txt2);cursor:pointer;padding:6px 12px;border-radius:8px;border:1px solid var(--border);background:transparent;transition:all .2s;-webkit-text-fill-color:var(--txt2);}
+.nav-back:hover{border-color:var(--border2);color:var(--txt);-webkit-text-fill-color:var(--txt);}
+.nav-cta-sm{background:linear-gradient(135deg,var(--accent),#ea580c);color:#fff;font-weight:700;font-size:12px;padding:8px 16px;border-radius:8px;border:none;cursor:pointer;box-shadow:0 4px 14px rgba(249,115,22,.3);transition:all .2s;-webkit-text-fill-color:#fff;white-space:nowrap;}
+
+.btn-primary{display:flex;align-items:center;justify-content:center;gap:10px;background:linear-gradient(135deg,var(--accent),#ea580c);color:#fff;font-weight:800;font-size:15px;padding:17px;border-radius:12px;border:none;cursor:pointer;box-shadow:0 8px 28px rgba(249,115,22,.4);transition:all .25s;width:100%;-webkit-text-fill-color:#fff;}
+.btn-primary:hover{box-shadow:0 12px 44px rgba(249,115,22,.55);transform:translateY(-2px);}
+.btn-ghost{display:flex;align-items:center;justify-content:center;gap:8px;background:transparent;border:1.5px solid var(--border2);color:var(--txt2);font-weight:600;font-size:14px;padding:14px;border-radius:12px;cursor:pointer;transition:all .25s;width:100%;-webkit-text-fill-color:var(--txt2);}
+.btn-ghost:hover{border-color:rgba(255,255,255,.25);color:var(--txt);-webkit-text-fill-color:var(--txt);}
+
+.hero{padding:36px 16px 44px;text-align:center;position:relative;overflow:hidden;}
+.hero-glow{position:absolute;width:480px;height:480px;background:radial-gradient(circle,rgba(249,115,22,.11),transparent 70%);top:-150px;left:50%;transform:translateX(-50%);pointer-events:none;}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:rgba(249,115,22,.1);border:1px solid rgba(249,115,22,.3);padding:6px 14px;border-radius:99px;font-size:11px;font-weight:700;color:var(--accent);text-transform:uppercase;letter-spacing:.1em;margin-bottom:20px;}
+.hero-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(46px,12vw,76px);line-height:.95;letter-spacing:2px;margin-bottom:16px;}
 .grad{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 .grad-blue{background:linear-gradient(90deg,var(--accent3),#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
-.hero p{font-size:14px;color:var(--txt2);max-width:480px;margin:0 auto;}
+.hero-sub{font-size:15px;color:var(--txt2);line-height:1.75;margin-bottom:26px;max-width:400px;margin-left:auto;margin-right:auto;}
+.hero-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-bottom:28px;max-width:400px;margin-left:auto;margin-right:auto;}
+.stat-box{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:13px 8px;}
+.stat-box strong{display:block;font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;background:linear-gradient(135deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.stat-box span{font-size:10px;color:var(--txt3);font-weight:600;text-transform:uppercase;letter-spacing:.04em;line-height:1.3;display:block;}
 
-/* ── PROGRESS BAR ── */
-.progress-wrap{padding:16px;background:var(--bg2);border-bottom:1px solid var(--border);}
-.progress-label{display:flex;justify-content:space-between;font-size:12px;color:var(--txt3);font-weight:600;margin-bottom:8px;}
-.progress-bar{height:6px;background:rgba(255,255,255,.06);border-radius:99px;overflow:hidden;}
-.progress-fill{height:100%;background:linear-gradient(90deg,var(--accent),var(--accent2));border-radius:99px;transition:width .4s ease;width:0%;}
+.sec-label{display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--accent);margin-bottom:10px;}
+.sec-label::before{content:'';width:18px;height:2px;background:var(--accent);}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,7vw,46px);letter-spacing:2px;line-height:1;margin-bottom:10px;}
+.sec-sub{font-size:14px;color:var(--txt2);line-height:1.7;margin-bottom:26px;}
+section{padding:48px 16px;}
+.max480{max-width:480px;margin-left:auto;margin-right:auto;}
+.text-center{text-align:center;}
 
-/* ── CONTENT ── */
-.content{max-width:680px;margin:0 auto;padding:24px 16px 60px;}
+.apps-grid{display:flex;flex-direction:column;gap:14px;max-width:480px;margin:0 auto;}
+.app-card{background:var(--surface);border:1px solid var(--border);border-radius:18px;overflow:hidden;cursor:pointer;transition:all .3s;position:relative;}
+.app-card:active{transform:scale(.98);}
+.app-card.pro:hover{border-color:rgba(249,115,22,.5);box-shadow:0 16px 44px rgba(0,0,0,.4),0 0 0 1px rgba(249,115,22,.12);}
+.app-card.basic:hover{border-color:rgba(34,197,94,.5);box-shadow:0 16px 44px rgba(0,0,0,.4),0 0 0 1px rgba(34,197,94,.12);}
+.app-card.dev:hover{border-color:rgba(168,85,247,.4);box-shadow:0 16px 44px rgba(0,0,0,.4),0 0 0 1px rgba(168,85,247,.1);}
+.card-top{height:130px;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;}
+.pro .card-top{background:linear-gradient(135deg,#160800,#2d1200,#080010);}
+.basic .card-top{background:linear-gradient(135deg,#001810,#002010,#001020);}
+.dev .card-top{background:linear-gradient(135deg,#0d0020,#160030,#000d20);}
+.card-glow{position:absolute;inset:0;}
+.pro .card-glow{background:radial-gradient(circle at 65% 35%,rgba(249,115,22,.26),transparent 65%);}
+.basic .card-glow{background:radial-gradient(circle at 65% 35%,rgba(34,197,94,.26),transparent 65%);}
+.dev .card-glow{background:radial-gradient(circle at 65% 35%,rgba(168,85,247,.26),transparent 65%);}
+.card-emoji{font-size:52px;position:relative;z-index:2;animation:float 4s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-9px);}}
+.card-badge{position:absolute;top:10px;right:10px;z-index:3;padding:4px 10px;border-radius:99px;font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;}
+.pro .card-badge{background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff;}
+.basic .card-badge{background:var(--green);color:#fff;}
+.dev .card-badge{background:rgba(168,85,247,.2);border:1px solid rgba(168,85,247,.4);color:#c084fc;}
+.card-body{padding:16px 16px 18px;}
+.card-name{font-family:'Bebas Neue',sans-serif;font-size:21px;letter-spacing:1px;margin-bottom:6px;}
+.card-desc{font-size:13px;color:var(--txt2);line-height:1.6;margin-bottom:12px;}
+.card-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:14px;}
+.tag{background:rgba(255,255,255,.04);border:1px solid var(--border);padding:3px 9px;border-radius:99px;font-size:11px;color:var(--txt3);}
+.card-footer{display:flex;align-items:center;justify-content:space-between;padding-top:12px;border-top:1px solid var(--border);}
+.card-price{font-family:'Bebas Neue',sans-serif;font-size:25px;letter-spacing:1px;}
+.pro .card-price{background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.basic .card-price{color:var(--green);-webkit-text-fill-color:var(--green);}
+.dev .card-price{color:var(--purple);-webkit-text-fill-color:var(--purple);}
+.card-price small{font-family:'Outfit',sans-serif;font-size:11px;color:var(--txt3);-webkit-text-fill-color:var(--txt3);font-weight:500;}
+.card-arrow{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:17px;transition:transform .2s;}
+.pro .card-arrow{background:rgba(249,115,22,.14);}
+.basic .card-arrow{background:rgba(34,197,94,.14);}
+.dev .card-arrow{background:rgba(168,85,247,.14);}
+.app-card:hover .card-arrow{transform:translateX(4px);}
 
-/* ── STEP CARD ── */
-.step-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;margin-bottom:16px;overflow:hidden;transition:border-color .2s;}
-.step-card.done{border-color:rgba(34,197,94,.3);}
-.step-header{display:flex;align-items:center;gap:14px;padding:18px;cursor:pointer;user-select:none;}
-.step-num{font-family:'Bebas Neue',sans-serif;font-size:32px;line-height:1;background:linear-gradient(135deg,rgba(249,115,22,.4),rgba(251,191,36,.2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;flex-shrink:0;width:32px;}
-.step-check{width:28px;height:28px;border-radius:50%;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;cursor:pointer;transition:all .2s;}
-.step-check:hover{border-color:var(--green);}
-.step-check.checked{background:var(--green);border-color:var(--green);}
-.step-info{flex:1;}
-.step-title{font-size:15px;font-weight:700;margin-bottom:2px;}
-.step-sub{font-size:12px;color:var(--txt3);}
-.step-arrow{color:var(--txt3);font-size:14px;transition:transform .2s;}
-.step-card.open .step-arrow{transform:rotate(90deg);}
-.step-body{display:none;padding:0 18px 20px;}
-.step-card.open .step-body{display:block;}
-.step-body p{font-size:14px;color:var(--txt2);line-height:1.75;margin-bottom:14px;}
-.step-body p strong{color:var(--txt);}
-.step-body ul{list-style:none;display:flex;flex-direction:column;gap:7px;margin-bottom:14px;}
-.step-body ul li{font-size:13px;color:var(--txt2);padding-left:20px;position:relative;line-height:1.6;}
-.step-body ul li::before{content:'→';position:absolute;left:0;color:var(--accent);font-weight:700;}
+.about-sec{background:var(--bg2);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.avatar-wrap{width:100px;height:100px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2),var(--accent3));padding:3px;margin:0 auto 18px;position:relative;}
+.avatar-wrap::before{content:'';position:absolute;inset:-8px;border-radius:50%;background:conic-gradient(from 0deg,var(--accent),var(--accent2),var(--accent3),var(--accent));opacity:.22;animation:spin 8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.avatar-inner{width:100%;height:100%;border-radius:50%;background:var(--surface);display:flex;align-items:center;justify-content:center;font-size:40px;position:relative;z-index:1;}
+.cred-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:18px;}
+.cred-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:13px;text-align:left;transition:border-color .2s;}
+.cred-item:hover{border-color:rgba(249,115,22,.22);}
+.cred-item .ci-icon{font-size:18px;margin-bottom:5px;}
+.cred-item strong{display:block;font-size:12px;font-weight:700;margin-bottom:2px;}
+.cred-item span{font-size:11px;color:var(--txt3);line-height:1.4;}
 
-/* ── CODE BLOCK ── */
-.code-block{background:var(--bg);border:1px solid var(--border2);border-radius:10px;padding:14px 16px;font-family:'JetBrains Mono',monospace;font-size:12px;color:#e2e8f0;line-height:1.7;margin-bottom:14px;position:relative;overflow-x:auto;}
-.code-block .cb-label{font-size:10px;color:var(--txt3);font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:8px;font-family:'Outfit',sans-serif;}
-.code-val{color:var(--accent2);}
-.code-key{color:var(--accent3);}
-.code-str{color:var(--green);}
-.code-comment{color:var(--txt3);}
-.copy-btn{position:absolute;top:10px;right:10px;background:rgba(255,255,255,.06);border:1px solid var(--border2);color:var(--txt2);font-size:11px;font-weight:700;padding:5px 12px;border-radius:6px;cursor:pointer;font-family:'Outfit',sans-serif;transition:all .2s;}
-.copy-btn:hover{background:rgba(249,115,22,.15);border-color:rgba(249,115,22,.3);color:var(--accent);}
-.copy-btn.copied{background:rgba(34,197,94,.15);border-color:rgba(34,197,94,.3);color:var(--green);}
+.steps{display:flex;flex-direction:column;gap:11px;max-width:480px;margin:0 auto;}
+.step{background:var(--surface);border:1px solid var(--border);border-radius:15px;padding:18px;display:flex;align-items:flex-start;gap:14px;transition:all .2s;}
+.step:hover{border-color:rgba(249,115,22,.2);transform:translateX(3px);}
+.step-num{font-family:'Bebas Neue',sans-serif;font-size:38px;line-height:1;background:linear-gradient(135deg,rgba(249,115,22,.3),rgba(251,191,36,.15));-webkit-background-clip:text;-webkit-text-fill-color:transparent;flex-shrink:0;width:34px;}
+.step-icon{font-size:22px;margin-bottom:6px;}
+.step h3{font-size:14px;font-weight:700;margin-bottom:4px;}
+.step p{font-size:13px;color:var(--txt2);line-height:1.6;}
 
-/* ── ALERT BOX ── */
-.alert{border-radius:10px;padding:14px 16px;margin-bottom:14px;font-size:13px;line-height:1.65;display:flex;gap:10px;align-items:flex-start;}
-.alert-icon{font-size:16px;flex-shrink:0;margin-top:1px;}
-.alert.tip{background:rgba(56,189,248,.07);border:1px solid rgba(56,189,248,.2);color:#bae6fd;}
-.alert.warn{background:rgba(251,191,36,.07);border:1px solid rgba(251,191,36,.2);color:#fde68a;}
-.alert.ok{background:rgba(34,197,94,.07);border:1px solid rgba(34,197,94,.2);color:#bbf7d0;}
+.videos-grid{display:flex;flex-direction:column;gap:13px;max-width:480px;margin:0 auto;}
+.video-card{background:var(--surface);border:1px solid var(--border);border-radius:15px;overflow:hidden;transition:all .3s;}
+.video-card:hover{border-color:rgba(249,115,22,.28);}
+.video-thumb{width:100%;aspect-ratio:16/9;position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;cursor:pointer;background:linear-gradient(135deg,#1a0a00,#2d1200);}
+.video-thumb::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50%,rgba(249,115,22,.2),transparent 70%);}
+.video-thumb-emoji{font-size:36px;position:absolute;opacity:.18;}
+.play-btn{width:50px;height:50px;background:linear-gradient(135deg,var(--accent),#ea580c);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:18px;position:relative;z-index:1;box-shadow:0 6px 22px rgba(249,115,22,.5);transition:transform .2s;}
+.video-card:hover .play-btn{transform:scale(1.08);}
+.video-info{padding:13px 15px;}
+.vname{font-weight:700;font-size:14px;margin-bottom:2px;}
+.vrole{font-size:11px;color:var(--txt3);}
+.vquote{font-size:13px;color:var(--txt2);margin-top:7px;font-style:italic;line-height:1.65;}
 
-/* ── PROMPT CARD ── */
-.prompt-card{background:var(--bg2);border:1px solid rgba(168,85,247,.2);border-radius:12px;padding:16px;margin-bottom:14px;position:relative;}
-.prompt-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--purple);margin-bottom:10px;display:flex;align-items:center;gap:7px;}
-.prompt-label::before{content:'';width:14px;height:2px;background:var(--purple);}
-.prompt-text{font-size:13px;color:var(--txt2);line-height:1.75;font-style:italic;}
-.prompt-text .ph{background:rgba(249,115,22,.15);border:1px solid rgba(249,115,22,.3);padding:1px 6px;border-radius:4px;color:var(--accent);font-style:normal;font-size:12px;font-weight:700;}
+.reviews-grid{display:flex;flex-direction:column;gap:11px;max-width:480px;margin:0 auto;}
+.review-card{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px;transition:all .3s;}
+.review-card:hover{border-color:rgba(251,191,36,.22);}
+.stars{color:#fbbf24;font-size:14px;margin-bottom:9px;letter-spacing:2px;}
+.review-text{font-size:13px;color:var(--txt2);line-height:1.7;margin-bottom:13px;font-style:italic;}
+.review-author{display:flex;align-items:center;gap:9px;}
+.rav{width:34px;height:34px;border-radius:50%;background:linear-gradient(135deg,var(--accent),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:#fff;flex-shrink:0;}
+.review-author strong{font-size:13px;font-weight:700;display:block;}
+.review-author span{font-size:11px;color:var(--txt3);}
 
-/* ── SECTION TITLE ── */
-.sec-label{display:inline-flex;align-items:center;gap:7px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--accent);margin-bottom:8px;}
-.sec-label::before{content:'';width:16px;height:2px;background:var(--accent);}
-.sec-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(22px,6vw,36px);letter-spacing:2px;line-height:1;margin-bottom:8px;}
-.sec-sub{font-size:13px;color:var(--txt2);margin-bottom:24px;line-height:1.65;}
+.cta-sec{background:linear-gradient(135deg,#1a0800,#0d1a00,#001020);border-top:1px solid var(--border);text-align:center;padding:52px 16px;position:relative;overflow:hidden;}
+.cta-sec::before{content:'';position:absolute;width:380px;height:380px;background:radial-gradient(circle,rgba(249,115,22,.13),transparent 70%);top:50%;left:50%;transform:translate(-50%,-50%);pointer-events:none;}
+.cta-sec>*{position:relative;z-index:2;}
 
-/* ── LAB PAGE ── */
-.lab-grid{display:flex;flex-direction:column;gap:14px;}
-.lab-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;padding:20px;}
-.lab-card h3{font-size:14px;font-weight:700;margin-bottom:4px;display:flex;align-items:center;gap:8px;}
-.lab-card p{font-size:12px;color:var(--txt3);margin-bottom:14px;line-height:1.6;}
-.lab-field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;}
-.lab-field label{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--txt3);}
-.lab-field input{background:var(--bg);border:1px solid var(--border2);border-radius:8px;padding:10px 12px;color:var(--txt);font-size:13px;font-family:'Outfit',sans-serif;outline:none;transition:border-color .2s;}
-.lab-field input:focus{border-color:rgba(249,115,22,.5);}
-.lab-field input::placeholder{color:var(--txt3);}
-.gen-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:12px;background:linear-gradient(135deg,var(--accent),#ea580c);color:#fff;font-weight:700;font-size:13px;border:none;border-radius:10px;cursor:pointer;transition:all .2s;margin-top:4px;}
-.gen-btn:hover{box-shadow:0 6px 20px rgba(249,115,22,.4);transform:translateY(-1px);}
-.gen-output{display:none;margin-top:14px;}
-.gen-output.show{display:block;}
+footer{background:var(--bg);border-top:1px solid var(--border);padding:28px 16px;text-align:center;}
+footer .fl{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:2px;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:8px;}
+footer p{font-size:12px;color:var(--txt3);margin-bottom:5px;line-height:1.6;}
+footer a{color:var(--accent);text-decoration:none;}
 
-/* ── FLOW VISUAL ── */
-.flow{display:flex;flex-direction:column;gap:0;max-width:320px;margin:16px auto 24px;}
-.flow-step{display:flex;align-items:center;gap:12px;padding:12px 16px;background:var(--surface);border:1px solid var(--border);border-radius:10px;font-size:13px;font-weight:600;}
-.flow-step .fs-icon{font-size:20px;flex-shrink:0;}
-.flow-step .fs-arrow{color:var(--accent);font-size:18px;font-weight:900;}
-.flow-connector{width:2px;height:20px;background:linear-gradient(180deg,rgba(249,115,22,.4),rgba(249,115,22,.1));margin:0 auto;}
+.wa-btn{position:fixed;bottom:80px;right:14px;width:50px;height:50px;background:#25d366;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px;box-shadow:0 5px 18px rgba(37,211,102,.4);cursor:pointer;z-index:150;transition:all .2s;text-decoration:none;}
+.wa-btn:hover{transform:scale(1.1);}
 
-/* ── PROMPTS PAGE ── */
-.prompt-grid{display:flex;flex-direction:column;gap:12px;}
-.prompt-item{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
-.prompt-item-header{padding:14px 16px;display:flex;align-items:flex-start;justify-content:space-between;gap:10px;}
-.prompt-item-tag{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;padding:3px 9px;border-radius:99px;flex-shrink:0;}
-.tag-setup{background:rgba(56,189,248,.12);color:var(--accent3);}
-.tag-edit{background:rgba(249,115,22,.12);color:var(--accent);}
-.tag-firebase{background:rgba(251,191,36,.12);color:var(--accent2);}
-.tag-fix{background:rgba(239,68,68,.12);color:#fca5a5;}
-.tag-new{background:rgba(34,197,94,.12);color:var(--green);}
-.prompt-item-text{font-size:13px;color:var(--txt2);line-height:1.65;flex:1;}
-.prompt-copy-btn{background:rgba(168,85,247,.1);border:1px solid rgba(168,85,247,.25);color:#c084fc;font-size:11px;font-weight:700;padding:6px 12px;border-radius:7px;cursor:pointer;white-space:nowrap;flex-shrink:0;transition:all .2s;font-family:'Outfit',sans-serif;}
-.prompt-copy-btn:hover{background:rgba(168,85,247,.2);}
-.prompt-copy-btn.copied{background:rgba(34,197,94,.15);border-color:rgba(34,197,94,.3);color:var(--green);}
+.detail-hero{padding:28px 16px 38px;text-align:center;position:relative;overflow:hidden;}
+.detail-glow{position:absolute;width:400px;height:400px;top:-100px;left:50%;transform:translateX(-50%);pointer-events:none;border-radius:50%;}
+.detail-emoji{font-size:72px;margin-bottom:14px;display:block;animation:float 4s ease-in-out infinite;}
+.detail-tag{display:inline-block;padding:4px 13px;border-radius:99px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;margin-bottom:13px;}
+.detail-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,9vw,58px);letter-spacing:2px;line-height:1;margin-bottom:12px;}
+.detail-sub{font-size:15px;color:var(--txt2);line-height:1.7;max-width:430px;margin:0 auto;}
 
-/* ── CATEGORY TITLE ── */
-.cat-title{font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:2px;color:var(--txt2);margin:24px 0 10px;display:flex;align-items:center;gap:10px;}
-.cat-title::after{content:'';flex:1;height:1px;background:var(--border);}
+.story-sec{padding:40px 16px;background:var(--bg2);border-top:1px solid var(--border);}
+.story-box{background:var(--surface);border:1px solid var(--border);border-radius:18px;padding:22px;max-width:480px;margin:0 auto;position:relative;overflow:hidden;}
+.story-box::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--accent),var(--accent2));}
+.story-icon{font-size:34px;margin-bottom:14px;display:block;}
+.story-box h3{font-family:'Bebas Neue',sans-serif;font-size:24px;letter-spacing:1px;margin-bottom:13px;}
+.story-box p{font-size:14px;color:var(--txt2);line-height:1.85;margin-bottom:12px;}
+.story-box p:last-of-type{margin-bottom:0;}
+.story-box p strong{color:var(--txt);}
+.story-highlight{background:linear-gradient(135deg,rgba(249,115,22,.09),rgba(251,191,36,.04));border:1px solid rgba(249,115,22,.22);border-radius:12px;padding:14px;margin-top:14px;}
+.story-highlight p{margin-bottom:0!important;font-style:italic;font-size:14px;}
+.story-highlight p strong{color:var(--accent);}
 
-/* ── CHECKLIST ── */
-.checklist{display:flex;flex-direction:column;gap:8px;margin-bottom:16px;}
-.check-item{display:flex;align-items:center;gap:10px;padding:10px 14px;background:var(--bg);border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:all .2s;font-size:13px;color:var(--txt2);}
-.check-item:hover{border-color:rgba(34,197,94,.3);}
-.check-item.checked{border-color:rgba(34,197,94,.3);background:rgba(34,197,94,.05);color:var(--txt);}
-.check-item .ci-box{width:18px;height:18px;border-radius:4px;border:2px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;transition:all .2s;}
-.check-item.checked .ci-box{background:var(--green);border-color:var(--green);}
+.latent-sec{padding:0 16px 40px;background:var(--bg2);}
+.latent-box{background:linear-gradient(135deg,rgba(249,115,22,.07),rgba(251,191,36,.03));border:1px solid rgba(249,115,22,.2);border-radius:16px;padding:20px;max-width:480px;margin:0 auto;}
+.latent-box h4{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:var(--accent2);margin-bottom:14px;}
+.latent-item{display:flex;gap:12px;align-items:flex-start;margin-bottom:12px;}
+.latent-item:last-child{margin-bottom:0;}
+.latent-item .li-icon{font-size:18px;flex-shrink:0;margin-top:2px;}
+.latent-item p{font-size:13px;color:var(--txt2);line-height:1.65;}
+.latent-item p strong{color:var(--txt);}
 
-/* ── DIVIDER ── */
-.divider{height:1px;background:var(--border);margin:24px 0;}
+.benefits-sec{padding:40px 16px;}
+.benefits-grid{display:flex;flex-direction:column;gap:11px;max-width:480px;margin:0 auto;}
+.benefit-item{background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:16px;display:flex;gap:13px;align-items:flex-start;transition:all .22s;}
+.benefit-item:hover{border-color:rgba(249,115,22,.22);transform:translateX(3px);}
+.benefit-item .bi-icon{font-size:26px;flex-shrink:0;margin-top:2px;}
+.benefit-item strong{display:block;font-size:14px;font-weight:700;margin-bottom:4px;}
+.benefit-item p{font-size:13px;color:var(--txt2);line-height:1.6;}
 
-/* ── BADGE ── */
-.badge{display:inline-flex;align-items:center;gap:5px;padding:3px 10px;border-radius:99px;font-size:11px;font-weight:700;}
-.badge-orange{background:rgba(249,115,22,.12);border:1px solid rgba(249,115,22,.25);color:var(--accent);}
-.badge-blue{background:rgba(56,189,248,.12);border:1px solid rgba(56,189,248,.25);color:var(--accent3);}
-.badge-green{background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.25);color:var(--green);}
+.think-sec{padding:40px 16px;background:var(--bg2);border-top:1px solid var(--border);}
+.think-box{background:linear-gradient(135deg,rgba(239,68,68,.07),rgba(249,115,22,.04));border:1px solid rgba(239,68,68,.18);border-radius:16px;padding:20px;max-width:480px;margin:0 auto;}
+.think-box h3{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:#fca5a5;margin-bottom:13px;}
+.think-item{display:flex;gap:11px;align-items:flex-start;margin-bottom:12px;}
+.think-item:last-child{margin-bottom:0;}
+.think-item .ti-icon{font-size:18px;flex-shrink:0;margin-top:2px;}
+.think-item p{font-size:13px;color:#fca5a5;line-height:1.65;}
+.think-item p strong{color:#fecaca;}
+.think-item p em{color:var(--txt2);font-style:normal;}
 
-/* ── URL EXAMPLE ── */
-.url-ex{background:var(--bg);border:1px solid var(--border2);border-radius:8px;padding:10px 14px;font-family:'JetBrains Mono',monospace;font-size:12px;color:var(--accent3);margin-bottom:12px;word-break:break-all;}
+.videos-sec{padding:40px 16px;}
+.detail-videos{display:flex;flex-direction:column;gap:18px;max-width:480px;margin:0 auto;}
+.dv-card{background:var(--surface);border:1px solid var(--border);border-radius:16px;overflow:hidden;}
+.dv-thumb{width:100%;aspect-ratio:16/9;background:linear-gradient(135deg,#1a0a00,#2d1200);display:flex;align-items:center;justify-content:center;position:relative;cursor:pointer;overflow:hidden;}
+.dv-thumb::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50%,rgba(249,115,22,.2),transparent 70%);}
+.dv-thumb-emoji{font-size:38px;position:absolute;opacity:.14;}
+.dv-play{width:54px;height:54px;background:linear-gradient(135deg,var(--accent),#ea580c);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;position:relative;z-index:1;box-shadow:0 7px 22px rgba(249,115,22,.5);transition:transform .2s;}
+.dv-card:hover .dv-play{transform:scale(1.1);}
+.dv-info{padding:14px 16px 10px;}
+.dvname{font-weight:700;font-size:14px;margin-bottom:2px;}
+.dvrole{font-size:11px;color:var(--txt3);}
+.dvquote{font-size:13px;color:var(--txt2);margin-top:9px;font-style:italic;line-height:1.65;}
+.dv-comments{padding:12px 16px 16px;border-top:1px solid var(--border);margin-top:8px;}
+.dv-comment{display:flex;gap:9px;align-items:flex-start;margin-bottom:11px;}
+.dv-comment:last-child{margin-bottom:0;}
+.dc-av{width:30px;height:30px;border-radius:50%;background:var(--surface2);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:var(--txt2);flex-shrink:0;}
+.dc-top{display:flex;align-items:center;gap:7px;margin-bottom:2px;}
+.dc-name{font-size:12px;font-weight:700;}
+.dc-stars{font-size:11px;color:#fbbf24;}
+.dc-text{font-size:12px;color:var(--txt2);line-height:1.6;}
 
-/* ── PRINT ── */
-@media print{
-  .tab-nav,.progress-wrap,.gen-btn,.copy-btn,.prompt-copy-btn,.print-btn,.no-print{display:none!important;}
-  .step-body{display:block!important;}
-  body{background:#fff!important;color:#000!important;}
-  .page{display:none!important;}
-  #page-manual{display:block!important;}
-  .m-section{background:#f9f9f9!important;border-color:#ddd!important;}
-  .m-hero{background:#fff!important;border-color:#eee!important;}
-  .m-title,.m-step h4{color:#000!important;}
-  .m-sub,.m-step p,.m-step li,.m-mini-card .mc-desc{color:#444!important;}
-  .m-code{background:#f5f5f5!important;color:#c2410c!important;border-color:#ddd!important;}
-  .m-footer{border-color:#ddd!important;color:#666!important;}
-  .m-mini-card{background:#f5f5f5!important;border-color:#ddd!important;}
-}
+.all-reviews-sec{padding:0 16px 40px;}
+.all-reviews-grid{display:flex;flex-direction:column;gap:11px;max-width:480px;margin:0 auto;}
 
-/* ── MANUAL PAGE ── */
-.manual-page{max-width:680px;margin:0 auto;padding:24px 16px 60px;}
-.print-btn{display:flex;align-items:center;justify-content:center;gap:8px;background:linear-gradient(135deg,var(--accent),#ea580c);color:#fff;font-weight:700;font-size:14px;padding:14px 24px;border-radius:12px;border:none;cursor:pointer;box-shadow:0 6px 20px rgba(249,115,22,.35);transition:all .2s;margin:0 auto 28px;max-width:260px;width:100%;}
-.print-btn:hover{box-shadow:0 10px 30px rgba(249,115,22,.5);transform:translateY(-2px);}
-.m-hero{background:linear-gradient(135deg,rgba(249,115,22,.08),rgba(251,191,36,.04));border:1px solid rgba(249,115,22,.2);border-radius:18px;padding:28px 24px;text-align:center;margin-bottom:20px;}
-.m-hero-icon{font-size:48px;margin-bottom:12px;}
-.m-title{font-family:'Bebas Neue',sans-serif;font-size:clamp(26px,7vw,40px);letter-spacing:2px;line-height:1;margin-bottom:8px;}
-.m-sub{font-size:13px;color:var(--txt2);line-height:1.65;}
-.m-section{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:12px;}
-.m-section-title{font-family:'Bebas Neue',sans-serif;font-size:16px;letter-spacing:1px;margin-bottom:14px;display:flex;align-items:center;gap:8px;}
-.m-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.15em;color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:7px;}
-.m-label::before{content:'';width:14px;height:2px;background:var(--accent);}
-.m-step{display:flex;gap:12px;align-items:flex-start;margin-bottom:10px;}
-.m-step:last-child{margin-bottom:0;}
-.m-step-num{font-family:'Bebas Neue',sans-serif;font-size:26px;line-height:1;color:var(--accent);flex-shrink:0;width:22px;}
-.m-step h4{font-size:13px;font-weight:700;margin-bottom:2px;}
-.m-step p{font-size:12px;color:var(--txt2);line-height:1.6;}
-.m-code{background:var(--bg);border:1px solid var(--border2);border-radius:7px;padding:9px 12px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--accent3);margin-top:5px;word-break:break-all;line-height:1.6;}
-.m-divider{height:1px;background:var(--border);margin:16px 0;}
-.m-footer{border-top:1px solid var(--border);padding-top:14px;text-align:center;font-size:11px;color:var(--txt3);line-height:1.9;margin-top:20px;}
-.m-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:2px;}
-.m-mini-card{background:var(--bg);border:1px solid var(--border);border-radius:8px;padding:10px 12px;}
-.m-mini-card .mc-icon{font-size:18px;margin-bottom:4px;}
-.m-mini-card .mc-title{font-size:12px;font-weight:700;margin-bottom:2px;}
-.m-mini-card .mc-desc{font-size:11px;color:var(--txt3);line-height:1.5;}
-.m-prompt{background:var(--bg);border-left:3px solid var(--purple);border-radius:0 8px 8px 0;padding:10px 12px;font-size:12px;color:var(--txt2);line-height:1.65;font-style:italic;margin-top:6px;}
+.price-sec{padding:40px 16px;background:var(--bg2);border-top:1px solid var(--border);}
+.price-box{background:linear-gradient(135deg,rgba(249,115,22,.1),rgba(251,191,36,.04));border:1.5px solid rgba(249,115,22,.32);border-radius:18px;padding:24px 18px;max-width:480px;margin:0 auto;text-align:center;}
+.pb-label{font-size:12px;color:var(--txt2);margin-bottom:5px;text-decoration:line-through;}
+.pb-big{font-family:'Bebas Neue',sans-serif;font-size:64px;letter-spacing:2px;line-height:1;background:linear-gradient(90deg,var(--accent),var(--accent2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:5px;}
+.pb-sub{font-size:13px;color:var(--txt2);margin-bottom:18px;}
+.price-includes{display:flex;flex-direction:column;gap:7px;margin-bottom:20px;text-align:left;}
+.pi{display:flex;align-items:center;gap:9px;font-size:13px;color:var(--txt2);}
+.pi::before{content:'✓';color:var(--green);font-weight:700;flex-shrink:0;}
+.btn-gap{display:flex;flex-direction:column;gap:10px;}
+.price-note{font-size:11px;color:var(--txt3);margin-top:11px;line-height:1.6;}
+.price-box.dev-box{background:rgba(168,85,247,.07);border-color:rgba(168,85,247,.28);}
+.price-box.dev-box .pb-big{background:linear-gradient(90deg,var(--purple),#818cf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
 
-/* ── SCROLLBAR ── */
-::-webkit-scrollbar{width:5px;height:5px;}
-::-webkit-scrollbar-track{background:var(--bg);}
-::-webkit-scrollbar-thumb{background:var(--border2);border-radius:99px;}
+.pulse-dot{width:7px;height:7px;border-radius:50%;background:var(--purple);display:inline-block;animation:pulseDot 1.5s ease-in-out infinite;}
+@keyframes pulseDot{0%,100%{transform:scale(1);opacity:1;}50%{transform:scale(1.6);opacity:.5;}}
+
+.reveal{opacity:0;transform:translateY(22px);transition:all .52s ease;}
+.reveal.visible{opacity:1;transform:translateY(0);}
+
+/* ══ SHARE BUTTON ══ */
+.share-bar{display:flex;align-items:center;justify-content:center;padding:12px 16px 0;}
+.btn-share{display:inline-flex;align-items:center;gap:8px;background:rgba(56,189,248,.08);border:1px solid rgba(56,189,248,.25);color:var(--accent3);font-size:12px;font-weight:700;padding:9px 18px;border-radius:99px;cursor:pointer;transition:all .2s;-webkit-text-fill-color:var(--accent3);}
+.btn-share:hover{background:rgba(56,189,248,.14);border-color:rgba(56,189,248,.45);}
+.btn-share.copied{background:rgba(34,197,94,.1);border-color:rgba(34,197,94,.3);color:var(--green);-webkit-text-fill-color:var(--green);}
+
+
+@media(min-width:600px){section{padding:60px 24px;}.max480,.apps-grid,.steps,.videos-grid,.reviews-grid,.detail-videos,.benefits-grid,.all-reviews-grid{max-width:560px;}.story-box,.think-box,.price-box,.latent-box{max-width:560px;}}
+
+/* ══ EDIT TOOLBAR — oculto para visitantes ══ */
+#edit-toolbar{position:fixed;bottom:156px;right:14px;z-index:200;display:flex;flex-direction:column;align-items:flex-end;gap:8px;visibility:hidden;pointer-events:none;}
+#edit-toolbar.unlocked{visibility:visible;pointer-events:all;}
+#btn-edit-toggle{background:linear-gradient(135deg,#1e40af,#1d4ed8);color:#fff;font-weight:700;font-size:12px;padding:10px 16px;border-radius:99px;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(30,64,175,.5);display:flex;align-items:center;gap:7px;transition:all .2s;white-space:nowrap;}
+#btn-save-edit{background:linear-gradient(135deg,var(--green),#16a34a);color:#fff;font-weight:700;font-size:12px;padding:10px 16px;border-radius:99px;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(34,197,94,.45);display:none;align-items:center;gap:7px;transition:all .2s;white-space:nowrap;}
+#btn-save-edit.visible{display:flex;}
+body.edit-mode [data-editable]{outline:2px dashed rgba(59,130,246,.5)!important;outline-offset:2px;border-radius:4px;cursor:text;min-width:20px;display:inline-block;}
+body.edit-mode [data-editable]:hover{outline-color:rgba(59,130,246,.9)!important;}
+body.edit-mode [data-editable]:focus{outline-color:#3b82f6!important;background:rgba(59,130,246,.07);}
+body.edit-mode [data-icon]{outline:2px dashed rgba(251,191,36,.5)!important;outline-offset:2px;cursor:pointer;border-radius:6px;}
+body.edit-mode [data-icon]::after{content:'✏️';font-size:10px;vertical-align:super;}
+body.edit-mode [data-wa-btn]{outline:2px dashed rgba(37,211,102,.8)!important;outline-offset:3px;border-radius:10px;cursor:pointer;position:relative;}
+body.edit-mode [data-wa-btn]::after{content:'💬 Editar link';position:absolute;top:-22px;left:50%;transform:translateX(-50%);background:#25d366;color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:99px;white-space:nowrap;pointer-events:none;z-index:10;}
+body.edit-mode .wa-btn[data-wa-btn]{outline-offset:5px;border-radius:50%;}
+body.edit-mode .wa-btn[data-wa-btn]::after{top:-26px;}
+body.edit-mode [data-price]{outline:2px dashed rgba(251,191,36,.7)!important;outline-offset:3px;border-radius:4px;cursor:pointer;}
+#edit-hint{position:fixed;top:64px;left:50%;transform:translateX(-50%);background:rgba(30,64,175,.95);border:1px solid rgba(59,130,246,.4);color:#bfdbfe;font-size:12px;font-weight:600;padding:8px 16px;border-radius:99px;z-index:300;white-space:nowrap;display:none;box-shadow:0 4px 20px rgba(0,0,0,.4);}
+/* Settings trigger */
+#settings-trigger{display:none;position:fixed;bottom:156px;left:14px;z-index:200;flex-direction:column;gap:8px;}
+/* Edit Panel */
+#edit-panel{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);display:none;align-items:flex-end;justify-content:center;padding:0;}
+#edit-panel.open{display:flex;}
+.edit-panel-box{background:var(--surface);border:1px solid rgba(59,130,246,.3);border-radius:22px 22px 0 0;padding:24px 20px 34px;width:100%;max-width:480px;max-height:85vh;overflow-y:auto;}
+.edit-panel-box h4{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;margin-bottom:6px;color:var(--accent3);}
+.edit-panel-box .ep-sub{font-size:12px;color:var(--txt3);margin-bottom:16px;}
+.edit-panel-box input,.edit-panel-box textarea{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:10px;padding:12px;color:var(--txt);font-size:14px;font-family:'Outfit',sans-serif;outline:none;margin-bottom:12px;}
+.edit-panel-box input:focus,.edit-panel-box textarea:focus{border-color:rgba(59,130,246,.6);}
+.edit-panel-box textarea{resize:vertical;min-height:80px;}
+.edit-btns{display:flex;gap:10px;}
+.edit-btns button{flex:1;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:13px;}
+.edb-confirm{background:linear-gradient(135deg,#1e40af,#1d4ed8);color:#fff;}
+.edb-cancel{background:var(--surface2);color:var(--txt2);}
+.settings-section{margin-bottom:20px;}
+.settings-section h5{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--txt3);margin-bottom:10px;border-bottom:1px solid var(--border);padding-bottom:6px;}
+.setting-row{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
+.setting-row label{font-size:13px;color:var(--txt2);}
+.setting-row input[type=color]{width:44px;height:30px;border-radius:7px;border:1px solid var(--border2);background:var(--bg);cursor:pointer;padding:2px;}
+.setting-row input[type=text]{max-width:180px;margin-bottom:0;padding:8px 10px;font-size:13px;}
+.panel-drag{width:40px;height:4px;background:var(--border2);border-radius:99px;margin:0 auto 18px;}
+/* ══ VIDEO EDIT MODE ══ */
+#btn-video-edit{position:fixed;bottom:130px;left:14px;z-index:200;background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;font-weight:700;font-size:12px;padding:10px 16px;border-radius:99px;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(168,85,247,.45);display:none;align-items:center;gap:7px;transition:all .2s;white-space:nowrap;}
+#btn-video-edit.active{background:linear-gradient(135deg,#dc2626,#b91c1c);box-shadow:0 4px 18px rgba(220,38,38,.45);}
+#btn-video-edit.unlocked{display:flex;}
+body.video-edit-mode [data-video]{outline:3px dashed rgba(168,85,247,.8)!important;outline-offset:4px;border-radius:8px;cursor:pointer!important;position:relative;}
+body.video-edit-mode [data-video]::after{content:'▶ Clique para configurar vídeo';position:absolute;inset:0;background:rgba(0,0,0,.7);display:flex;align-items:center;justify-content:center;font-size:13px;font-weight:700;color:#c084fc;border-radius:8px;pointer-events:none;}
+#video-panel{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);display:none;align-items:flex-end;justify-content:center;}
+#video-panel.open{display:flex;}
+.video-panel-box{background:var(--surface);border:1px solid rgba(168,85,247,.35);border-radius:22px 22px 0 0;padding:24px 20px 38px;width:100%;max-width:480px;}
+.video-panel-box h4{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:#c084fc;margin-bottom:4px;}
+.video-panel-box .vp-sub{font-size:12px;color:var(--txt3);margin-bottom:16px;line-height:1.5;}
+.video-panel-box input{width:100%;background:var(--bg);border:1px solid rgba(168,85,247,.4);border-radius:10px;padding:12px;color:var(--txt);font-size:14px;font-family:'Outfit',sans-serif;outline:none;margin-bottom:6px;}
+.video-panel-box input:focus{border-color:rgba(168,85,247,.8);}
+.vp-preview{font-size:11px;color:var(--accent3);margin-bottom:14px;min-height:16px;word-break:break-all;}
+.vp-btns{display:flex;gap:10px;}
+.vp-btns button{flex:1;padding:12px;border-radius:10px;border:none;cursor:pointer;font-weight:700;font-size:13px;}
+.vp-confirm{background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;}
+.vp-remove{background:rgba(220,38,38,.15);border:1px solid rgba(220,38,38,.3)!important;color:#fca5a5;}
+.vp-cancel{background:var(--surface2);color:var(--txt2);}
+.vp-drag{width:40px;height:4px;background:var(--border2);border-radius:99px;margin:0 auto 18px;}
+/* ══ VIDEO LIGHTBOX ══ */
+#video-lightbox{position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.95);display:none;align-items:center;justify-content:center;padding:16px;}
+#video-lightbox.open{display:flex;flex-direction:column;gap:12px;}
+#video-lightbox iframe{width:100%;max-width:640px;aspect-ratio:16/9;border:none;border-radius:12px;}
+#video-lightbox-close{background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.2);color:#fff;font-size:13px;font-weight:700;padding:10px 24px;border-radius:99px;cursor:pointer;}
+/* ══ FIXED BUY BAR ══ */
+.fixed-buy-bar{position:fixed;bottom:0;left:0;right:0;z-index:140;background:rgba(4,13,26,.97);border-top:1px solid rgba(255,255,255,.1);padding:12px 16px;display:none;gap:10px;align-items:center;backdrop-filter:blur(16px);padding-bottom:calc(12px + env(safe-area-inset-bottom));}
+.fixed-buy-bar.visible{display:flex;}
+.fbb-btn{flex:2;padding:14px;border-radius:10px;border:none;color:#fff;font-weight:800;font-size:14px;cursor:pointer;-webkit-text-fill-color:#fff;}
+.fbb-ghost{flex:1;padding:14px;border-radius:10px;border:1.5px solid rgba(255,255,255,.18);background:transparent;color:#fff;font-weight:700;font-size:13px;cursor:pointer;-webkit-text-fill-color:#fff;}
+/* ══ MID CTA ══ */
+.mid-cta-sec{padding:32px 16px;background:var(--bg);border-top:1px solid var(--border);border-bottom:1px solid var(--border);}
+.mid-cta-inner{max-width:420px;margin:0 auto;text-align:center;}
+.mid-cta-inner p{font-size:13px;color:var(--txt2);margin-bottom:14px;}
+.mid-cta-inner .btn-gap{display:flex;flex-direction:column;gap:10px;}
+
+/* ══ LOADING OVERLAY ══ */
+#loading-overlay{position:fixed;inset:0;z-index:9999;background:var(--bg);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;transition:opacity .4s ease;}
+#loading-overlay.hidden{opacity:0;pointer-events:none;}
+.loading-spinner{width:40px;height:40px;border:3px solid rgba(249,115,22,.2);border-top-color:var(--accent);border-radius:50%;animation:spin .8s linear infinite;}
+.loading-text{font-size:13px;color:var(--txt3);font-weight:600;}
+/* ══ PASSWORD MODAL ══ */
+#pwd-modal{position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.85);backdrop-filter:blur(12px);display:none;align-items:center;justify-content:center;}
+#pwd-modal.open{display:flex;}
+.pwd-box{background:var(--surface);border:1px solid rgba(59,130,246,.3);border-radius:18px;padding:28px 24px;width:90%;max-width:340px;text-align:center;}
+.pwd-box h4{font-family:'Bebas Neue',sans-serif;font-size:22px;letter-spacing:1px;color:var(--accent3);margin-bottom:6px;}
+.pwd-box p{font-size:12px;color:var(--txt3);margin-bottom:18px;}
+.pwd-box input{width:100%;background:var(--bg);border:1px solid var(--border2);border-radius:10px;padding:12px;color:var(--txt);font-size:16px;text-align:center;letter-spacing:4px;font-family:'Outfit',sans-serif;outline:none;margin-bottom:12px;}
+.pwd-box input:focus{border-color:rgba(59,130,246,.6);}
+.pwd-box button{width:100%;padding:12px;background:linear-gradient(135deg,#1e40af,#1d4ed8);color:#fff;font-weight:700;font-size:14px;border:none;border-radius:10px;cursor:pointer;}
+.pwd-error{font-size:12px;color:#fca5a5;margin-top:8px;display:none;}
 </style>
 </head>
 <body>
 
-<!-- NAV TABS -->
-<nav class="tab-nav">
-  <div class="tab-logo">⚡ GUIA</div>
-  <div class="tabs">
-    <button class="tab-btn active" onclick="switchTab('aula')" id="tab-aula">
-      <span class="tab-icon">📚</span> Aula
-    </button>
-    <button class="tab-btn" onclick="switchTab('lab')" id="tab-lab">
-      <span class="tab-icon">🧪</span> Laboratório
-    </button>
-    <button class="tab-btn" onclick="switchTab('prompts')" id="tab-prompts">
-      <span class="tab-icon">⚡</span> Prompts
-    </button>
-    <button class="tab-btn" onclick="switchTab('manual')" id="tab-manual">
-      <span class="tab-icon">📄</span> Manual
-    </button>
+<!-- LOADING OVERLAY -->
+<div id="loading-overlay">
+  <div class="loading-spinner"></div>
+  <div class="loading-text">Carregando...</div>
+</div>
+
+<!-- PASSWORD MODAL -->
+<div id="pwd-modal">
+  <div class="pwd-box">
+    <h4>🔐 MODO EDIÇÃO</h4>
+    <p>Digite a senha para editar a página</p>
+    <input id="pwd-input" type="password" placeholder="••••••" onkeydown="if(event.key==='Enter')checkPassword()">
+    <button onclick="checkPassword()">Entrar</button>
+    <div class="pwd-error" id="pwd-error">Senha incorreta</div>
   </div>
+</div>
+
+<!-- ═══════════════════════════
+  ⚡ HOME PAGE
+═══════════════════════════ -->
+<div id="page-home" class="page active">
+<nav>
+  <div class="nav-logo" onclick="goHome()"><div class="nav-logo-icon">⚡</div><span data-editable>ELETRICISTA POWER</span></div>
+  <button class="nav-cta-sm" onclick="document.getElementById('sec-apps').scrollIntoView({behavior:'smooth'})">Ver Apps ↗</button>
 </nav>
 
-<!-- ═══════════════════════════════════
-  📚 PÁGINA 1 — AULA
-═══════════════════════════════════ -->
-<div id="page-aula" class="page active">
-
-  <div class="hero">
-    <div class="hero-badge">📚 Passo a passo completo</div>
-    <h1>PÁGINA HTML<br><span class="grad">PUBLICADA</span> E<br><span class="grad-blue">EDITÁVEL</span></h1>
-    <p>Como publicar sua página no GitHub, conectar um domínio, integrar o Firebase e editar tudo remotamente usando o Claude AI.</p>
+<div class="hero grid-bg">
+  <div class="hero-glow"></div>
+  <div class="hero-badge">⚡ <span data-editable>Ferramentas Pro para Eletricistas</span></div>
+  <h1 class="hero-title">
+    <span class="grad" data-editable>TRABALHE MAIS</span><br>
+    <span style="color:var(--txt)" data-editable>RÁPIDO.</span><br>
+    <span class="grad-blue" data-editable>GANHE MAIS.</span>
+  </h1>
+  <p class="hero-sub" data-editable>Aplicativos desenvolvidos por engenheiro eletricista. Orçamentos em minutos, cálculos NBR na palma da mão.</p>
+  <div class="hero-stats">
+    <div class="stat-box"><strong data-editable>3 min</strong><span data-editable>para um orçamento</span></div>
+    <div class="stat-box"><strong data-editable>NBR</strong><span data-editable>5410 inclusa</span></div>
+    <div class="stat-box"><strong data-editable>24/7</strong><span data-editable>funciona offline</span></div>
   </div>
-
-  <div class="progress-wrap">
-    <div class="progress-label">
-      <span>Progresso</span>
-      <span id="progress-text">0 / 10 etapas</span>
-    </div>
-    <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
-  </div>
-
-  <div class="content">
-
-    <!-- FLOW VISUAL -->
-    <div style="text-align:center;margin-bottom:28px;">
-      <div class="sec-label">O fluxo completo</div>
-    </div>
-    <div class="flow">
-      <div class="flow-step"><span class="fs-icon">📄</span> Seu arquivo HTML</div>
-      <div class="flow-connector"></div>
-      <div class="flow-step"><span class="fs-icon">🐙</span> GitHub (código)</div>
-      <div class="flow-connector"></div>
-      <div class="flow-step"><span class="fs-icon">🌐</span> GitHub Pages (hospedagem)</div>
-      <div class="flow-connector"></div>
-      <div class="flow-step"><span class="fs-icon">🔗</span> Domínio personalizado</div>
-      <div class="flow-connector"></div>
-      <div class="flow-step"><span class="fs-icon">🔥</span> Firebase (dados na nuvem)</div>
-      <div class="flow-connector"></div>
-      <div class="flow-step"><span class="fs-icon">✏️</span> Edição remota com senha</div>
-    </div>
-
-    <!-- ETAPA 1 -->
-    <div class="step-card" id="step-1">
-      <div class="step-header" onclick="toggleStep(1)">
-        <div class="step-num">01</div>
-        <div class="step-check" id="check-1" onclick="toggleCheck(event,1)"></div>
-        <div class="step-info">
-          <div class="step-title">Preparar o arquivo HTML</div>
-          <div class="step-sub">Sua página pronta para publicar</div>
-        </div>
-        <div class="step-arrow">›</div>
-      </div>
-      <div class="step-body">
-        <p>Você precisa ter sua página em um único arquivo <strong>index.html</strong>. Tudo — CSS, JS e HTML — dentro desse arquivo.</p>
-        <div class="alert tip"><div class="alert-icon">💡</div><div>Se sua página usa vários arquivos (style.css, script.js), use o Claude para juntar tudo em um único index.html.</div></div>
-        <div class="prompt-card">
-          <div class="prompt-label">Prompt para o Claude</div>
-          <div class="prompt-text">"Tenho uma página HTML com arquivos separados de CSS e JS. Junte tudo em um único arquivo index.html, com o CSS no &lt;style&gt; e o JS no &lt;script&gt;, sem perder nenhuma funcionalidade."</div>
-        </div>
-        <div class="alert ok"><div class="alert-icon">✅</div><div>Resultado: um único arquivo <strong>index.html</strong> pronto para subir no GitHub.</div></div>
-      </div>
-    </div>
-
-    <!-- ETAPA 2 -->
-    <div class="step-card" id="step-2">
-      <div class="step-header" onclick="toggleStep(2)">
-        <div class="step-num">02</div>
-        <div class="step-check" id="check-2" onclick="toggleCheck(event,2)"></div>
-        <div class="step-info">
-          <div class="step-title">Criar conta e repositório no GitHub</div>
-          <div class="step-sub">github.com → New repository</div>
-        </div>
-        <div class="step-arrow">›</div>
-      </div>
-      <div class="step-body">
-        <p>Acesse <strong>github.com</strong> e crie sua conta se ainda não tiver. Depois:</p>
-        <ul>
-          <li>Clique em <strong>"New repository"</strong> (botão verde)</li>
-          <li>Nome do repositório: pode ser o nome do seu projeto (ex: <strong>eletricista-power</strong>)</li>
-          <li>Marque como <strong>Public</strong></li>
-          <li>Marque <strong>"Add a README file"</strong></li>
-          <li>Clique <strong>"Create repository"</strong></li>
-        </ul>
-        <div class="alert tip"><div class="alert-icon">💡</div><div>O nome do repositório vai aparecer na URL. Escolha algo sem espaços e sem caracteres especiais.</div></div>
-      </div>
-    </div>
-
-    <!-- ETAPA 3 -->
-    <div class="step-card" id="step-3">
-      <div class="step-header" onclick="toggleStep(3)">
-        <div class="step-num">03</div>
-        <div class="step-check" id="check-3" onclick="toggleCheck(event,3)"></div>
-        <div class="step-info">
-          <div class="step-title">Subir o index.html no GitHub</div>
-          <div class="step-sub">Usando o github.dev — sem instalar nada</div>
-        </div>
-        <div class="step-arrow">›</div>
-      </div>
-      <div class="step-body">
-        <p>No seu repositório, troque <strong>.com</strong> por <strong>.dev</strong> na URL do navegador:</p>
-        <div class="url-ex">github.com/seuusuario/seurepositorio<br>↓<br><span style="color:var(--accent)">github.dev</span>/seuusuario/seurepositorio</div>
-        <p>Vai abrir um <strong>VS Code no navegador</strong>. Então:</p>
-        <ul>
-          <li>Clique no ícone de arquivo (canto superior esquerdo)</li>
-          <li>Arraste seu <strong>index.html</strong> para dentro do explorador de arquivos</li>
-          <li>Ou clique com botão direito → <strong>"Upload Files"</strong></li>
-          <li>Clique no ícone do Git (ramificação na barra lateral)</li>
-          <li>Escreve qualquer mensagem (ex: "primeiro upload")</li>
-          <li>Clique <strong>"Commit & Push"</strong></li>
-        </ul>
-        <div class="alert ok"><div class="alert-icon">✅</div><div>Seu arquivo já está no GitHub!</div></div>
-      </div>
-    </div>
-
-    <!-- ETAPA 4 -->
-    <div class="step-card" id="step-4">
-      <div class="step-header" onclick="toggleStep(4)">
-        <div class="step-num">04</div>
-        <div class="step-check" id="check-4" onclick="toggleCheck(event,4)"></div>
-        <div class="step-info">
-          <div class="step-title">Ativar o GitHub Pages</div>
-          <div class="step-sub">Publicar a página gratuitamente</div>
-        </div>
-        <div class="step-arrow">›</div>
-      </div>
-      <div class="step-body">
-        <p>No seu repositório no GitHub:</p>
-        <ul>
-          <li>Clique em <strong>Settings</strong> (aba no topo)</li>
-          <li>No menu lateral esquerdo: <strong>Pages</strong></li>
-          <li>Em "Source" selecione: <strong>Deploy from a branch</strong></li>
-          <li>Branch: <strong>main</strong> → pasta: <strong>/ (root)</strong></li>
-          <li>Clique <strong>Save</strong></li>
-        </ul>
-        <p>Em 1-2 minutos sua página vai estar disponível em:</p>
-        <div class="url-ex">https://seuusuario.github.io/seurepositorio</div>
-        <div class="alert tip"><div class="alert-icon">💡</div><div>A cada vez que você fizer Commit & Push, o GitHub Pages republica automaticamente em ~2 minutos.</div></div>
-      </div>
-    </div>
-
-    <!-- ETAPA 5 -->
-    <div class="step-card" id="step-5">
-      <div class="step-header" onclick="toggleStep(5)">
-        <div class="step-num">05</div>
-        <div class="step-check" id="check-5" onclick="toggleCheck(event,5)"></div>
-        <div class="step-info">
-          <div class="step-title">Conectar domínio personalizado</div>
-          <div class="step-sub">Ex: eletricistapro.com.br</div>
-        </div>
-        <div class="step-arrow">›</div>
-      </div>
-      <div class="step-body">
-        <p>Se você tem um domínio (ex: <strong>eletricistapro.com.br</strong>), pode apontar para o GitHub Pages:</p>
-        <p><strong>No painel do seu provedor de domínio</strong> (Registro.br, GoDaddy, etc), adicione esses registros DNS:</p>
-        <div class="code-block">
-          <div class="cb-label">Registros DNS — tipo A</div>
-          185.199.108.153<br>
-          185.199.109.153<br>
-          185.199.110.153<br>
-          185.199.111.153
-        </div>
-        <div class="code-block">
-          <div class="cb-label">Registro CNAME (para www)</div>
-          www → seuusuario.github.io
-        </div>
-        <p><strong>No GitHub</strong> (Settings → Pages → Custom domain):</p>
-        <ul>
-          <li>Digite seu domínio: <strong>eletricistapro.com.br</strong></li>
-          <li>Marque <strong>"Enforce HTTPS"</strong></li>
-        </ul>
-        <div class="alert warn"><div class="alert-icon">⏳</div><div>DNS pode demorar até 24h para propagar. Enquanto isso sua página continua no endereço github.io.</div></div>
-      </div>
-    </div>
-
-    <!-- ETAPA 6 -->
-    <div class="step-card" id="step-6">
-      <div class="step-header" onclick="toggleStep(6)">
-        <div class="step-num">06</div>
-        <div class="step-check" id="check-6" onclick="toggleCheck(event,6)"></div>
-        <div class="step-info">
-          <div class="step-title">Adicionar modo de edição com Claude AI</div>
-          <div class="step-sub">Peça ao Claude para implementar</div>
-        </div>
-        <div class="step-arrow">›</div>
-      </div>
-      <div class="step-body">
-        <p>Cole seu index.html no Claude e use esse prompt:</p>
-        <div class="prompt-card">
-          <div class="prompt-label">Prompt — Modo de edição completo</div>
-          <div class="prompt-text">"Essa página está no modo de edição. Tire todas as ferramentas de edição visíveis e implemente um sistema completo onde: textos com data-editable sejam editáveis, emojis com data-icon sejam trocáveis, preços com data-price sejam editáveis, botões de WhatsApp sejam configuráveis. Tudo protegido por senha. O modo de edição só abre após digitar a senha correta."</div>
-        </div>
-        <div class="alert tip"><div class="alert-icon">💡</div><div>Você pode fazer isso com qualquer página HTML — não precisa ter sido feita pelo Claude.</div></div>
-      </div>
-    </div>
-
-    <!-- ETAPA 7 -->
-    <div class="step-card" id="step-7">
-      <div class="step-header" onclick="toggleStep(7)">
-        <div class="step-num">07</div>
-        <div class="step-check" id="check-7" onclick="toggleCheck(event,7)"></div>
-        <div class="step-info">
-          <div class="step-title">Criar projeto no Firebase</div>
-          <div class="step-sub">Banco de dados gratuito na nuvem</div>
-        </div>
-        <div class="step-arrow">›</div>
-      </div>
-      <div class="step-body">
-        <p>Acesse <strong>console.firebase.google.com</strong>:</p>
-        <ul>
-          <li>Clique <strong>"Adicionar projeto"</strong> → nome do projeto → criar</li>
-          <li>No menu: <strong>Criação → Realtime Database</strong></li>
-          <li>Clique <strong>"Criar banco de dados"</strong></li>
-          <li>Escolha <strong>"Iniciar no modo de teste"</strong> → Criar</li>
-          <li>Copie a URL que aparece: <strong>https://seuprojeto-default-rtdb.firebaseio.com</strong></li>
-        </ul>
-        <p>Depois vá em <strong>⚙️ Configurações do projeto → Seus apps → Web &lt;/&gt;</strong>:</p>
-        <ul>
-          <li>Registre um app web → copie o bloco <strong>firebaseConfig</strong></li>
-        </ul>
-        <div class="alert warn"><div class="alert-icon">⚠️</div><div>O modo de teste expira em 30 dias. Para produção, configure as regras de segurança no Firebase.</div></div>
-      </div>
-    </div>
-
-    <!-- ETAPA 8 -->
-    <div class="step-card" id="step-8">
-      <div class="step-header" onclick="toggleStep(8)">
-        <div class="step-num">08</div>
-        <div class="step-check" id="check-8" onclick="toggleCheck(event,8)"></div>
-        <div class="step-info">
-          <div class="step-title">Integrar Firebase na página</div>
-          <div class="step-sub">Edições salvas na nuvem</div>
-        </div>
-        <div class="step-arrow">›</div>
-      </div>
-      <div class="step-body">
-        <p>Com o firebaseConfig em mãos, peça ao Claude:</p>
-        <div class="prompt-card">
-          <div class="prompt-label">Prompt — Integrar Firebase</div>
-          <div class="prompt-text">"Implemente o Firebase Realtime Database nessa página. O Firebase deve carregar APENAS quando o usuário digitar a senha do modo de edição — os visitantes normais não devem carregar o SDK. Use esse config: [cole seu firebaseConfig aqui]. As edições devem ser salvas na nuvem e carregadas automaticamente quando entrar no modo edição."</div>
-        </div>
-        <div class="alert ok"><div class="alert-icon">✅</div><div>Resultado: visitantes não pagam o peso do Firebase. Só você carrega quando vai editar.</div></div>
-      </div>
-    </div>
-
-    <!-- ETAPA 9 -->
-    <div class="step-card" id="step-9">
-      <div class="step-header" onclick="toggleStep(9)">
-        <div class="step-num">09</div>
-        <div class="step-check" id="check-9" onclick="toggleCheck(event,9)"></div>
-        <div class="step-info">
-          <div class="step-title">Autorizar domínio no Firebase</div>
-          <div class="step-sub">Evita erro de domínio não autorizado</div>
-        </div>
-        <div class="step-arrow">›</div>
-      </div>
-      <div class="step-body">
-        <p>O Firebase bloqueia requisições de domínios desconhecidos. Você precisa autorizar o seu:</p>
-        <ul>
-          <li>Firebase Console → <strong>Authentication → Começar</strong></li>
-          <li>Aba <strong>Settings → Domínios autorizados</strong></li>
-          <li>Clique <strong>"Adicionar domínio"</strong></li>
-          <li>Adicione: <strong>seudominio.com.br</strong></li>
-          <li>Adicione: <strong>www.seudominio.com.br</strong></li>
-          <li>Adicione também: <strong>seuusuario.github.io</strong></li>
-        </ul>
-        <div class="alert tip"><div class="alert-icon">💡</div><div>Adicione sem http:// e sem barra no final. Só o domínio limpo.</div></div>
-      </div>
-    </div>
-
-    <!-- ETAPA 10 -->
-    <div class="step-card" id="step-10">
-      <div class="step-header" onclick="toggleStep(10)">
-        <div class="step-num">10</div>
-        <div class="step-check" id="check-10" onclick="toggleCheck(event,10)"></div>
-        <div class="step-info">
-          <div class="step-title">Subir e editar remotamente</div>
-          <div class="step-sub">Fluxo final de uso</div>
-        </div>
-        <div class="step-arrow">›</div>
-      </div>
-      <div class="step-body">
-        <p>Com tudo configurado, seu fluxo de edição fica assim:</p>
-        <div class="flow" style="margin:16px 0;">
-          <div class="flow-step" style="font-size:12px;padding:10px 14px;"><span class="fs-icon" style="font-size:16px;">📱</span> Abre sua página no celular ou PC</div>
-          <div class="flow-connector"></div>
-          <div class="flow-step" style="font-size:12px;padding:10px 14px;"><span class="fs-icon" style="font-size:16px;">✏️</span> Clica no botão Modo Edição</div>
-          <div class="flow-connector"></div>
-          <div class="flow-step" style="font-size:12px;padding:10px 14px;"><span class="fs-icon" style="font-size:16px;">🔑</span> Digita a senha</div>
-          <div class="flow-connector"></div>
-          <div class="flow-step" style="font-size:12px;padding:10px 14px;"><span class="fs-icon" style="font-size:16px;">☁️</span> Firebase carrega seus dados</div>
-          <div class="flow-connector"></div>
-          <div class="flow-step" style="font-size:12px;padding:10px 14px;"><span class="fs-icon" style="font-size:16px;">💾</span> Edita e salva na nuvem</div>
-          <div class="flow-connector"></div>
-          <div class="flow-step" style="font-size:12px;padding:10px 14px;"><span class="fs-icon" style="font-size:16px;">✅</span> Qualquer dispositivo vê atualizado</div>
-        </div>
-        <div class="alert ok"><div class="alert-icon">🎉</div><div>Pronto! Você pode editar sua página de qualquer lugar, sem baixar arquivos, sem mexer no GitHub, sem complicação.</div></div>
-      </div>
-    </div>
-
-  </div>
+  <button class="btn-primary" style="max-width:320px;margin:0 auto;" onclick="document.getElementById('sec-apps').scrollIntoView({behavior:'smooth'})">⚡ Ver Aplicativos Disponíveis</button>
 </div>
 
-<!-- ═══════════════════════════════════
-  🧪 PÁGINA 2 — LABORATÓRIO
-═══════════════════════════════════ -->
-<div id="page-lab" class="page">
-
-  <div class="hero">
-    <div class="hero-badge">🧪 Preencha seus dados</div>
-    <h1>LABORATÓRIO<br><span class="grad">INTERATIVO</span></h1>
-    <p>Preencha seus dados reais e gere os prompts e comandos já prontos com suas informações.</p>
+<section class="about-sec">
+  <div class="max480 text-center reveal">
+    <div class="avatar-wrap"><div class="avatar-inner" data-icon title="Clique para trocar emoji">👷</div></div>
+    <div class="sec-label">Quem desenvolveu</div>
+    <h2 class="sec-title">UM PROFISSIONAL <span class="grad" data-editable>DA ÁREA</span></h2>
+    <p class="sec-sub" data-editable>Formação em Engenharia Elétrica, anos de experiência em campo. Criado por quem sabe o que o eletricista precisa.</p>
+    <div class="cred-grid">
+      <div class="cred-item"><div class="ci-icon" data-icon>⚡</div><strong data-editable>Eng. Elétrica</strong><span data-editable>Formação sólida e campo</span></div>
+      <div class="cred-item"><div class="ci-icon" data-icon>💻</div><strong data-editable>Dev de Apps</strong><span data-editable>Foco em produtividade real</span></div>
+      <div class="cred-item"><div class="ci-icon" data-icon>📐</div><strong data-editable>NBR 5410</strong><span data-editable>Cálculos normatizados</span></div>
+      <div class="cred-item"><div class="ci-icon" data-icon>🏆</div><strong data-editable>Mercado Real</strong><span data-editable>Construído no dia a dia</span></div>
+    </div>
   </div>
+</section>
 
-  <div class="content">
-
-    <!-- SEUS DADOS -->
-    <div class="sec-label">Seus dados</div>
-    <h2 class="sec-title">PREENCHA <span class="grad">UMA VEZ</span></h2>
-    <p class="sec-sub">Tudo abaixo vai usar essas informações automaticamente.</p>
-
-    <div class="lab-card">
-      <h3>🐙 GitHub</h3>
-      <p>Informações do seu repositório</p>
-      <div class="lab-field">
-        <label>Usuário GitHub</label>
-        <input type="text" id="lab-github-user" placeholder="ex: meuusuario" oninput="updateLab()">
-      </div>
-      <div class="lab-field">
-        <label>Nome do repositório</label>
-        <input type="text" id="lab-github-repo" placeholder="ex: eletricista-power" oninput="updateLab()">
-      </div>
-    </div>
-
-    <div class="lab-card">
-      <h3>🌐 Domínio</h3>
-      <p>Seu domínio personalizado (se tiver)</p>
-      <div class="lab-field">
-        <label>Domínio</label>
-        <input type="text" id="lab-domain" placeholder="ex: eletricistapro.com.br" oninput="updateLab()">
+<section id="sec-apps">
+  <div class="text-center max480">
+    <div class="sec-label">Portfólio</div>
+    <h2 class="sec-title">ESCOLHA SUA <span class="grad">FERRAMENTA</span></h2>
+    <p class="sec-sub" data-editable>Clique em qualquer app para ver detalhes, como funciona e como comprar.</p>
+  </div>
+  <div class="apps-grid">
+    <div class="app-card pro reveal" onclick="openApp('pro')" tabindex="0" role="button">
+      <div class="card-top"><div class="card-glow"></div><span class="card-emoji" data-icon>⚡</span><div class="card-badge">PRO</div></div>
+      <div class="card-body">
+        <div class="card-name" data-editable>Eletricista Power PRO</div>
+        <div class="card-desc" data-editable>A ferramenta completa. Orçamento, NBR 5410, agenda, checklist, PDF profissional e muito mais.</div>
+        <div class="card-tags"><span class="tag" data-editable>Orçamentos</span><span class="tag" data-editable>NBR 5410</span><span class="tag" data-editable>Demanda</span><span class="tag" data-editable>Agenda</span><span class="tag" data-editable>PDF</span></div>
+        <div class="card-footer">
+          <div><div class="card-price" data-price data-price-key="pro-price">R$ 97</div><div style="font-size:11px;color:var(--green);font-weight:600;" data-editable>✓ Acesso vitalício</div></div>
+          <div class="card-arrow">→</div>
+        </div>
       </div>
     </div>
-
-    <div class="lab-card">
-      <h3>🔥 Firebase</h3>
-      <p>Dados do seu projeto Firebase</p>
-      <div class="lab-field">
-        <label>Nome do projeto Firebase</label>
-        <input type="text" id="lab-firebase-project" placeholder="ex: eletricista-power" oninput="updateLab()">
-      </div>
-      <div class="lab-field">
-        <label>databaseURL</label>
-        <input type="text" id="lab-firebase-url" placeholder="ex: https://seuprojeto-default-rtdb.firebaseio.com" oninput="updateLab()">
-      </div>
-    </div>
-
-    <div class="lab-card">
-      <h3>🔑 Senha do modo edição</h3>
-      <p>Senha para proteger o modo de edição da sua página</p>
-      <div class="lab-field">
-        <label>Senha</label>
-        <input type="text" id="lab-password" placeholder="ex: minhasenha2025" oninput="updateLab()">
+    <div class="app-card basic reveal" onclick="openApp('basic')" tabindex="0" role="button" style="transition-delay:.08s">
+      <div class="card-top"><div class="card-glow"></div><span class="card-emoji" style="animation-delay:.5s" data-icon>🔧</span><div class="card-badge">BASIC</div></div>
+      <div class="card-body">
+        <div class="card-name" data-editable>Eletricista Power Basic</div>
+        <div class="card-desc" data-editable>Perfeito para começar. Orçamentos rápidos, agenda de clientes e histórico completo.</div>
+        <div class="card-tags"><span class="tag" data-editable>Orçamentos</span><span class="tag" data-editable>Catálogo</span><span class="tag" data-editable>Agenda</span><span class="tag" data-editable>Histórico</span></div>
+        <div class="card-footer">
+          <div><div class="card-price" data-price data-price-key="basic-price">R$ 47</div><div style="font-size:11px;color:var(--green);font-weight:600;" data-editable>✓ Acesso vitalício</div></div>
+          <div class="card-arrow">→</div>
+        </div>
       </div>
     </div>
-
-    <div class="divider"></div>
-
-    <!-- OUTPUTS GERADOS -->
-    <div class="sec-label">Gerado para você</div>
-    <h2 class="sec-title">SEUS <span class="grad">COMANDOS</span></h2>
-
-    <div class="lab-card">
-      <h3>🔗 URL do github.dev</h3>
-      <p>Cole no navegador para editar seu código direto</p>
-      <div class="code-block" id="out-github-dev" style="position:relative">
-        <span style="color:var(--txt3)">Preencha usuário e repositório acima...</span>
-        <button class="copy-btn" onclick="copyOutput('out-github-dev')">Copiar</button>
+    <div class="app-card dev reveal" onclick="openApp('dim')" tabindex="0" role="button" style="transition-delay:.16s">
+      <div class="card-top"><div class="card-glow"></div><span class="card-emoji" style="animation-delay:1s" data-icon>📐</span><div class="card-badge"><span class="pulse-dot" style="margin-right:5px"></span>Em breve</div></div>
+      <div class="card-body">
+        <div class="card-name" data-editable>Dimensionador Elétrico Pro</div>
+        <div class="card-desc" data-editable>Dimensione cabos, disjuntores e DPS. Memorial de cálculo automático conforme NBR 5410.</div>
+        <div class="card-tags"><span class="tag" data-editable>Cabos</span><span class="tag" data-editable>Disjuntores</span><span class="tag" data-editable>DPS</span><span class="tag" data-editable>Memorial</span></div>
+        <div class="card-footer">
+          <div><div class="card-price" data-editable>Em breve</div><div style="font-size:11px;color:var(--purple);font-weight:600;" data-editable>📩 Avise-me</div></div>
+          <div class="card-arrow" style="background:rgba(168,85,247,.14)">→</div>
+        </div>
       </div>
     </div>
-
-    <div class="lab-card">
-      <h3>🌐 URL da página publicada</h3>
-      <p>Endereço onde sua página vai estar disponível</p>
-      <div class="code-block" id="out-pages-url" style="position:relative">
-        <span style="color:var(--txt3)">Preencha os dados acima...</span>
-        <button class="copy-btn" onclick="copyOutput('out-pages-url')">Copiar</button>
+    <div class="app-card dev reveal" onclick="openApp('laudo')" tabindex="0" role="button" style="transition-delay:.24s">
+      <div class="card-top"><div class="card-glow"></div><span class="card-emoji" style="animation-delay:1.5s" data-icon>📋</span><div class="card-badge"><span class="pulse-dot" style="margin-right:5px"></span>Em breve</div></div>
+      <div class="card-body">
+        <div class="card-name" data-editable>Laudo & Inspeção Digital</div>
+        <div class="card-desc" data-editable>Laudos técnicos NR-10, fotos e assinatura digital. PDF pronto para entrega.</div>
+        <div class="card-tags"><span class="tag" data-editable>NR-10</span><span class="tag" data-editable>Laudos</span><span class="tag" data-editable>Fotos</span><span class="tag" data-editable>Assinatura</span></div>
+        <div class="card-footer">
+          <div><div class="card-price" data-editable>Em breve</div><div style="font-size:11px;color:var(--purple);font-weight:600;" data-editable>📩 Avise-me</div></div>
+          <div class="card-arrow" style="background:rgba(168,85,247,.14)">→</div>
+        </div>
       </div>
     </div>
+  </div>
+</section>
 
-    <div class="lab-card">
-      <h3>⚡ Prompt completo — Firebase + Edição</h3>
-      <p>Pronto para colar no Claude com seus dados já preenchidos</p>
-      <div class="code-block" id="out-prompt-firebase" style="position:relative;white-space:pre-wrap;font-family:'Outfit',sans-serif;font-size:13px;color:var(--txt2);line-height:1.7">
-        <span style="color:var(--txt3)">Preencha os dados acima para gerar o prompt...</span>
-        <button class="copy-btn" onclick="copyOutput('out-prompt-firebase')">Copiar</button>
+<section style="background:var(--bg2);border-top:1px solid var(--border);">
+  <div class="text-center max480"><div class="sec-label">Simples assim</div><h2 class="sec-title">COMO <span class="grad">FUNCIONA</span></h2><p class="sec-sub" data-editable>Do download ao orçamento enviado em menos de 5 minutos.</p></div>
+  <div class="steps">
+    <div class="step reveal"><div class="step-num">01</div><div><div class="step-icon" data-icon>📱</div><h3 data-editable>Baixa e Instala</h3><p data-editable>Recebe o arquivo, salva na tela inicial do celular. Funciona como app nativo.</p></div></div>
+    <div class="step reveal" style="transition-delay:.08s"><div class="step-num">02</div><div><div class="step-icon" data-icon>⚙️</div><h3 data-editable>Configura seu Perfil</h3><p data-editable>Coloca nome, logo e preços dos serviços. Uma vez configurado, sempre pronto.</p></div></div>
+    <div class="step reveal" style="transition-delay:.16s"><div class="step-num">03</div><div><div class="step-icon" data-icon>🔧</div><h3 data-editable>Monta o Orçamento</h3><p data-editable>Busca os serviços, ajusta quantidades — valor calculado automaticamente.</p></div></div>
+    <div class="step reveal" style="transition-delay:.24s"><div class="step-num">04</div><div><div class="step-icon" data-icon>📤</div><h3 data-editable>Envia ao Cliente</h3><p data-editable>Gera PDF com sua logo e envia pelo WhatsApp na hora.</p></div></div>
+  </div>
+</section>
+
+<section>
+  <div class="text-center max480"><div class="sec-label">Quem já usa</div><h2 class="sec-title">O QUE ESTÃO <span class="grad">FALANDO</span></h2><p class="sec-sub" data-editable>Eletricistas de todo o Brasil aprovando.</p></div>
+  <div class="videos-grid">
+    <div class="video-card reveal">
+      <div class="video-thumb" data-video="home-v1"><div class="video-thumb-emoji">⚡</div><div class="play-btn">▶</div></div>
+      <div class="video-info"><div class="vname" data-editable>Carlos Henrique S.</div><div class="vrole" data-editable>Eletricista Autônomo · Recife, PE</div><div class="vquote" data-editable>"Antes eu demorava 1 hora pra montar um orçamento no papel. Hoje faço em 3 minutos."</div></div>
+    </div>
+    <div class="video-card reveal" style="transition-delay:.08s">
+      <div class="video-thumb" data-video="home-v2" style="background:linear-gradient(135deg,#001810,#002010)"><div class="video-thumb-emoji">🔧</div><div class="play-btn" style="background:linear-gradient(135deg,var(--green),#16a34a)">▶</div></div>
+      <div class="video-info"><div class="vname" data-editable>Rodrigo T.</div><div class="vrole" data-editable>Técnico Eletrotécnico · São Paulo, SP</div><div class="vquote" data-editable>"O cálculo de demanda e queda de tensão me salva toda hora. Tenho a NBR 5410 no bolso."</div></div>
+    </div>
+  </div>
+</section>
+
+<section style="background:var(--bg2);border-top:1px solid var(--border);">
+  <div class="text-center max480" style="margin-bottom:18px"><div style="font-size:14px;color:var(--txt2);font-weight:600">⭐ Avaliação média: <strong style="color:#fbbf24">4.9/5</strong> · +200 avaliações</div></div>
+  <div class="reviews-grid">
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"Me paguei no primeiro orçamento. Nunca mais perco serviço por demora em mandar proposta."</div><div class="review-author"><div class="rav" data-editable>M</div><div><strong data-editable>Marcos A.</strong><span data-editable>Eletricista · Fortaleza, CE</span></div></div></div>
+    <div class="review-card reveal" style="transition-delay:.06s"><div class="stars">★★★★★</div><div class="review-text" data-editable>"O PDF que sai é muito profissional. Os clientes ficam impressionados e confiam mais no trabalho."</div><div class="review-author"><div class="rav" data-editable>J</div><div><strong data-editable>João Pedro M.</strong><span data-editable>Eletricista · Porto Alegre, RS</span></div></div></div>
+    <div class="review-card reveal" style="transition-delay:.12s"><div class="stars">★★★★★</div><div class="review-text" data-editable>"Dimensiono a instalação na frente do cliente, na hora. Ele fica boquiaberto. Fecho mais serviço."</div><div class="review-author"><div class="rav" data-editable>P</div><div><strong data-editable>Paulo R.</strong><span data-editable>Técnico · Manaus, AM</span></div></div></div>
+  </div>
+</section>
+
+<section class="cta-sec">
+  <div class="sec-label" style="justify-content:center">Comece agora</div>
+  <h2 class="sec-title">PARE DE PERDER <span class="grad">DINHEIRO</span></h2>
+  <p style="font-size:15px;color:var(--txt2);margin-bottom:26px;line-height:1.75;max-width:400px;margin-left:auto;margin-right:auto" data-editable>Cada minuto fazendo orçamento na mão é dinheiro deixado na mesa. Comece agora.</p>
+  <div style="display:flex;flex-direction:column;gap:11px;max-width:300px;margin:0 auto">
+    <button class="btn-primary" onclick="openApp('pro')">⚡ Quero o PRO — <span data-price data-price-key="pro-price">R$ 97</span></button>
+    <button class="btn-ghost" onclick="openApp('basic')">🔧 Ver o Basic — <span data-price data-price-key="basic-price">R$ 47</span></button>
+  </div>
+  <p style="font-size:12px;color:var(--txt3);margin-top:16px" data-editable>✓ Acesso vitalício · ✓ Sem mensalidades · ✓ Funciona offline</p>
+</section>
+
+<footer>
+  <div class="fl">⚡ ELETRICISTA POWER</div>
+  <p data-editable>Aplicativos profissionais para eletricistas, técnicos e engenheiros.</p>
+  <p data-editable>Desenvolvido com ❤️ por profissional da área · <a class="wa-link" href="#">WhatsApp</a></p>
+  <p style="margin-top:10px;font-size:11px" data-editable>© 2025 Eletricista Power · Todos os direitos reservados</p>
+</footer>
+</div>
+
+
+<!-- ═══════════════════════════
+  ⚡ PAGE PRO
+═══════════════════════════ -->
+<div id="page-pro" class="page">
+<nav>
+  <button class="nav-back" onclick="goHome()">← Voltar</button>
+  <div class="nav-logo"><div class="nav-logo-icon">⚡</div><span data-editable>PRO</span></div>
+  <button class="nav-cta-sm" data-wa-btn data-wa-key="nav-pro-buy" onclick="openWA('Quero comprar o PRO!')">Comprar <span data-price data-price-key="pro-price">R$97</span></button>
+</nav>
+<div class="share-bar" style="gap:8px;flex-wrap:wrap;">
+  <button class="btn-share" onclick="shareApp('pro')">🔗 Compartilhar este app</button>
+</div>
+
+<div class="detail-hero grid-bg">
+  <div class="detail-glow" style="background:radial-gradient(circle,rgba(249,115,22,.14),transparent 70%)"></div>
+  <span class="detail-emoji" data-icon>⚡</span>
+  <span class="detail-tag" style="background:linear-gradient(135deg,var(--accent),var(--accent2));color:#fff" data-editable>PRO — Ferramenta Completa</span>
+  <h1 class="detail-title">ELETRICISTA POWER <span class="grad">PRO</span></h1>
+  <p class="detail-sub" data-editable>A ferramenta mais completa para eletricistas que querem profissionalismo, velocidade e mais lucro.</p>
+</div>
+
+<section class="story-sec">
+  <div class="story-box reveal">
+    <span class="story-icon" data-icon>🤔</span>
+    <h3 data-editable>IMAGINA ESSA SITUAÇÃO...</h3>
+    <p data-editable>É segunda-feira, 8h da manhã. Você chega na casa do cliente. Ele pergunta: <strong data-editable>"Quanto vai custar?"</strong></p>
+    <p data-editable>Você vai embora, pega o papel, a calculadora... <strong data-editable>1 hora se foi.</strong> E o cliente? Já fechou com outro eletricista que respondeu mais rápido.</p>
+    <p data-editable>Agora imagina: você pega o celular, busca os serviços em segundos — e em <strong data-editable>menos de 3 minutos</strong> o cliente já recebeu um PDF profissional com sua logo. Ele pensa: <strong data-editable>"Esse cara é diferente. Vou fechar com ele."</strong></p>
+    <div class="story-highlight">
+      <p data-editable>Com o PRO, isso acontece <strong style="color:var(--accent)">todo santo dia</strong> — em cada visita, você fecha mais porque impressiona mais.</p>
+    </div>
+  </div>
+</section>
+
+<section class="latent-sec">
+  <div class="latent-box reveal">
+    <h4 data-editable>🧠 VOCÊ SENTE ISSO TAMBÉM?</h4>
+    <div class="latent-item"><div class="li-icon">📞</div><p data-editable><strong data-editable>Cliente liga querendo agendar.</strong> Você não sabe de cabeça quais horários estão livres. Fica na dúvida, marca errado — e perde a confiança dele antes mesmo de visitar.</p></div>
+    <div class="latent-item"><div class="li-icon">😳</div><p data-editable><strong data-editable>Na frente do cliente, travou.</strong> Sem calculadora, sem referência de preço — você chuta um valor e sai com a sensação de que cobrou errado.</p></div>
+    <div class="latent-item"><div class="li-icon">📋</div><p data-editable><strong data-editable>Serviço concluído, mas e o controle?</strong> Garantia do serviço, material usado, data de entrega — tudo na cabeça ou num papel que vai se perder.</p></div>
+    <div class="latent-item"><div class="li-icon">💸</div><p data-editable>Com o PRO você <strong data-editable>agenda, orça, calcula, imprime e envia</strong> — tudo num app. O cliente sente que está contratando o melhor eletricista que já conheceu.</p></div>
+  </div>
+</section>
+
+<section class="benefits-sec">
+  <div class="text-center max480"><div class="sec-label">O que você ganha</div><h2 class="sec-title">BENEFÍCIOS <span class="grad">REAIS</span></h2></div>
+  <div class="benefits-grid">
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>⚡</div><div><strong data-editable>Orçamento em 3 minutos</strong><p data-editable>Residencial, predial, industrial. Busca rápida, preços pré-configurados, cálculo automático.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📄</div><div><strong data-editable>PDF com sua Logo</strong><p data-editable>Orçamento com seu nome, CNPJ e logo. O cliente recebe algo que impressiona — não um texto no zap.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📐</div><div><strong data-editable>Cálculo de Demanda NBR</strong><p data-editable>Dimensione a instalação por cômodo. Calcula carga total e define mono ou trifásico na hora, na obra.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>⚡</div><div><strong data-editable>Queda de Tensão</strong><p data-editable>Verifica se o cabo atende a norma. Calcula o percentual e alerta quando ultrapassa o limite NBR.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📅</div><div><strong data-editable>Agenda Completa</strong><p data-editable>Agendamentos, clientes, controle de garantias e relatório financeiro — tudo no celular.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>✅</div><div><strong data-editable>Checklist por Serviço</strong><p data-editable>Não esquece mais nenhum passo. Checklists específicos para cada tipo de serviço elétrico.</p></div></div>
+  </div>
+</section>
+
+<section class="think-sec">
+  <div class="think-box reveal">
+    <h3 data-editable>⚠️ PENSE BEM NISSO...</h3>
+    <div class="think-item"><div class="ti-icon">😤</div><p data-editable><strong data-editable>Quantos clientes você perdeu</strong> por demorar no orçamento? <em>Aquele que disse "vou pensar" e sumiu?</em></p></div>
+    <div class="think-item"><div class="ti-icon">⏰</div><p data-editable><strong data-editable>Quanto tempo você perde</strong> toda semana montando orçamento no papel? <em>Isso é dinheiro que você não está ganhando.</em></p></div>
+    <div class="think-item"><div class="ti-icon">💰</div><p data-editable>Se o app te fizer <strong data-editable>fechar 1 serviço a mais por mês</strong> — <em>que antes você perdeu por demora</em> — ele já se pagou. Muitas vezes.</p></div>
+  </div>
+</section>
+
+<section class="mid-cta-sec">
+  <div class="mid-cta-inner">
+    <p data-editable>Já viu o suficiente? Garanta agora.</p>
+    <div class="btn-gap">
+      <button class="btn-primary" data-wa-btn data-wa-key="pro-buy" onclick="openWA('Quero comprar o Eletricista Power PRO!')">⚡ COMPRAR AGORA — <span data-price data-price-key="pro-price">R$ 97</span></button>
+      <button class="btn-ghost" data-wa-btn data-wa-key="pro-doubt" onclick="openWA('Tenho dúvidas sobre o PRO')">💬 Tirar dúvidas antes</button>
+    </div>
+  </div>
+</section>
+
+<section class="videos-sec">
+  <div class="text-center max480"><div class="sec-label">Quem usa e aprova</div><h2 class="sec-title">VEJA O QUE <span class="grad">DIZEM</span></h2></div>
+  <div class="detail-videos">
+    <div class="dv-card reveal">
+      <div class="dv-thumb" data-video="pro-v1"><div class="dv-thumb-emoji">⚡</div><div class="dv-play">▶</div></div>
+      <div class="dv-info"><div class="dvname" data-editable>Carlos Henrique S.</div><div class="dvrole" data-editable>Eletricista Autônomo · Recife, PE · ⭐⭐⭐⭐⭐</div><div class="dvquote" data-editable>"Fiz o primeiro orçamento na frente do cliente. Ele aprovou na hora. Nunca tinha conseguido isso antes."</div></div>
+      <div class="dv-comments">
+        <div class="dv-comment"><div class="dc-av" data-editable>M</div><div><div class="dc-top"><span class="dc-name" data-editable>Marcos Lima</span><span class="dc-stars">★★★★★</span></div><div class="dc-text" data-editable>Fechei um contrato de R$4.500 porque o cliente adorou o PDF. Vale 10x o preço.</div></div></div>
+        <div class="dv-comment"><div class="dc-av" data-editable>J</div><div><div class="dc-top"><span class="dc-name" data-editable>João Ferreira</span><span class="dc-stars">★★★★★</span></div><div class="dc-text" data-editable>Antes eu reescrevia proposta 3 vezes. Agora em 3 cliques já está no WhatsApp do cliente.</div></div></div>
+        <div class="dv-comment"><div class="dc-av" data-editable>R</div><div><div class="dc-top"><span class="dc-name" data-editable>Roberto C.</span><span class="dc-stars">★★★★★</span></div><div class="dc-text" data-editable>O app me deu uma postura diferente na obra. O cliente percebe que eu sou organizado e profissional.</div></div></div>
       </div>
     </div>
+    <div class="dv-card reveal" style="transition-delay:.1s">
+      <div class="dv-thumb" data-video="pro-v2" style="background:linear-gradient(135deg,#001810,#002010)"><div class="dv-thumb-emoji">📐</div><div class="dv-play" style="background:linear-gradient(135deg,var(--accent3),#0ea5e9)">▶</div></div>
+      <div class="dv-info"><div class="dvname" data-editable>Eng. Fernanda L.</div><div class="dvrole" data-editable>Engenheira Eletricista · BH, MG · ⭐⭐⭐⭐⭐</div><div class="dvquote" data-editable>"O cálculo de demanda é preciso. Uso em visitas técnicas para dar estimativa rápida e impressionar o cliente."</div></div>
+      <div class="dv-comments">
+        <div class="dv-comment"><div class="dc-av" data-editable>A</div><div><div class="dc-top"><span class="dc-name" data-editable>Anderson L.</span><span class="dc-stars">★★★★⭐</span></div><div class="dc-text" data-editable>O checklist por tipo de serviço é ouro. Não esqueço nada e o cliente vê que sou organizado.</div></div></div>
+        <div class="dv-comment"><div class="dc-av" data-editable>F</div><div><div class="dc-top"><span class="dc-name" data-editable>Felipe S.</span><span class="dc-stars">★★★★★</span></div><div class="dc-text" data-editable>A tabela NBR offline me salva quando não tem internet na obra. Consulto e dimensiono na hora.</div></div></div>
+        <div class="dv-comment"><div class="dc-av" data-editable>D</div><div><div class="dc-top"><span class="dc-name" data-editable>Diego Alves</span><span class="dc-stars">★★★★★</span></div><div class="dc-text" data-editable>Meus clientes pedem indicação depois que veem o PDF profissional. Virei referência na cidade.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
 
-    <div class="lab-card">
-      <h3>🔥 Regras Firebase (modo produção)</h3>
-      <p>Cole no Firebase → Realtime Database → Regras</p>
-      <div class="code-block" id="out-firebase-rules" style="position:relative">
-{<br>
-&nbsp;&nbsp;<span class="code-str">"rules"</span>: {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">".read"</span>: <span class="code-val">false</span>,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">".write"</span>: <span class="code-val">false</span>,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">"ep-data"</span>: {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">".read"</span>: <span class="code-val">true</span>,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">".write"</span>: <span class="code-val">true</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;},<br>
-&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">"ep-videos"</span>: {<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">".read"</span>: <span class="code-val">true</span>,<br>
-&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="code-str">".write"</span>: <span class="code-val">true</span><br>
-&nbsp;&nbsp;&nbsp;&nbsp;}<br>
-&nbsp;&nbsp;}<br>
+<section class="all-reviews-sec">
+  <div class="text-center max480" style="margin-bottom:18px"><div style="font-size:14px;color:var(--txt2);font-weight:600">⭐ 4.9/5 · +200 avaliações verificadas</div></div>
+  <div class="all-reviews-grid">
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"Cobrei 20% a mais no último serviço porque apresentei o orçamento no tablet com o PRO. O cliente nem questionou o valor."</div><div class="review-author"><div class="rav" data-editable>S</div><div><strong data-editable>Sandro V.</strong><span data-editable>Eletricista Industrial · Curitiba, PR</span></div></div></div>
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"A agenda de garantias me salvou. Um cliente ligou 8 meses depois reclamando e eu mostrei que já tinha vencido o prazo."</div><div class="review-author"><div class="rav" data-editable>T</div><div><strong data-editable>Tiago N.</strong><span data-editable>Autônomo · Natal, RN</span></div></div></div>
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"Faço instalações industriais. O catálogo do PRO tem exatamente os serviços que eu uso. Configurei uma vez e uso todo dia."</div><div class="review-author"><div class="rav" data-editable>C</div><div><strong data-editable>César M.</strong><span data-editable>Eletricista Industrial · Campinas, SP</span></div></div></div>
+    <div class="review-card reveal"><div class="stars">★★★★⭐</div><div class="review-text" data-editable>"O relatório financeiro me mostrou que eu estava cobrando barato. Ajustei a tabela e aumentei o faturamento em 30%."</div><div class="review-author"><div class="rav" data-editable>L</div><div><strong data-editable>Lucas B.</strong><span data-editable>Eletricista · São Luís, MA</span></div></div></div>
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"Já indiquei pra 4 eletricistas da minha equipe. Todo mundo amou. Economizamos horas toda semana com os orçamentos."</div><div class="review-author"><div class="rav" data-editable>G</div><div><strong data-editable>Gustavo H.</strong><span data-editable>Empreiteiro Elétrico · Goiânia, GO</span></div></div></div>
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"Cliente pediu indicação depois do orçamento. Ele disse que eu era o eletricista mais profissional que já contratou."</div><div class="review-author"><div class="rav" data-editable>W</div><div><strong data-editable>Willian R.</strong><span data-editable>Eletricista Predial · Belém, PA</span></div></div></div>
+  </div>
+</section>
+
+<section class="price-sec">
+  <div class="price-box reveal">
+    <div class="pb-label" data-editable>De R$ 197,00</div>
+    <div class="pb-big" data-price data-price-key="pro-price">R$ 97</div>
+    <div class="pb-sub" data-editable>Pagamento único · Sem mensalidades · Acesso vitalício</div>
+    <div class="price-includes">
+      <div class="pi" data-editable>App PRO completo</div>
+      <div class="pi" data-editable>Ferramentas NBR 5410 completas</div>
+      <div class="pi" data-editable>PDF profissional com sua logo</div>
+      <div class="pi" data-editable>Agenda + Checklist + Materiais</div>
+      <div class="pi" data-editable>Funciona offline no celular</div>
+      <div class="pi" data-editable>Suporte e atualizações via WhatsApp</div>
+    </div>
+    <div class="btn-gap">
+      <button class="btn-primary" data-wa-btn data-wa-key="pro-buy" onclick="openWA('Quero comprar o Eletricista Power PRO!')">⚡ COMPRAR AGORA — <span data-price data-price-key="pro-price">R$ 97</span></button>
+      <button class="btn-ghost" data-wa-btn data-wa-key="pro-doubt" onclick="openWA('Tenho dúvidas sobre o PRO')">💬 Tirar dúvidas antes</button>
+    </div>
+    <p class="price-note" data-editable>Após o pagamento você recebe o arquivo + instruções pelo WhatsApp em até 30 minutos</p>
+  </div>
+</section>
+<footer><div class="fl">⚡ ELETRICISTA POWER</div><p data-editable><a href="#" onclick="goHome();return false">← Voltar para todos os apps</a></p></footer>
+</div>
+
+
+<!-- ═══════════════════════════
+  🔧 PAGE BASIC
+═══════════════════════════ -->
+<div id="page-basic" class="page">
+<nav>
+  <button class="nav-back" onclick="goHome()">← Voltar</button>
+  <div class="nav-logo" style="font-size:17px"><div class="nav-logo-icon" style="background:var(--green)">🔧</div><span data-editable>BASIC</span></div>
+  <button class="nav-cta-sm" style="background:var(--green)" data-wa-btn data-wa-key="nav-basic-buy" onclick="openWA('Quero comprar o Basic!')">Comprar <span data-price data-price-key="basic-price">R$47</span></button>
+</nav>
+<div class="share-bar" style="gap:8px;flex-wrap:wrap;">
+  <button class="btn-share" onclick="shareApp('basic')">🔗 Compartilhar este app</button>
+</div>
+
+<div class="detail-hero grid-bg">
+  <div class="detail-glow" style="background:radial-gradient(circle,rgba(34,197,94,.14),transparent 70%)"></div>
+  <span class="detail-emoji" data-icon>🔧</span>
+  <span class="detail-tag" style="background:var(--green);color:#fff" data-editable>BASIC — Ideal para começar</span>
+  <h1 class="detail-title">ELETRICISTA POWER <span style="color:var(--green)" data-editable>BASIC</span></h1>
+  <p class="detail-sub" data-editable>A ferramenta essencial para parecer mais profissional, fechar mais serviços e organizar sua vida de eletricista.</p>
+</div>
+
+<section class="story-sec">
+  <div class="story-box reveal" style="border-top-color:var(--green)">
+    <span class="story-icon" data-icon>💡</span>
+    <h3 data-editable>E SE VOCÊ PARECESSE MAIOR DO QUE É?</h3>
+    <p data-editable>O cliente não contrata só o serviço — ele contrata <strong data-editable>a impressão que você passa.</strong></p>
+    <p data-editable>Quando você manda um texto bagunçado no WhatsApp, ele pensa: <em style="color:var(--txt3)">"Será que esse cara é confiável?"</em></p>
+    <p data-editable>Mas quando você manda um <strong data-editable>PDF com sua logo, seus dados e o orçamento detalhado</strong>, ele pensa: <strong data-editable>"Esse eletricista é profissional. Vou fechar com ele."</strong></p>
+    <div class="story-highlight" style="background:rgba(34,197,94,.08);border-color:rgba(34,197,94,.22)">
+      <p data-editable>Tudo isso por <strong style="color:var(--green)">R$ 47 — menos do que uma hora do seu trabalho.</strong></p>
+    </div>
+  </div>
+</section>
+
+<section class="latent-sec">
+  <div class="latent-box reveal" style="background:linear-gradient(135deg,rgba(34,197,94,.07),rgba(16,185,129,.03));border-color:rgba(34,197,94,.18)">
+    <h4 style="color:#86efac" data-editable>🧠 VOCÊ JÁ PASSOU POR ISSO?</h4>
+    <div class="latent-item"><div class="li-icon">📱</div><p data-editable><strong data-editable>Cliente liga para marcar horário.</strong> Você não tem a agenda organizada, fica na dúvida se já tem compromisso — e o cliente sente que você não é organizado.</p></div>
+    <div class="latent-item"><div class="li-icon">📝</div><p data-editable><strong data-editable>Manda orçamento no WhatsApp.</strong> O cliente recebe aquele textão confuso e perde a confiança antes mesmo de ver o preço.</p></div>
+    <div class="latent-item"><div class="li-icon">🤝</div><p data-editable>Com o Basic você <strong data-editable>organiza, orça e envia PDF</strong> em minutos. O cliente te vê diferente — e você pode cobrar mais por isso.</p></div>
+  </div>
+</section>
+
+<section class="benefits-sec">
+  <div class="text-center max480"><div class="sec-label">O que você ganha</div><h2 class="sec-title">TUDO QUE <span style="color:var(--green)">VOCÊ PRECISA</span></h2></div>
+  <div class="benefits-grid">
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📋</div><div><strong data-editable>Orçamento Rápido e Profissional</strong><p data-editable>Seleciona o serviço, ajusta a quantidade — valor calculado. Pronto para enviar.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📤</div><div><strong data-editable>PDF e WhatsApp Direto</strong><p data-editable>PDF com seu nome e logo. Enviado pelo WhatsApp em segundos. Impressiona qualquer cliente.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📅</div><div><strong data-editable>Agenda e Controle de Clientes</strong><p data-editable>Agendamentos, garantias e relatório básico de receita. Nunca mais perde um compromisso.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📜</div><div><strong>Histórico de Orçamentos</strong><p data-editable>Todos os orçamentos salvos. Consulte ou reenvie quando o cliente ligar meses depois.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📦</div><div><strong>Catálogo Editável</strong><p data-editable>Ajuste preços para a sua região. Adicione seus próprios serviços e materiais.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>🌙</div><div><strong>Tema Claro e Escuro</strong><p data-editable>Alterne conforme o ambiente. Funciona bem tanto em escritório quanto na obra.</p></div></div>
+  </div>
+</section>
+
+<section class="think-sec">
+  <div class="think-box reveal">
+    <h3 data-editable>⚠️ VALE A PENA MESMO?</h3>
+    <div class="think-item"><div class="ti-icon">💸</div><p data-editable>R$ 47 é <strong>menos de uma hora do seu trabalho.</strong> <em>Se fechar 1 serviço a mais por parecer mais profissional, já pagou 10x.</em></p></div>
+    <div class="think-item"><div class="ti-icon">📱</div><p data-editable>Você já usa o celular pra tudo. <strong>Por que não usar pra mandar orçamento profissional</strong> <em>em vez de texto bagunçado no zap?</em></p></div>
+    <div class="think-item"><div class="ti-icon">🏆</div><p data-editable><strong>Seus concorrentes podem estar usando.</strong> <em>O cliente sempre escolhe quem pareceu mais organizado e profissional.</em></p></div>
+  </div>
+</section>
+
+<section class="mid-cta-sec">
+  <div class="mid-cta-inner">
+    <p data-editable>Já viu o suficiente? Garanta agora.</p>
+    <div class="btn-gap">
+      <button class="btn-primary" style="background:linear-gradient(135deg,var(--green),#16a34a);box-shadow:0 8px 28px rgba(34,197,94,.4)" data-wa-btn data-wa-key="basic-buy" onclick="openWA('Quero comprar o Basic!')">🔧 COMPRAR AGORA — <span data-price data-price-key="basic-price">R$ 47</span></button>
+      <button class="btn-ghost" data-wa-btn data-wa-key="basic-doubt" onclick="openWA('Dúvidas sobre o Basic')">💬 Tirar dúvidas antes</button>
+    </div>
+  </div>
+</section>
+
+<section class="videos-sec">
+  <div class="text-center max480"><div class="sec-label">Quem usa</div><h2 class="sec-title">VEJA O QUE <span style="color:var(--green)">DIZEM</span></h2></div>
+  <div class="detail-videos">
+    <div class="dv-card reveal">
+      <div class="dv-thumb" data-video="basic-v1" style="background:linear-gradient(135deg,#001810,#002010)"><div class="dv-thumb-emoji">🔧</div><div class="dv-play" style="background:linear-gradient(135deg,var(--green),#16a34a)">▶</div></div>
+      <div class="dv-info"><div class="dvname" data-editable>Anderson L.</div><div class="dvrole" data-editable>Eletricista Autônomo · Salvador, BA · ⭐⭐⭐⭐⭐</div><div class="dvquote" data-editable>"A agenda e as garantias salvas são perfeitas. Não perco mais o controle de nenhum serviço."</div></div>
+      <div class="dv-comments">
+        <div class="dv-comment"><div class="dc-av" data-editable>F</div><div><div class="dc-top"><span class="dc-name" data-editable>Felipe S.</span><span class="dc-stars">★★★★★</span></div><div class="dc-text" data-editable>O histórico de orçamentos salvou minha vida. Cliente ligou 3 meses depois e eu tinha tudo registrado.</div></div></div>
+        <div class="dv-comment"><div class="dc-av" data-editable>D</div><div><div class="dc-top"><span class="dc-name" data-editable>Diego M.</span><span class="dc-stars">★★★★★</span></div><div class="dc-text" data-editable>Simples e fácil de usar. Em 10 minutos já estava fazendo o primeiro orçamento. Muito bom!</div></div></div>
+        <div class="dv-comment"><div class="dc-av" data-editable>P</div><div><div class="dc-top"><span class="dc-name" data-editable>Pedro A.</span><span class="dc-stars">★★★★⭐</span></div><div class="dc-text" data-editable>Comecei com o Basic e já me pagou no primeiro mês. Pretendo subir pro PRO em breve.</div></div></div>
+      </div>
+    </div>
+    <div class="dv-card reveal" style="transition-delay:.1s">
+      <div class="dv-thumb" data-video="basic-v2" style="background:linear-gradient(135deg,#001020,#002010)"><div class="dv-thumb-emoji">📱</div><div class="dv-play" style="background:linear-gradient(135deg,var(--green),#16a34a)">▶</div></div>
+      <div class="dv-info"><div class="dvname" data-editable>Sandro V.</div><div class="dvrole" data-editable>Eletricista Residencial · Curitiba, PR · ⭐⭐⭐⭐⭐</div><div class="dvquote" data-editable>"Meus clientes acham que eu tenho empresa grande. Tenho só eu mesmo — mas o PDF parece de empresa."</div></div>
+      <div class="dv-comments">
+        <div class="dv-comment"><div class="dc-av" data-editable>L</div><div><div class="dc-top"><span class="dc-name" data-editable>Lucas B.</span><span class="dc-stars">★★★★★</span></div><div class="dc-text" data-editable>Mesmo aconteceu comigo! Cliente perguntou quantos funcionários eu tinha kkk. Melhor sensação!</div></div></div>
+        <div class="dv-comment"><div class="dc-av" data-editable>T</div><div><div class="dc-top"><span class="dc-name" data-editable>Tiago N.</span><span class="dc-stars">★★★★★</span></div><div class="dc-text" data-editable>Passei pro PRO depois de 1 mês. Mas o Basic já resolveu muito antes disso. Recomendo pra começar.</div></div></div>
+        <div class="dv-comment"><div class="dc-av" data-editable>V</div><div><div class="dc-top"><span class="dc-name" data-editable>Vitor H.</span><span class="dc-stars">★★★★★</span></div><div class="dc-text" data-editable>Cobro mais caro agora porque o cliente vê que sou organizado. O app se pagou na segunda semana.</div></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="all-reviews-sec">
+  <div class="all-reviews-grid">
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"Nunca mais perdi cliente por demorar no orçamento. Agora eu mando em 3 minutos e fecho na hora."</div><div class="review-author"><div class="rav" data-editable>R</div><div><strong>Rafael P.</strong><span data-editable>Eletricista · Recife, PE</span></div></div></div>
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"A agenda de clientes é perfeita. Sei exatamente quem agendou, quando e qual serviço. Acabou a bagunça."</div><div class="review-author"><div class="rav" data-editable>M</div><div><strong>Mateus F.</strong><span data-editable>Eletricista · Fortaleza, CE</span></div></div></div>
+    <div class="review-card reveal"><div class="stars">★★★★⭐</div><div class="review-text" data-editable>"Investi R$47 e no mesmo mês fechei um serviço de R$800 a mais porque o cliente ficou impressionado com o PDF."</div><div class="review-author"><div class="rav" data-editable>B</div><div><strong>Bruno M.</strong><span data-editable>Autônomo · Porto Alegre, RS</span></div></div></div>
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"Minha esposa ficou surpresa quando eu mandei o PDF pro cliente. Ela disse: 'Você parece um engenheiro!'"</div><div class="review-author"><div class="rav" data-editable>E</div><div><strong>Eduardo S.</strong><span data-editable>Eletricista · Manaus, AM</span></div></div></div>
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"Parei de cobrar barato depois que comecei a entregar orçamentos profissionais. O app me deu postura."</div><div class="review-author"><div class="rav" data-editable>G</div><div><strong>Gabriel T.</strong><span data-editable>Eletricista · Salvador, BA</span></div></div></div>
+    <div class="review-card reveal"><div class="stars">★★★★★</div><div class="review-text" data-editable>"Recomendei para o meu cunhado que é eletricista. Agora os dois usamos e os dois aumentamos o faturamento."</div><div class="review-author"><div class="rav" data-editable>C</div><div><strong>Carlos E.</strong><span data-editable>Eletricista · Cuiabá, MT</span></div></div></div>
+  </div>
+</section>
+
+<section class="price-sec">
+  <div class="price-box reveal" style="background:linear-gradient(135deg,rgba(34,197,94,.1),rgba(16,185,129,.04));border-color:rgba(34,197,94,.32)">
+    <div class="pb-label" data-editable>Profissionalismo por apenas</div>
+    <div class="pb-big" style="background:linear-gradient(90deg,var(--green),#16a34a);-webkit-background-clip:text;-webkit-text-fill-color:transparent" data-price data-price-key="basic-price">R$ 47</div>
+    <div class="pb-sub" data-editable>Pagamento único · Sem mensalidades · Acesso vitalício</div>
+    <div class="price-includes">
+      <div class="pi" data-editable>App Basic completo</div>
+      <div class="pi" data-editable>PDF profissional com sua logo</div>
+      <div class="pi" data-editable>Catálogo editável de serviços</div>
+      <div class="pi" data-editable>Agenda + Clientes + Garantias</div>
+      <div class="pi" data-editable>Histórico de orçamentos</div>
+      <div class="pi" data-editable>Suporte via WhatsApp</div>
+    </div>
+    <div class="btn-gap">
+      <button class="btn-primary" style="background:linear-gradient(135deg,var(--green),#16a34a);box-shadow:0 8px 28px rgba(34,197,94,.4)" data-wa-btn data-wa-key="basic-buy" onclick="openWA('Quero comprar o Basic!')">🔧 COMPRAR AGORA — <span data-price data-price-key="basic-price">R$ 47</span></button>
+      <button class="btn-ghost" data-wa-btn data-wa-key="basic-doubt" onclick="openWA('Dúvidas sobre o Basic')">💬 Tirar dúvidas antes</button>
+    </div>
+    <p class="price-note" data-editable>Após o pagamento você recebe o arquivo + instruções pelo WhatsApp em até 30 minutos</p>
+  </div>
+</section>
+<footer><div class="fl">⚡ ELETRICISTA POWER</div><p data-editable><a href="#" onclick="goHome();return false">← Voltar para todos os apps</a></p></footer>
+</div>
+
+
+<!-- ═══════════════════════════
+  📐 PAGE DIM
+═══════════════════════════ -->
+<div id="page-dim" class="page">
+<nav><button class="nav-back" onclick="goHome()">← Voltar</button><div class="nav-logo" style="font-size:15px"><div class="nav-logo-icon" style="background:var(--purple)">📐</div><span>DIMENSIONADOR</span></div><button class="nav-cta-sm" style="background:var(--purple)" data-wa-btn data-wa-key="nav-dim-notify" onclick="openWA('Quero ser avisado do Dimensionador!')">📩 Avise-me</button></nav>
+<div class="share-bar"><button class="btn-share" onclick="shareApp('dim')">🔗 Compartilhar este app</button></div>
+<div class="detail-hero grid-bg">
+  <div class="detail-glow" style="background:radial-gradient(circle,rgba(168,85,247,.14),transparent 70%)"></div>
+  <span class="detail-emoji" data-icon>📐</span>
+  <span class="detail-tag" style="background:rgba(168,85,247,.2);border:1px solid rgba(168,85,247,.4);color:#c084fc"><span class="pulse-dot" style="margin-right:5px"></span>EM DESENVOLVIMENTO</span>
+  <h1 class="detail-title">DIMENSIONADOR <span style="color:var(--purple)" data-editable>ELÉTRICO PRO</span></h1>
+  <p class="detail-sub" data-editable>Dimensione toda a instalação — cabos, disjuntores, DPS — e gere memorial de cálculo automático conforme NBR 5410.</p>
+</div>
+<section class="story-sec">
+  <div class="story-box reveal" style="border-top-color:var(--purple)">
+    <span class="story-icon" data-icon>🎯</span>
+    <h3 data-editable>PARA O PROFISSIONAL TÉCNICO</h3>
+    <p data-editable>Você sabe a resposta — mas confirmar os cálculos direto na norma leva tempo e às vezes você não tem o livro na obra.</p>
+    <p data-editable>Com o Dimensionador, você <strong>digita os dados do circuito e o app calcula tudo em segundos</strong> — seção do cabo, disjuntor, DPS — exatamente como manda a NBR 5410.</p>
+    <div class="story-highlight" style="background:rgba(168,85,247,.08);border-color:rgba(168,85,247,.22)">
+      <p data-editable>E ainda gera o <strong style="color:var(--purple)">memorial de cálculo pronto para assinar e entregar.</strong></p>
+    </div>
+  </div>
+</section>
+<section class="benefits-sec">
+  <div class="text-center max480"><div class="sec-label">O que terá</div><h2 class="sec-title">FUNCIONALIDADES <span style="color:var(--purple)" data-editable>PREVISTAS</span></h2></div>
+  <div class="benefits-grid">
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>🔌</div><div><strong>Dimensionamento de Cabos</strong><p data-editable>Seção mínima corrigida por temperatura, método e agrupamento conforme NBR 5410.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>⚡</div><div><strong>Disjuntores e DR</strong><p data-editable>Corrente nominal e proteção automática. Seleção da curva do disjuntor.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>🛡️</div><div><strong>DPS Automático</strong><p data-editable>Nível de proteção e seleção do DPS para cada aplicação — residencial, predial ou industrial.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📄</div><div><strong>Memorial de Cálculo</strong><p data-editable>Documento técnico automático com todos os dimensionamentos, pronto para assinar.</p></div></div>
+  </div>
+</section>
+<section class="price-sec">
+  <div class="price-box dev-box reveal">
+    <div class="pb-big">Em breve</div>
+    <div class="pb-sub" data-editable>Cadastre-se e seja avisado no lançamento com condição especial</div>
+    <div class="price-includes">
+      <div class="pi" style="color:var(--purple)">Primeiro a saber quando lançar</div>
+      <div class="pi" style="color:var(--purple)">Condição exclusiva de pré-venda</div>
+    </div>
+    <button class="btn-primary" style="background:linear-gradient(135deg,var(--purple),#7c3aed);box-shadow:0 8px 28px rgba(168,85,247,.4)" data-wa-btn data-wa-key="dim-notify" onclick="openWA('Quero ser avisado do Dimensionador!')">📩 QUERO SER AVISADO NO LANÇAMENTO</button>
+  </div>
+</section>
+<footer><div class="fl">⚡ ELETRICISTA POWER</div><p data-editable><a href="#" onclick="goHome();return false">← Voltar</a></p></footer>
+</div>
+
+
+<!-- ═══════════════════════════
+  📋 PAGE LAUDO
+═══════════════════════════ -->
+<div id="page-laudo" class="page">
+<nav><button class="nav-back" onclick="goHome()">← Voltar</button><div class="nav-logo" style="font-size:15px"><div class="nav-logo-icon" style="background:var(--purple)">📋</div><span>LAUDO DIGITAL</span></div><button class="nav-cta-sm" style="background:var(--purple)" data-wa-btn data-wa-key="nav-laudo-notify" onclick="openWA('Quero ser avisado do Laudo Digital!')">📩 Avise-me</button></nav>
+<div class="share-bar"><button class="btn-share" onclick="shareApp('laudo')">🔗 Compartilhar este app</button></div>
+<div class="detail-hero grid-bg">
+  <div class="detail-glow" style="background:radial-gradient(circle,rgba(168,85,247,.14),transparent 70%)"></div>
+  <span class="detail-emoji" data-icon>📋</span>
+  <span class="detail-tag" style="background:rgba(168,85,247,.2);border:1px solid rgba(168,85,247,.4);color:#c084fc"><span class="pulse-dot" style="margin-right:5px"></span>EM DESENVOLVIMENTO</span>
+  <h1 class="detail-title">LAUDO & INSPEÇÃO <span style="color:var(--purple)">DIGITAL</span></h1>
+  <p class="detail-sub" data-editable>Laudos técnicos NR-10, fotos e assinatura digital direto do celular. PDF pronto para entregar ao cliente.</p>
+</div>
+<section class="story-sec">
+  <div class="story-box reveal" style="border-top-color:var(--purple)">
+    <span class="story-icon" data-icon>📸</span>
+    <h3 data-editable>LAUDO NO PAPEL? ISSO É DO PASSADO.</h3>
+    <p data-editable>Você anota na obra, chega em casa, digita tudo, monta o PDF, adiciona as fotos... Horas perdidas.</p>
+    <p data-editable>Com o Laudo Digital, você faz <strong>tudo na própria obra, no celular</strong> — preenche, tira foto, o cliente assina na tela e o PDF está pronto.</p>
+    <div class="story-highlight" style="background:rgba(168,85,247,.08);border-color:rgba(168,85,247,.22)">
+      <p data-editable>Ideal para <strong style="color:var(--purple)">inspeções NR-10, laudos ABNT e vistorias elétricas</strong> — agregando mais valor e cobrando mais pelo serviço.</p>
+    </div>
+  </div>
+</section>
+<section class="benefits-sec">
+  <div class="text-center max480"><div class="sec-label">O que terá</div><h2 class="sec-title">FUNCIONALIDADES <span style="color:var(--purple)">PREVISTAS</span></h2></div>
+  <div class="benefits-grid">
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>🔍</div><div><strong>Checklist NR-10</strong><p>Checklist completo de segurança conforme a Norma Regulamentadora 10.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📸</div><div><strong>Registro Fotográfico</strong><p>Adicione fotos da câmera ao laudo para documentar com evidências visuais.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>✍️</div><div><strong>Assinatura Digital</strong><p>Responsável e cliente assinam na tela. Laudo com validade técnica e jurídica.</p></div></div>
+    <div class="benefit-item reveal"><div class="bi-icon" data-icon>📄</div><div><strong>PDF Técnico Formatado</strong><p>Relatório com cabeçalho, fotos, tabelas e parecer final — pronto para entregar.</p></div></div>
+  </div>
+</section>
+<section class="price-sec">
+  <div class="price-box dev-box reveal">
+    <div class="pb-big">Em breve</div>
+    <div class="pb-sub" data-editable>Cadastre-se e ganhe condição especial no lançamento</div>
+    <div class="price-includes">
+      <div class="pi" style="color:var(--purple)">Primeiro a saber quando lançar</div>
+      <div class="pi" style="color:var(--purple)">Condição exclusiva de pré-venda</div>
+    </div>
+    <button class="btn-primary" style="background:linear-gradient(135deg,var(--purple),#7c3aed);box-shadow:0 8px 28px rgba(168,85,247,.4)" data-wa-btn data-wa-key="laudo-notify" onclick="openWA('Quero ser avisado do Laudo Digital!')">📩 QUERO SER AVISADO NO LANÇAMENTO</button>
+  </div>
+</section>
+<footer><div class="fl">⚡ ELETRICISTA POWER</div><p><a href="#" onclick="goHome();return false">← Voltar</a></p></footer>
+</div>
+
+
+<!-- WA BUTTON -->
+<a id="wa-float" href="#" class="wa-btn" data-wa-btn data-wa-key="float-wa" target="_blank">💬</a>
+
+
+
+
+<script>
+/* ══ FIREBASE CONFIG (carrega só no modo edição) ══ */
+const firebaseConfig = {
+  apiKey: "AIzaSyBsws-hQkcJQOLKJvYhz2yZ43AZiu9Rsus",
+  authDomain: "eletricista-power.firebaseapp.com",
+  databaseURL: "https://eletricista-power-default-rtdb.firebaseio.com",
+  projectId: "eletricista-power",
+  storageBucket: "eletricista-power.firebasestorage.app",
+  messagingSenderId: "111779689903",
+  appId: "1:111779689903:web:3999844c7ccaa1ec71ab5a"
+};
+const EDIT_PASSWORD = 'ELETRICISTAPRO2026';
+let db = null;
+
+/* ══ STORE — em memória; salva no Firebase só se autenticado ══ */
+let _store = {};
+let _videos = {};
+
+function getStore(){ return _store; }
+function setStore(data){
+  _store = data;
+  if(db) db.ref('ep-data').set(data);
 }
-        <button class="copy-btn" onclick="copyOutput('out-firebase-rules')">Copiar</button>
+function getVideoLinks(){ return _videos; }
+function setVideoLinks(data){
+  _videos = data;
+  if(db) db.ref('ep-videos').set(data);
+}
+
+/* ══ CARREGA SDK DO FIREBASE SOB DEMANDA ══ */
+function loadFirebaseSDK(){
+  return new Promise((resolve, reject) => {
+    if(window.firebase && window.firebase.database){ resolve(); return; }
+    const s1 = document.createElement('script');
+    s1.src = 'https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js';
+    s1.onload = () => {
+      const s2 = document.createElement('script');
+      s2.src = 'https://www.gstatic.com/firebasejs/10.12.0/firebase-database-compat.js';
+      s2.onload = resolve;
+      s2.onerror = reject;
+      document.head.appendChild(s2);
+    };
+    s1.onerror = reject;
+    document.head.appendChild(s1);
+  });
+}
+
+/* ══ ATALHO SECRETO — digita "edit" em qualquer lugar ══ */
+let _keyBuffer = '';
+document.addEventListener('keydown', function(e){
+  if(e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA' || e.target.isContentEditable) return;
+  _keyBuffer += e.key.toLowerCase();
+  if(_keyBuffer.length > 4) _keyBuffer = _keyBuffer.slice(-4);
+  if(_keyBuffer === 'edit') requestEditMode();
+});
+
+/* ══ PASSWORD ══ */
+function requestEditMode(){
+  document.getElementById('pwd-modal').classList.add('open');
+  setTimeout(() => document.getElementById('pwd-input').focus(), 150);
+}
+
+async function checkPassword(){
+  const val = document.getElementById('pwd-input').value;
+  if(val !== EDIT_PASSWORD){
+    const err = document.getElementById('pwd-error');
+    err.style.display = 'block';
+    setTimeout(() => err.style.display = 'none', 2000);
+    return;
+  }
+  document.getElementById('pwd-modal').classList.remove('open');
+  document.getElementById('pwd-input').value = '';
+  showToast('☁️ Conectando...');
+  try {
+    await loadFirebaseSDK();
+    if(!db){
+      if(!firebase.apps.length) firebase.initializeApp(firebaseConfig);
+      db = firebase.database();
+      const [storeSnap, videosSnap] = await Promise.all([
+        db.ref('ep-data').once('value'),
+        db.ref('ep-videos').once('value')
+      ]);
+      if(storeSnap.val()) _store = storeSnap.val();
+      if(videosSnap.val()) _videos = videosSnap.val();
+      loadColors(); updatePrices(); loadEdits();
+      updateWALinks(); applyWaMsgs(); bindVideoPlayers();
+    }
+    showToast('✅ Conectado!');
+    setTimeout(() => {
+      document.getElementById('edit-toolbar').classList.add('unlocked');
+      document.getElementById('btn-video-edit').classList.add('unlocked');
+      toggleEditMode();
+    }, 500);
+  } catch(e){
+    showToast('⚠️ Offline — editando sem nuvem');
+    document.getElementById('edit-toolbar').classList.add('unlocked');
+    document.getElementById('btn-video-edit').classList.add('unlocked');
+    toggleEditMode();
+  }
+}
+
+/* ══ WA NUMBER ══ */
+let waNumber = '5581999999999';
+
+function openWA(msg){
+  const n = getStore().waNumber || waNumber;
+  window.open(`https://wa.me/${n}?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+const defaultWaMsgs = {
+  'nav-pro-buy':    'Quero comprar o PRO!',
+  'pro-buy':        'Quero comprar o Eletricista Power PRO!',
+  'pro-doubt':      'Tenho dúvidas sobre o PRO',
+  'nav-basic-buy':  'Quero comprar o Basic!',
+  'basic-buy':      'Quero comprar o Basic!',
+  'basic-doubt':    'Dúvidas sobre o Basic',
+  'nav-dim-notify': 'Quero ser avisado do Dimensionador!',
+  'dim-notify':     'Quero ser avisado do Dimensionador!',
+  'nav-laudo-notify':'Quero ser avisado do Laudo Digital!',
+  'laudo-notify':   'Quero ser avisado do Laudo Digital!',
+  'float-wa':       'Olá! Vi os aplicativos e quero saber mais.'
+};
+
+function getWaMsgs(){
+  const store = getStore();
+  return store.waMsgs || {};
+}
+
+function getWaMsg(key){
+  return getWaMsgs()[key] || defaultWaMsgs[key] || '';
+}
+
+function updateWALinks(){
+  const n = getStore().waNumber || waNumber;
+  document.querySelectorAll('.wa-link').forEach(a => {
+    a.href = `https://wa.me/${n}`;
+  });
+  const floatMsg = getWaMsg('float-wa');
+  document.getElementById('wa-float').href = `https://wa.me/${n}?text=${encodeURIComponent(floatMsg)}`;
+}
+
+/* ══ PRICES ══ */
+const defaultPrices = { 'pro-price': 'R$ 97', 'basic-price': 'R$ 47' };
+
+function updatePrices(){
+  const store = getStore();
+  document.querySelectorAll('[data-price-key]').forEach(el => {
+    const key = el.dataset.priceKey;
+    const val = (store.prices && store.prices[key]) || defaultPrices[key];
+    if(val) el.textContent = val;
+  });
+}
+
+/* ══ COLORS ══ */
+const defaultColors = {
+  '--accent':'#f97316','--accent2':'#fbbf24','--accent3':'#38bdf8',
+  '--bg':'#040d1a','--bg2':'#071224','--surface':'#0c1e35'
+};
+
+function applyColors(colors){
+  Object.entries(colors).forEach(([k,v]) => {
+    document.documentElement.style.setProperty(k, v);
+  });
+}
+
+function previewColor(varName, val){
+  document.documentElement.style.setProperty(varName, val);
+}
+
+function saveColors(){
+  const colors = {};
+  Object.keys(defaultColors).forEach(k => {
+    const inputMap = {
+      '--accent':'color-accent','--accent2':'color-accent2','--accent3':'color-accent3',
+      '--bg':'color-bg','--bg2':'color-bg2','--surface':'color-surface'
+    };
+    const inp = document.getElementById(inputMap[k]);
+    if(inp) colors[k] = inp.value;
+  });
+  const store = getStore();
+  store.colors = colors;
+  setStore(store);
+}
+
+function showToast(msg){
+  const t = document.createElement('div');
+  t.style.cssText = 'position:fixed;top:70px;left:50%;transform:translateX(-50%);background:linear-gradient(135deg,#22c55e,#16a34a);color:#fff;font-weight:700;font-size:13px;padding:10px 22px;border-radius:99px;z-index:600;box-shadow:0 4px 20px rgba(34,197,94,.5);white-space:nowrap;';
+  t.textContent = msg;
+  document.body.appendChild(t);
+  setTimeout(() => t.remove(), 3000);
+}
+
+function applyWaMsgs(){
+  const store = getStore();
+  const msgs = store.waMsgs || {};
+  const globalNum = store.waNumber || waNumber;
+  document.querySelectorAll('[data-wa-btn]').forEach(el => {
+    const key = el.dataset.waKey;
+    if(!key) return;
+    const customUrl = msgs[key+'__url'];
+    const customPhone = msgs[key+'__phone'] || globalNum;
+    const msg = msgs[key] || defaultWaMsgs[key] || '';
+    el.onclick = function(e){
+      e.preventDefault();
+      if(customUrl) window.open(customUrl, '_blank');
+      else window.open(`https://wa.me/${customPhone}?text=${encodeURIComponent(msg)}`, '_blank');
+    };
+  });
+  const floatEl = document.getElementById('wa-float');
+  if(floatEl){
+    const floatUrl = msgs['float-wa__url'];
+    const floatPhone = msgs['float-wa__phone'] || globalNum;
+    const floatMsg = msgs['float-wa'] || defaultWaMsgs['float-wa'];
+    floatEl.href = floatUrl || `https://wa.me/${floatPhone}?text=${encodeURIComponent(floatMsg)}`;
+  }
+}
+
+function resetColors(){
+  applyColors(defaultColors);
+  Object.entries(defaultColors).forEach(([k,v]) => {
+    const inputMap = {
+      '--accent':'color-accent','--accent2':'color-accent2','--accent3':'color-accent3',
+      '--bg':'color-bg','--bg2':'color-bg2','--surface':'color-surface'
+    };
+    const inp = document.getElementById(inputMap[k]);
+    if(inp) inp.value = v;
+  });
+}
+
+function loadColors(){
+  const store = getStore();
+  if(store.colors) applyColors(store.colors);
+}
+
+/* ══ COPY LINK (HASH) ══ */
+function copyLink(page){
+  const url = window.location.href.split('#')[0] + '#' + page;
+  navigator.clipboard.writeText(url).then(() => {
+    // feedback on the button
+    const btn = event.target.closest('.btn-share');
+    if(btn){
+      btn.textContent = '✓ Link copiado!';
+      btn.classList.add('copied');
+      setTimeout(() => {
+        btn.textContent = '🔗 Copiar link desta página';
+        btn.classList.remove('copied');
+      }, 2500);
+    }
+  }).catch(() => {
+    // fallback
+    const ta = document.createElement('textarea');
+    ta.value = window.location.href.split('#')[0] + '#' + page;
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    ta.remove();
+    showToast('🔗 Link copiado!');
+  });
+}
+
+/* ══ HASH ROUTING ══ */
+function handleHash(){
+  const hash = window.location.hash.replace('#','');
+  const validPages = ['pro','basic','dim','laudo'];
+  if(validPages.includes(hash)){
+    openApp(hash, false);
+  } else {
+    goHome(false);
+  }
+}
+
+/* ══ PAGE SYSTEM ══ */
+function openApp(app, pushState=true){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-'+app).classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+  if(pushState) try{ history.pushState(null, '', '#'+app); }catch(e){}
+  initReveal();
+  showFixedBar(app);
+}
+
+function goHome(pushState=true){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+  document.getElementById('page-home').classList.add('active');
+  window.scrollTo({top:0,behavior:'instant'});
+  if(pushState) try{ history.pushState(null, '', window.location.pathname); }catch(e){}
+  hideAllFixedBars();
+}
+
+window.addEventListener('popstate', handleHash);
+
+/* ══ SCROLL REVEAL ══ */
+function initReveal(){
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if(e.isIntersecting){ e.target.classList.add('visible'); obs.unobserve(e.target); }
+    });
+  },{threshold:.1});
+  document.querySelectorAll('.reveal:not(.visible)').forEach(el=>obs.observe(el));
+}
+initReveal();
+
+/* ══ FIXED BAR ══ */
+function showFixedBar(app){
+  hideAllFixedBars();
+  const bar = document.getElementById('fbb-'+app);
+  if(bar) bar.classList.add('visible');
+}
+function hideAllFixedBars(){
+  document.querySelectorAll('.fixed-buy-bar').forEach(b=>b.classList.remove('visible'));
+}
+
+/* ══ SHARE APP ══ */
+function shareApp(app){
+  const url = window.location.href.split('#')[0] + '#' + app;
+  if(navigator.share){
+    navigator.share({ title: document.title, url: url }).catch(()=>{});
+  } else {
+    navigator.clipboard.writeText(url).then(()=>showToast('🔗 Link copiado!')).catch(()=>{
+      const ta = document.createElement('textarea');
+      ta.value = url; document.body.appendChild(ta); ta.select();
+      document.execCommand('copy'); ta.remove();
+      showToast('🔗 Link copiado!');
+    });
+  }
+}
+
+/* ══ EDIT MODE ══ */
+let editMode = false;
+let editTarget = null;
+let activePriceKey = null;
+let activeWaKey = null;
+let activeWaLinkType = 'wa';
+
+function toggleEditMode(){
+  editMode = !editMode;
+  document.body.classList.toggle('edit-mode', editMode);
+  const btn = document.getElementById('btn-edit-toggle');
+  const save = document.getElementById('btn-save-edit');
+  const hint = document.getElementById('edit-hint');
+  const settingsTrigger = document.getElementById('settings-trigger');
+  const videoBtn = document.getElementById('btn-video-edit');
+
+  if(editMode){
+    btn.innerHTML = '✕ Sair da Edição';
+    btn.style.background = 'linear-gradient(135deg,#dc2626,#b91c1c)';
+    save.classList.add('visible');
+    hint.style.display = 'block';
+    settingsTrigger.style.display = 'flex';
+    videoBtn.style.display = 'none';
+    document.querySelectorAll('[data-editable]').forEach(el => {
+      el.contentEditable = 'true';
+    });
+    document.querySelectorAll('[data-icon]').forEach(el => {
+      el.onclick = function(e){ e.stopPropagation(); openIconPanel(this); };
+    });
+    document.querySelectorAll('[data-price]').forEach(el => {
+      el.style.cursor = 'pointer';
+      el.onclick = function(e){ e.stopPropagation(); openPricePanel(this); };
+    });
+    document.querySelectorAll('[data-wa-btn]').forEach(el => {
+      el.style.cursor = 'pointer';
+      el.onclick = function(e){ e.preventDefault(); e.stopPropagation(); openWaLinkPanel(this); };
+    });
+  } else {
+    btn.innerHTML = '✏️ Modo Edição';
+    btn.style.background = 'linear-gradient(135deg,#1e40af,#1d4ed8)';
+    save.classList.remove('visible');
+    hint.style.display = 'none';
+    settingsTrigger.style.display = 'none';
+    videoBtn.style.display = 'flex'; // volta visível pois já está unlocked
+
+    document.querySelectorAll('[data-editable]').forEach(el => {
+      el.contentEditable = 'false';
+    });
+    document.querySelectorAll('[data-icon],[data-price]').forEach(el => {
+      el.onclick = null;
+      el.style.cursor = '';
+    });
+    applyWaMsgs();
+    closePanel();
+  }
+}
+
+/* ── PANEL SYSTEM ── */
+function showPanel(sectionId){
+  ['panel-content-icon','panel-content-wa','panel-content-price','panel-content-colors','panel-content-walink']
+    .forEach(id => document.getElementById(id).style.display = 'none');
+  document.getElementById(sectionId).style.display = 'block';
+  document.getElementById('edit-panel').classList.add('open');
+}
+function closePanel(){
+  document.getElementById('edit-panel').classList.remove('open');
+  editTarget = null;
+  activePriceKey = null;
+  activeWaKey = null;
+}
+
+/* ── ICON PANEL ── */
+function openIconPanel(el){
+  editTarget = el;
+  document.getElementById('icon-input').value = el.textContent.trim().replace(/✏️/g,'');
+  document.getElementById('panel-content-icon').querySelector('h4').textContent = '🎨 TROCAR EMOJI';
+  document.getElementById('icon-input').placeholder = 'Ex: ⚡ 🔧 📐 👷';
+  showPanel('panel-content-icon');
+  setTimeout(() => document.getElementById('icon-input').focus(), 150);
+}
+function confirmIconEdit(){
+  if(editTarget) editTarget.textContent = document.getElementById('icon-input').value;
+  closePanel();
+}
+
+/* ── WA NUMBER PANEL ── */
+function openWaPanel(){
+  const store = getStore();
+  document.getElementById('wa-input').value = store.waNumber || waNumber;
+  showPanel('panel-content-wa');
+  setTimeout(() => document.getElementById('wa-input').focus(), 150);
+}
+function confirmWaEdit(){
+  const num = document.getElementById('wa-input').value.replace(/\D/g,'');
+  if(num.length < 10){ showToast('⚠️ Número inválido'); return; }
+  const store = getStore();
+  store.waNumber = num;
+  setStore(store);
+  waNumber = num;
+  updateWALinks();
+  closePanel();
+  showToast('📱 WhatsApp atualizado em toda a página!');
+}
+
+/* ── WA LINK PANEL ── */
+const waBtnLabels = {
+  'nav-pro-buy':'Botão Nav — Comprar PRO','pro-buy':'Botão — COMPRAR PRO',
+  'pro-doubt':'Botão — Tirar dúvidas PRO','nav-basic-buy':'Botão Nav — Comprar Basic',
+  'basic-buy':'Botão — COMPRAR Basic','basic-doubt':'Botão — Tirar dúvidas Basic',
+  'nav-dim-notify':'Botão Nav — Avise-me Dimensionador','dim-notify':'Botão — Avise-me Dimensionador',
+  'nav-laudo-notify':'Botão Nav — Avise-me Laudo','laudo-notify':'Botão — Avise-me Laudo',
+  'float-wa':'Botão Flutuante WhatsApp'
+};
+function waLinkTab(type){
+  activeWaLinkType = type;
+  const wa = document.getElementById('walink-wa-fields');
+  const url = document.getElementById('walink-url-fields');
+  const tabWa = document.getElementById('walink-tab-wa');
+  const tabUrl = document.getElementById('walink-tab-url');
+  if(type==='wa'){
+    wa.style.display='block'; url.style.display='none';
+    tabWa.style.background='linear-gradient(135deg,#16a34a,#22c55e)'; tabWa.style.color='#fff'; tabWa.style.border='none';
+    tabUrl.style.background='var(--surface2)'; tabUrl.style.color='var(--txt2)'; tabUrl.style.border='1px solid var(--border2)';
+  } else {
+    wa.style.display='none'; url.style.display='block';
+    tabUrl.style.background='linear-gradient(135deg,#1e40af,#1d4ed8)'; tabUrl.style.color='#fff'; tabUrl.style.border='none';
+    tabWa.style.background='var(--surface2)'; tabWa.style.color='var(--txt2)'; tabWa.style.border='1px solid var(--border2)';
+  }
+}
+function openWaLinkPanel(el){
+  editTarget = el;
+  activeWaKey = el.dataset.waKey;
+  const label = waBtnLabels[activeWaKey] || activeWaKey;
+  document.getElementById('walink-panel-sub').textContent = label;
+  const store = getStore();
+  const savedMsg = (store.waMsgs && store.waMsgs[activeWaKey]) || '';
+  const savedPhone = (store.waMsgs && store.waMsgs[activeWaKey+'__phone']) || '';
+  const savedUrl = (store.waMsgs && store.waMsgs[activeWaKey+'__url']) || '';
+  document.getElementById('walink-input').value = savedMsg || defaultWaMsgs[activeWaKey] || '';
+  document.getElementById('walink-phone').value = savedPhone;
+  document.getElementById('walink-url').value = savedUrl;
+  waLinkTab(savedUrl ? 'url' : 'wa');
+  showPanel('panel-content-walink');
+  setTimeout(() => document.getElementById(activeWaLinkType==='wa'?'walink-input':'walink-url').focus(), 150);
+}
+function confirmWaLinkEdit(){
+  if(!activeWaKey) return;
+  const store = getStore();
+  if(!store.waMsgs) store.waMsgs = {};
+  if(activeWaLinkType==='url'){
+    const url = document.getElementById('walink-url').value.trim();
+    if(url) store.waMsgs[activeWaKey+'__url'] = url;
+    else delete store.waMsgs[activeWaKey+'__url'];
+  } else {
+    const msg = document.getElementById('walink-input').value.trim();
+    const phone = document.getElementById('walink-phone').value.replace(/\D/g,'');
+    if(msg) store.waMsgs[activeWaKey] = msg; else delete store.waMsgs[activeWaKey];
+    if(phone) store.waMsgs[activeWaKey+'__phone'] = phone; else delete store.waMsgs[activeWaKey+'__phone'];
+    delete store.waMsgs[activeWaKey+'__url'];
+  }
+  setStore(store);
+  applyWaMsgs();
+  closePanel();
+  showToast('🔗 Link do botão atualizado!');
+}
+
+/* ── PRICE PANEL ── */
+function openPricePanel(el){
+  editTarget = el;
+  activePriceKey = el.dataset.priceKey;
+  const labels = {'pro-price':'PRO','basic-price':'Basic'};
+  document.getElementById('price-panel-sub').textContent =
+    `Preço do ${labels[activePriceKey]||''} (atualiza em todos os botões e cards)`;
+  const store = getStore();
+  document.getElementById('price-input').value = (store.prices && store.prices[activePriceKey]) || defaultPrices[activePriceKey] || '';
+  showPanel('panel-content-price');
+  setTimeout(() => document.getElementById('price-input').focus(), 150);
+}
+function confirmPriceEdit(){
+  if(!activePriceKey) return;
+  const val = document.getElementById('price-input').value.trim();
+  if(!val){ closePanel(); return; }
+  const store = getStore();
+  if(!store.prices) store.prices = {};
+  store.prices[activePriceKey] = val;
+  setStore(store);
+  updatePrices();
+  closePanel();
+  showToast('💰 Preço atualizado em toda a página!');
+}
+
+/* ── COLOR PANEL ── */
+function openColorPanel(){
+  const store = getStore();
+  const colors = store.colors || defaultColors;
+  const inputMap = {
+    '--accent':'color-accent','--accent2':'color-accent2','--accent3':'color-accent3',
+    '--bg':'color-bg','--bg2':'color-bg2','--surface':'color-surface'
+  };
+  Object.entries(inputMap).forEach(([k,id]) => {
+    const inp = document.getElementById(id);
+    if(inp) inp.value = colors[k] || defaultColors[k];
+  });
+  showPanel('panel-content-colors');
+}
+function saveColorsPanel(){
+  const colors = {};
+  const inputMap = {
+    '--accent':'color-accent','--accent2':'color-accent2','--accent3':'color-accent3',
+    '--bg':'color-bg','--bg2':'color-bg2','--surface':'color-surface'
+  };
+  Object.keys(defaultColors).forEach(k => {
+    const inp = document.getElementById(inputMap[k]);
+    if(inp) colors[k] = inp.value;
+  });
+  const store = getStore();
+  store.colors = colors;
+  setStore(store);
+  closePanel();
+  showToast('🎨 Cores salvas na nuvem!');
+}
+
+/* ── SAVE / LOAD EDITS ── */
+function saveEdits(){
+  const store = getStore();
+  const texts = [];
+  document.querySelectorAll('[data-editable]').forEach((el,i) => {
+    if(!el.dataset.editId) el.dataset.editId = 'ep-'+i;
+    texts.push({ id: el.dataset.editId, val: el.innerHTML });
+  });
+  document.querySelectorAll('[data-icon]').forEach((el,i) => {
+    if(!el.dataset.editId) el.dataset.editId = 'icon-'+i;
+    texts.push({ id: 'icon-'+el.dataset.editId, val: el.textContent.replace(/✏️/g,'').trim() });
+  });
+  store.texts = texts;
+  setStore(store);
+  showToast('☁️ Edições salvas na nuvem!');
+}
+function loadEdits(){
+  const store = getStore();
+  if(!store.texts) return;
+  const editable = document.querySelectorAll('[data-editable]');
+  editable.forEach((el,i) => { if(!el.dataset.editId) el.dataset.editId = 'ep-'+i; });
+  const icons = document.querySelectorAll('[data-icon]');
+  icons.forEach((el,i) => { if(!el.dataset.editId) el.dataset.editId = 'icon-'+i; });
+  store.texts.forEach(item => {
+    if(item.id.startsWith('icon-')){
+      const realId = item.id.replace('icon-','');
+      const el = document.querySelector(`[data-icon][data-edit-id="${realId}"]`);
+      if(el) el.textContent = item.val;
+    } else {
+      const el = document.querySelector(`[data-editable][data-edit-id="${item.id}"]`);
+      if(el) el.innerHTML = item.val;
+    }
+  });
+}
+
+/* ══ VIDEO MANAGEMENT ══ */
+let videoEditMode = false;
+let activeVideoId = null;
+
+function extractYouTubeId(url){
+  const m = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/))([a-zA-Z0-9_-]{11})/);
+  return m ? m[1] : null;
+}
+
+function isInstagram(url){
+  return /instagram\.com\/(reel|p|tv)\//.test(url);
+}
+
+function previewVideoUrl(url){
+  const el = document.getElementById('video-url-preview');
+  if(!url){ el.textContent=''; return; }
+  const ytId = extractYouTubeId(url);
+  if(ytId){ el.textContent = '✅ YouTube detectado — ID: ' + ytId; return; }
+  if(isInstagram(url)){ el.textContent = '✅ Instagram detectado — abrirá numa nova aba ao clicar'; return; }
+  el.textContent = '⚠️ Cole um link válido do YouTube ou Instagram';
+}
+
+function toggleVideoEditMode(){
+  videoEditMode = !videoEditMode;
+  const btn = document.getElementById('btn-video-edit');
+  document.body.classList.toggle('video-edit-mode', videoEditMode);
+  if(videoEditMode){
+    btn.textContent = '✕ Sair da Edição';
+    btn.classList.add('active');
+    document.querySelectorAll('[data-video]').forEach(el => {
+      el.onclick = function(e){ e.stopPropagation(); openVideoPanel(this.dataset.video); };
+    });
+    showToast('🎬 Clique em qualquer vídeo para configurar o link');
+  } else {
+    btn.textContent = '🎬 Editar Vídeos';
+    btn.classList.remove('active');
+    bindVideoPlayers();
+  }
+}
+
+function openVideoPanel(videoId){
+  activeVideoId = videoId;
+  const links = getVideoLinks();
+  const current = links[videoId] || '';
+  const input = document.getElementById('video-url-input');
+  input.value = current;
+  previewVideoUrl(current);
+  document.getElementById('video-panel').classList.add('open');
+  setTimeout(()=>input.focus(),150);
+}
+
+function closeVideoPanel(){
+  document.getElementById('video-panel').classList.remove('open');
+  activeVideoId = null;
+}
+
+function saveVideoLink(){
+  if(!activeVideoId) return;
+  const url = document.getElementById('video-url-input').value.trim();
+  const ytId = extractYouTubeId(url);
+  if(url && !ytId && !isInstagram(url)){
+    showToast('⚠️ Link inválido — use YouTube ou Instagram');
+    return;
+  }
+  const links = getVideoLinks();
+  if(url) links[activeVideoId] = url;
+  else delete links[activeVideoId];
+  setVideoLinks(links);
+  closeVideoPanel();
+  bindVideoPlayers();
+  showToast(url ? '✅ Vídeo salvo!' : '🗑 Vídeo removido');
+}
+
+function removeVideoLink(){
+  if(!activeVideoId) return;
+  const links = getVideoLinks();
+  delete links[activeVideoId];
+  setVideoLinks(links);
+  closeVideoPanel();
+  bindVideoPlayers();
+  showToast('🗑 Vídeo removido');
+}
+
+function bindVideoPlayers(){
+  const links = getVideoLinks();
+  document.querySelectorAll('[data-video]').forEach(el => {
+    const id = el.dataset.video;
+    const url = links[id];
+    // Update thumbnail indicator
+    const indicator = el.querySelector('.video-has-link');
+    if(indicator) indicator.remove();
+    if(url){
+      const dot = document.createElement('div');
+      dot.className = 'video-has-link';
+      dot.style.cssText = 'position:absolute;top:8px;left:8px;background:#22c55e;width:8px;height:8px;border-radius:50%;z-index:5;box-shadow:0 0 6px rgba(34,197,94,.8);';
+      el.appendChild(dot);
+      el.onclick = function(e){ e.stopPropagation(); playVideo(id, url); };
+      el.style.cursor = 'pointer';
+    } else {
+      el.onclick = null;
+      el.style.cursor = 'default';
+    }
+  });
+}
+
+function playVideo(id, url){
+  const ytId = extractYouTubeId(url);
+  if(ytId){
+    document.getElementById('video-lightbox-iframe').src =
+      'https://www.youtube.com/embed/' + ytId + '?autoplay=1&rel=0';
+    document.getElementById('video-lightbox').classList.add('open');
+  } else if(isInstagram(url)){
+    window.open(url, '_blank');
+  }
+}
+
+function closeLightbox(){
+  document.getElementById('video-lightbox').classList.remove('open');
+  document.getElementById('video-lightbox-iframe').src = '';
+}
+
+function handleLightboxClick(e){
+  if(e.target === document.getElementById('video-lightbox')) closeLightbox();
+}
+
+/* ══ INIT — sem Firebase, carrega instantâneo ══ */
+loadColors();
+updatePrices();
+updateWALinks();
+applyWaMsgs();
+handleHash();
+bindVideoPlayers();
+// Esconde o loading imediatamente
+const _overlay = document.getElementById('loading-overlay');
+if(_overlay){ _overlay.classList.add('hidden'); setTimeout(()=>_overlay.style.display='none',400); }
+</script>
+
+<!-- FIXED BUY BAR PRO -->
+<div id="fbb-pro" class="fixed-buy-bar">
+  <button class="fbb-btn" style="background:linear-gradient(135deg,var(--accent),#ea580c);box-shadow:0 4px 18px rgba(249,115,22,.5);" data-wa-btn data-wa-key="pro-buy" onclick="openWA('Quero comprar o Eletricista Power PRO!')">⚡ COMPRAR — <span data-price data-price-key="pro-price">R$ 97</span></button>
+  <button class="fbb-ghost" data-wa-btn data-wa-key="pro-doubt" onclick="openWA('Tenho dúvidas sobre o PRO')">💬 Dúvidas</button>
+</div>
+<!-- FIXED BUY BAR BASIC -->
+<div id="fbb-basic" class="fixed-buy-bar">
+  <button class="fbb-btn" style="background:linear-gradient(135deg,var(--green),#16a34a);box-shadow:0 4px 18px rgba(34,197,94,.5);" data-wa-btn data-wa-key="basic-buy" onclick="openWA('Quero comprar o Basic!')">🔧 COMPRAR — <span data-price data-price-key="basic-price">R$ 47</span></button>
+  <button class="fbb-ghost" data-wa-btn data-wa-key="basic-doubt" onclick="openWA('Dúvidas sobre o Basic')">💬 Dúvidas</button>
+</div>
+<!-- FIXED BUY BAR DIM -->
+<div id="fbb-dim" class="fixed-buy-bar">
+  <button class="fbb-btn" style="background:linear-gradient(135deg,var(--purple),#7c3aed);box-shadow:0 4px 18px rgba(168,85,247,.5);" data-wa-btn data-wa-key="dim-notify" onclick="openWA('Quero ser avisado do Dimensionador!')">📩 QUERO SER AVISADO</button>
+</div>
+<!-- FIXED BUY BAR LAUDO -->
+<div id="fbb-laudo" class="fixed-buy-bar">
+  <button class="fbb-btn" style="background:linear-gradient(135deg,var(--purple),#7c3aed);box-shadow:0 4px 18px rgba(168,85,247,.5);" data-wa-btn data-wa-key="laudo-notify" onclick="openWA('Quero ser avisado do Laudo Digital!')">📩 QUERO SER AVISADO</button>
+</div>
+
+<!-- EDIT TOOLBAR -->
+<div id="edit-toolbar">
+  <button id="btn-save-edit" onclick="saveEdits()">💾 Salvar Edições</button>
+  <button id="btn-edit-toggle" onclick="editMode ? toggleEditMode() : requestEditMode()">✏️ Modo Edição</button>
+</div>
+<div id="edit-hint">✏️ Texto: toque direto · 💛 Emoji: clique · 🟢 WhatsApp/Links · 💰 Preço · 🎨 Cores</div>
+
+<!-- EDIT PANEL -->
+<div id="edit-panel">
+  <div class="edit-panel-box">
+    <div class="panel-drag"></div>
+    <div id="panel-content-icon" style="display:none">
+      <h4>🎨 TROCAR EMOJI</h4>
+      <p class="ep-sub">Cole ou escreva o novo emoji abaixo</p>
+      <input id="icon-input" type="text" placeholder="Ex: ⚡ 🔧 📐 👷">
+      <div class="edit-btns">
+        <button class="edb-cancel" onclick="closePanel()">Cancelar</button>
+        <button class="edb-confirm" onclick="confirmIconEdit()">Confirmar ✓</button>
       </div>
     </div>
-
-    <!-- CHECKLIST -->
-    <div class="divider"></div>
-    <div class="sec-label">Checklist</div>
-    <h2 class="sec-title">VOCÊ JÁ <span class="grad">FEZ?</span></h2>
-    <div class="checklist">
-      <div class="check-item" onclick="toggleCheckItem(this)"><div class="ci-box"></div>Conta criada no GitHub</div>
-      <div class="check-item" onclick="toggleCheckItem(this)"><div class="ci-box"></div>Repositório criado no GitHub</div>
-      <div class="check-item" onclick="toggleCheckItem(this)"><div class="ci-box"></div>index.html subido no repositório</div>
-      <div class="check-item" onclick="toggleCheckItem(this)"><div class="ci-box"></div>GitHub Pages ativado</div>
-      <div class="check-item" onclick="toggleCheckItem(this)"><div class="ci-box"></div>Página acessível pelo endereço github.io</div>
-      <div class="check-item" onclick="toggleCheckItem(this)"><div class="ci-box"></div>Domínio personalizado configurado (DNS)</div>
-      <div class="check-item" onclick="toggleCheckItem(this)"><div class="ci-box"></div>Projeto Firebase criado</div>
-      <div class="check-item" onclick="toggleCheckItem(this)"><div class="ci-box"></div>Realtime Database ativado no Firebase</div>
-      <div class="check-item" onclick="toggleCheckItem(this)"><div class="ci-box"></div>Firebase integrado na página com Claude</div>
-      <div class="check-item" onclick="toggleCheckItem(this)"><div class="ci-box"></div>Domínio autorizado no Firebase Authentication</div>
-      <div class="check-item" onclick="toggleCheckItem(this)"><div class="ci-box"></div>index.html atualizado no GitHub</div>
-      <div class="check-item" onclick="toggleCheckItem(this)"><div class="ci-box"></div>Testei edição remota ✅</div>
+    <div id="panel-content-wa" style="display:none">
+      <h4>📱 NÚMERO DO WHATSAPP</h4>
+      <p class="ep-sub">Número com DDI e DDD, sem espaços. Ex: 5581999999999</p>
+      <input id="wa-input" type="text" placeholder="5581999999999" maxlength="20">
+      <div class="edit-btns">
+        <button class="edb-cancel" onclick="closePanel()">Cancelar</button>
+        <button class="edb-confirm" onclick="confirmWaEdit()">Salvar em todos ✓</button>
+      </div>
     </div>
-
+    <div id="panel-content-price" style="display:none">
+      <h4>💰 EDITAR PREÇO</h4>
+      <p class="ep-sub" id="price-panel-sub">Novo valor (aparece em todos os botões desse produto)</p>
+      <input id="price-input" type="text" placeholder="Ex: R$ 97">
+      <div class="edit-btns">
+        <button class="edb-cancel" onclick="closePanel()">Cancelar</button>
+        <button class="edb-confirm" onclick="confirmPriceEdit()">Atualizar todos ✓</button>
+      </div>
+    </div>
+    <div id="panel-content-walink" style="display:none">
+      <h4>🔗 EDITAR LINK DO BOTÃO</h4>
+      <p class="ep-sub" id="walink-panel-sub">Configure o destino deste botão</p>
+      <div id="walink-tabs" style="display:flex;gap:6px;margin-bottom:14px;">
+        <button id="walink-tab-wa" onclick="waLinkTab('wa')" style="flex:1;padding:8px;border-radius:8px;border:none;cursor:pointer;font-weight:700;font-size:12px;background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;">📱 WhatsApp</button>
+        <button id="walink-tab-url" onclick="waLinkTab('url')" style="flex:1;padding:8px;border-radius:8px;border:1px solid var(--border2);cursor:pointer;font-weight:700;font-size:12px;background:var(--surface2);color:var(--txt2);">🔗 Link personalizado</button>
+      </div>
+      <div id="walink-wa-fields">
+        <label style="font-size:11px;color:var(--txt3);font-weight:700;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:4px;">Número (deixe vazio para usar o número global)</label>
+        <input id="walink-phone" type="text" placeholder="Ex: 5581999999999 (opcional)" maxlength="20" style="margin-bottom:8px;">
+        <label style="font-size:11px;color:var(--txt3);font-weight:700;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:4px;">Mensagem</label>
+        <input id="walink-input" type="text" placeholder="Ex: Quero comprar o PRO!">
+      </div>
+      <div id="walink-url-fields" style="display:none">
+        <label style="font-size:11px;color:var(--txt3);font-weight:700;text-transform:uppercase;letter-spacing:.05em;display:block;margin-bottom:4px;">URL de destino</label>
+        <input id="walink-url" type="text" placeholder="Ex: https://hotmart.com/produto/...">
+      </div>
+      <div class="edit-btns" style="margin-top:4px">
+        <button class="edb-cancel" onclick="closePanel()">Cancelar</button>
+        <button class="edb-confirm" onclick="confirmWaLinkEdit()">Salvar ✓</button>
+      </div>
+    </div>
+    <div id="panel-content-colors" style="display:none">
+      <h4>🎨 CORES DO TEMA</h4>
+      <p class="ep-sub">Personalize as cores principais da página</p>
+      <div class="settings-section">
+        <h5>Cor de Destaque</h5>
+        <div class="setting-row"><label>Cor principal (accent)</label><input type="color" id="color-accent" value="#f97316" oninput="previewColor('--accent',this.value)"></div>
+        <div class="setting-row"><label>Cor secundária (accent2)</label><input type="color" id="color-accent2" value="#fbbf24" oninput="previewColor('--accent2',this.value)"></div>
+        <div class="setting-row"><label>Cor azul (accent3)</label><input type="color" id="color-accent3" value="#38bdf8" oninput="previewColor('--accent3',this.value)"></div>
+      </div>
+      <div class="settings-section">
+        <h5>Fundo</h5>
+        <div class="setting-row"><label>Fundo principal</label><input type="color" id="color-bg" value="#040d1a" oninput="previewColor('--bg',this.value)"></div>
+        <div class="setting-row"><label>Fundo secundário</label><input type="color" id="color-bg2" value="#071224" oninput="previewColor('--bg2',this.value)"></div>
+        <div class="setting-row"><label>Superfície</label><input type="color" id="color-surface" value="#0c1e35" oninput="previewColor('--surface',this.value)"></div>
+      </div>
+      <div class="edit-btns" style="margin-top:8px">
+        <button class="edb-cancel" onclick="resetColors()">↺ Restaurar</button>
+        <button class="edb-confirm" onclick="saveColorsPanel()">💾 Salvar cores</button>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════
-  ⚡ PÁGINA 3 — PROMPTS
-═══════════════════════════════════ -->
-<div id="page-prompts" class="page">
+<!-- SETTINGS TRIGGER -->
+<div id="settings-trigger">
+  <button onclick="openColorPanel()" style="background:linear-gradient(135deg,#7c3aed,#a855f7);color:#fff;font-weight:700;font-size:12px;padding:10px 14px;border-radius:99px;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(168,85,247,.4);display:flex;align-items:center;gap:6px;">🎨 Cores</button>
+  <button onclick="openWaPanel()" style="background:linear-gradient(135deg,#16a34a,#22c55e);color:#fff;font-weight:700;font-size:12px;padding:10px 14px;border-radius:99px;border:none;cursor:pointer;box-shadow:0 4px 18px rgba(34,197,94,.4);display:flex;align-items:center;gap:6px;">📱 WhatsApp</button>
+</div>
 
-  <div class="hero">
-    <div class="hero-badge">⚡ Arsenal completo</div>
-    <h1>PROMPTS<br><span class="grad">PRONTOS</span></h1>
-    <p>Todos os prompts organizados por categoria. Clique em Copiar e cole direto no Claude.</p>
-  </div>
+<!-- VIDEO EDIT BUTTON -->
+<button id="btn-video-edit" onclick="toggleVideoEditMode()">🎬 Editar Vídeos</button>
 
-  <div class="content">
-
-    <!-- CATEGORIA: SETUP -->
-    <div class="cat-title">🛠️ Setup inicial</div>
-    <div class="prompt-grid">
-
-      <div class="prompt-item">
-        <div class="prompt-item-header">
-          <div>
-            <span class="prompt-item-tag tag-setup">Setup</span>
-            <div class="prompt-item-text" style="margin-top:8px">Juntar HTML + CSS + JS em um único arquivo</div>
-          </div>
-          <button class="prompt-copy-btn" onclick="copyPrompt(this, `Tenho uma página HTML com arquivos separados de CSS e JS. Junte tudo em um único arquivo index.html, com o CSS dentro da tag style e o JS dentro da tag script, sem perder nenhuma funcionalidade. Me entregue o arquivo pronto para subir no GitHub.`)">Copiar</button>
-        </div>
-      </div>
-
-      <div class="prompt-item">
-        <div class="prompt-item-header">
-          <div>
-            <span class="prompt-item-tag tag-setup">Setup</span>
-            <div class="prompt-item-text" style="margin-top:8px">Adicionar modo de edição completo numa página existente</div>
-          </div>
-          <button class="prompt-copy-btn" onclick="copyPrompt(this, `Nessa página HTML, implemente um sistema completo de edição visual com: textos editáveis (data-editable), emojis trocáveis (data-icon), preços editáveis (data-price), botões de WhatsApp configuráveis (data-wa-btn). O modo de edição deve ser protegido por senha. Inclua botão fixo para ativar o modo, painel de configurações (cores, WhatsApp), e função salvar/carregar usando localStorage. Visitantes normais não veem nada disso.`)">Copiar</button>
-        </div>
-      </div>
-
-      <div class="prompt-item">
-        <div class="prompt-item-header">
-          <div>
-            <span class="prompt-item-tag tag-setup">Setup</span>
-            <div class="prompt-item-text" style="margin-top:8px">Adicionar sistema de vídeos com link oculto (YouTube/Instagram)</div>
-          </div>
-          <button class="prompt-copy-btn" onclick="copyPrompt(this, `Nessa página, adicione um sistema de vídeos onde: existe um botão 'Editar Vídeos' que ativa um modo especial, ao clicar em qualquer thumbnail de vídeo abre um painel para colar link do YouTube ou Instagram, o link fica salvo e oculto dos visitantes, quando o visitante clica no play: YouTube abre em lightbox na própria página, Instagram abre em nova aba. Links salvos persistem entre sessões.`)">Copiar</button>
-        </div>
-      </div>
-
+<!-- VIDEO LINK PANEL -->
+<div id="video-panel">
+  <div class="video-panel-box">
+    <div class="vp-drag"></div>
+    <h4>🎬 CONFIGURAR VÍDEO</h4>
+    <p class="vp-sub">Cole o link do YouTube ou Instagram. O link fica escondido — o visitante só vê o botão de play.</p>
+    <input id="video-url-input" type="text" placeholder="https://youtube.com/watch?v=... ou https://www.instagram.com/reel/..." oninput="previewVideoUrl(this.value)">
+    <div class="vp-preview" id="video-url-preview"></div>
+    <div class="vp-btns">
+      <button class="vp-cancel" onclick="closeVideoPanel()">Cancelar</button>
+      <button class="vp-remove" onclick="removeVideoLink()">🗑 Remover</button>
+      <button class="vp-confirm" onclick="saveVideoLink()">💾 Salvar</button>
     </div>
-
-    <!-- CATEGORIA: FIREBASE -->
-    <div class="cat-title">🔥 Firebase</div>
-    <div class="prompt-grid">
-
-      <div class="prompt-item">
-        <div class="prompt-item-header">
-          <div>
-            <span class="prompt-item-tag tag-firebase">Firebase</span>
-            <div class="prompt-item-text" style="margin-top:8px">Integrar Firebase com carregamento lazy (só no modo edição)</div>
-          </div>
-          <button class="prompt-copy-btn" onclick="copyPrompt(this, `Integre o Firebase Realtime Database nessa página com as seguintes regras: 1) O SDK do Firebase NÃO deve carregar quando a página abre normalmente — visitantes não devem baixar nenhum JS do Firebase. 2) O Firebase só carrega quando o usuário digitar a senha correta do modo de edição. 3) Após autenticação, sincronize todos os dados (textos, preços, cores, WhatsApp, vídeos) com o Firebase. 4) Substitua todo localStorage por Firebase. Meu config: [COLE SEU FIREBASECONFIG AQUI]`)">Copiar</button>
-        </div>
-      </div>
-
-      <div class="prompt-item">
-        <div class="prompt-item-header">
-          <div>
-            <span class="prompt-item-tag tag-firebase">Firebase</span>
-            <div class="prompt-item-text" style="margin-top:8px">Substituir localStorage por Firebase mantendo compatibilidade</div>
-          </div>
-          <button class="prompt-copy-btn" onclick="copyPrompt(this, `Substitua todas as chamadas de localStorage por Firebase Realtime Database nessa página. Mantenha as funções getStore() e setStore() funcionando igual, mas salvando no Firebase em vez de localStorage. Se o Firebase não estiver conectado, use um objeto em memória como fallback. Config: [COLE SEU FIREBASECONFIG AQUI]`)">Copiar</button>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- CATEGORIA: EDIÇÃO -->
-    <div class="cat-title">✏️ Edição de conteúdo</div>
-    <div class="prompt-grid">
-
-      <div class="prompt-item">
-        <div class="prompt-item-header">
-          <div>
-            <span class="prompt-item-tag tag-edit">Edição</span>
-            <div class="prompt-item-text" style="margin-top:8px">Tirar modo de edição visível, manter funcionalidade</div>
-          </div>
-          <button class="prompt-copy-btn" onclick="copyPrompt(this, `Essa página está no modo de edição visível. Tire todas as ferramentas de edição que aparecem para o visitante (botões flutuantes, barras de edição, contornos visíveis) mas mantenha toda a estrutura de dados editáveis (data-editable, data-icon, data-price, data-wa-btn). O modo de edição deve existir mas só abrir quando solicitado por senha, invisível para visitantes normais.`)">Copiar</button>
-        </div>
-      </div>
-
-      <div class="prompt-item">
-        <div class="prompt-item-header">
-          <div>
-            <span class="prompt-item-tag tag-edit">Edição</span>
-            <div class="prompt-item-text" style="margin-top:8px">Adicionar proteção por senha ao modo de edição</div>
-          </div>
-          <button class="prompt-copy-btn" onclick="copyPrompt(this, `Adicione proteção por senha ao modo de edição dessa página. Quando o usuário clicar no botão de edição, deve aparecer um modal pedindo senha. Só libera o modo edição se a senha estiver correta. A senha deve ser: [DEFINA SUA SENHA]. O modal deve ter design bonito no mesmo estilo da página.`)">Copiar</button>
-        </div>
-      </div>
-
-      <div class="prompt-item">
-        <div class="prompt-item-header">
-          <div>
-            <span class="prompt-item-tag tag-edit">Edição</span>
-            <div class="prompt-item-text" style="margin-top:8px">Restaurar atributos data-editable e data-icon removidos</div>
-          </div>
-          <button class="prompt-copy-btn" onclick="copyPrompt(this, `Os atributos data-editable e data-icon foram removidos dessa página. Preciso que você restaure esses atributos nos elementos corretos: data-editable em todos os textos editáveis pelo usuário (títulos, parágrafos, descrições, labels), data-icon em todos os emojis e ícones. Analise o conteúdo e adicione os atributos de volta sem alterar o HTML visualmente.`)">Copiar</button>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- CATEGORIA: ERROS -->
-    <div class="cat-title">🔧 Corrigir erros</div>
-    <div class="prompt-grid">
-
-      <div class="prompt-item">
-        <div class="prompt-item-header">
-          <div>
-            <span class="prompt-item-tag tag-fix">Fix</span>
-            <div class="prompt-item-text" style="margin-top:8px">Corrigir ReferenceError de função não definida</div>
-          </div>
-          <button class="prompt-copy-btn" onclick="copyPrompt(this, `Estou recebendo esse erro no console: [COLE O ERRO AQUI]. Analise a página e corrija o problema. A função provavelmente foi removida em alguma edição anterior mas ainda é chamada em algum lugar. Encontre todas as referências e corrija sem quebrar outras funcionalidades.`)">Copiar</button>
-        </div>
-      </div>
-
-      <div class="prompt-item">
-        <div class="prompt-item-header">
-          <div>
-            <span class="prompt-item-tag tag-fix">Fix</span>
-            <div class="prompt-item-text" style="margin-top:8px">Corrigir addEventListener em elemento null</div>
-          </div>
-          <button class="prompt-copy-btn" onclick="copyPrompt(this, `Estou recebendo: Cannot read properties of null (reading 'addEventListener'). Isso acontece porque o JavaScript tenta acessar um elemento HTML que ainda não existe quando o script roda. Corrija movendo os addEventListener para depois que todos os elementos HTML existirem, ou use DOMContentLoaded.`)">Copiar</button>
-        </div>
-      </div>
-
-      <div class="prompt-item">
-        <div class="prompt-item-header">
-          <div>
-            <span class="prompt-item-tag tag-fix">Fix</span>
-            <div class="prompt-item-text" style="margin-top:8px">Corrigir erro do Firebase "firebase is not defined"</div>
-          </div>
-          <button class="prompt-copy-btn" onclick="copyPrompt(this, `Estou recebendo: firebase is not defined. O Firebase está sendo chamado antes do SDK ser carregado. Corrija implementando carregamento lazy: o SDK só deve ser carregado quando necessário (ex: quando o usuário digitar a senha do modo edição), não na abertura da página.`)">Copiar</button>
-        </div>
-      </div>
-
-    </div>
-
-    <!-- CATEGORIA: NOVOS RECURSOS -->
-    <div class="cat-title">✨ Novos recursos</div>
-    <div class="prompt-grid">
-
-      <div class="prompt-item">
-        <div class="prompt-item-header">
-          <div>
-            <span class="prompt-item-tag tag-new">Novo</span>
-            <div class="prompt-item-text" style="margin-top:8px">Adicionar botão Exportar HTML (backup)</div>
-          </div>
-          <button class="prompt-copy-btn" onclick="copyPrompt(this, `Adicione um botão 'Exportar HTML' visível apenas no modo edição. Quando clicado, gera um arquivo HTML completo com todas as edições atuais embutidas no código (textos, preços, emojis, links). O usuário baixa esse arquivo e pode subir no GitHub como backup ou versão final.`)">Copiar</button>
-        </div>
-      </div>
-
-      <div class="prompt-item">
-        <div class="prompt-item-header">
-          <div>
-            <span class="prompt-item-tag tag-new">Novo</span>
-            <div class="prompt-item-text" style="margin-top:8px">Adicionar subpáginas com navegação sem recarregar</div>
-          </div>
-          <button class="prompt-copy-btn" onclick="copyPrompt(this, `Adicione um sistema de subpáginas nessa página usando hash routing (#). Cada subpágina deve ser uma div com id='page-NOME' que aparece/desaparece sem recarregar a página. Implemente: função openPage(nome) para navegar, função goHome() para voltar, botões de voltar em cada subpágina, e leitura automática do hash na URL para deep linking.`)">Copiar</button>
-        </div>
-      </div>
-
-      <div class="prompt-item">
-        <div class="prompt-item-header">
-          <div>
-            <span class="prompt-item-tag tag-new">Novo</span>
-            <div class="prompt-item-text" style="margin-top:8px">Adicionar botão flutuante de WhatsApp</div>
-          </div>
-          <button class="prompt-copy-btn" onclick="copyPrompt(this, `Adicione um botão flutuante de WhatsApp fixo no canto inferior direito da página. O número e a mensagem devem ser configuráveis pelo modo de edição. Design: círculo verde com ícone de chat, sombra suave, animação ao hover. O botão deve abrir o WhatsApp em nova aba com mensagem pré-definida.`)">Copiar</button>
-        </div>
-      </div>
-
-      <div class="prompt-item">
-        <div class="prompt-item-header">
-          <div>
-            <span class="prompt-item-tag tag-new">Novo</span>
-            <div class="prompt-item-text" style="margin-top:8px">Adicionar loading screen enquanto carrega dados</div>
-          </div>
-          <button class="prompt-copy-btn" onclick="copyPrompt(this, `Adicione uma tela de loading que aparece enquanto a página carrega. Deve ter um spinner animado e texto 'Carregando...'. Quando a página terminar de inicializar, some com uma animação suave de fade out. O design deve combinar com o estilo dark da página.`)">Copiar</button>
-        </div>
-      </div>
-
-    </div>
-
   </div>
 </div>
 
-<!-- ═══════════════════════════════════
-  📄 PÁGINA 4 — MANUAL
-═══════════════════════════════════ -->
-<div id="page-manual" class="page">
-  <div class="manual-page">
-
-    <button class="print-btn no-print" onclick="window.print()">🖨️ Imprimir / Salvar PDF</button>
-
-    <!-- CAPA -->
-    <div class="m-hero">
-      <div class="m-hero-icon">⚡</div>
-      <div class="m-title">GUIA RÁPIDO<br><span class="grad">DE USO</span></div>
-      <p class="m-sub">Como usar este app e editar sua página HTML publicada remotamente — usando GitHub, Firebase e Claude AI.</p>
-    </div>
-
-    <!-- O QUE É ESSE APP -->
-    <div class="m-section">
-      <div class="m-label">O que é esse app</div>
-      <div class="m-grid">
-        <div class="m-mini-card">
-          <div class="mc-icon">📚</div>
-          <div class="mc-title">Aula</div>
-          <div class="mc-desc">Passo a passo completo com 10 etapas. Abre e fecha cada etapa. Marque o que já fez.</div>
-        </div>
-        <div class="m-mini-card">
-          <div class="mc-icon">🧪</div>
-          <div class="mc-title">Laboratório</div>
-          <div class="mc-desc">Preencha seus dados e gere os prompts e URLs já prontos com suas informações reais.</div>
-        </div>
-        <div class="m-mini-card">
-          <div class="mc-icon">⚡</div>
-          <div class="mc-title">Prompts</div>
-          <div class="mc-desc">Arsenal de prompts prontos para usar no Claude. Clique Copiar e cole direto.</div>
-        </div>
-        <div class="m-mini-card">
-          <div class="mc-icon">📄</div>
-          <div class="mc-title">Manual</div>
-          <div class="mc-desc">Este manual. Imprima ou salve como PDF para consultar offline.</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- FLUXO COMPLETO -->
-    <div class="m-section">
-      <div class="m-label">O fluxo em 5 passos</div>
-      <div class="m-step">
-        <div class="m-step-num">1</div>
-        <div>
-          <h4>Prepare seu index.html</h4>
-          <p>CSS, JS e HTML tudo num único arquivo. Se tiver separado, peça ao Claude para juntar.</p>
-        </div>
-      </div>
-      <div class="m-step">
-        <div class="m-step-num">2</div>
-        <div>
-          <h4>Suba no GitHub + ative o Pages</h4>
-          <p>Crie um repositório público. Acesse <strong>github.dev/usuario/repo</strong>, faça upload do arquivo e commit. Ative o GitHub Pages em Settings → Pages.</p>
-          <div class="m-code">github.dev/seuusuario/seurepositorio</div>
-        </div>
-      </div>
-      <div class="m-step">
-        <div class="m-step-num">3</div>
-        <div>
-          <h4>Conecte seu domínio (opcional)</h4>
-          <p>Aponte os DNS para o GitHub e configure o domínio em Settings → Pages → Custom domain.</p>
-        </div>
-      </div>
-      <div class="m-step">
-        <div class="m-step-num">4</div>
-        <div>
-          <h4>Integre o Firebase com Claude</h4>
-          <p>Crie um projeto no Firebase, ative o Realtime Database, copie o firebaseConfig e peça ao Claude para integrar na página com carregamento lazy e senha de proteção.</p>
-          <div class="m-code">console.firebase.google.com</div>
-        </div>
-      </div>
-      <div class="m-step">
-        <div class="m-step-num">5</div>
-        <div>
-          <h4>Edite de qualquer lugar</h4>
-          <p>Acesse sua página, clique ✏️, digite a senha → Firebase carrega → edite → salve na nuvem. Qualquer dispositivo vê atualizado.</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- COMO EDITAR REMOTAMENTE -->
-    <div class="m-section">
-      <div class="m-label">Como editar remotamente</div>
-      <div class="m-step">
-        <div class="m-step-num">→</div>
-        <div><h4>Abra sua página publicada</h4><p>No celular, tablet ou computador — qualquer navegador.</p></div>
-      </div>
-      <div class="m-step">
-        <div class="m-step-num">→</div>
-        <div><h4>Clique no botão ✏️ Modo Edição</h4><p>Fica fixo no canto da tela. Só aparece para você.</p></div>
-      </div>
-      <div class="m-step">
-        <div class="m-step-num">→</div>
-        <div><h4>Digite a senha</h4><p>O Firebase carrega automaticamente seus dados da nuvem.</p></div>
-      </div>
-      <div class="m-step">
-        <div class="m-step-num">→</div>
-        <div><h4>Edite o que quiser</h4><p>Clique em textos para editar. Clique em emojis para trocar. Clique em preços para atualizar. Clique em botões para configurar WhatsApp.</p></div>
-      </div>
-      <div class="m-step">
-        <div class="m-step-num">→</div>
-        <div><h4>Clique 💾 Salvar Edições</h4><p>Tudo vai para a nuvem Firebase. Abra em outro dispositivo — já está atualizado.</p></div>
-      </div>
-    </div>
-
-    <!-- PROMPTS ESSENCIAIS -->
-    <div class="m-section">
-      <div class="m-label">5 prompts essenciais para o Claude</div>
-
-      <div class="m-step">
-        <div class="m-step-num">1</div>
-        <div>
-          <h4>Juntar CSS + JS + HTML</h4>
-          <div class="m-prompt">"Junte tudo em um único index.html com CSS no &lt;style&gt; e JS no &lt;script&gt;, sem perder nenhuma funcionalidade."</div>
-        </div>
-      </div>
-      <div class="m-step">
-        <div class="m-step-num">2</div>
-        <div>
-          <h4>Adicionar modo de edição</h4>
-          <div class="m-prompt">"Adicione um sistema de edição visual com senha de proteção. Textos, emojis, preços e botões de WhatsApp devem ser editáveis. Invisível para visitantes."</div>
-        </div>
-      </div>
-      <div class="m-step">
-        <div class="m-step-num">3</div>
-        <div>
-          <h4>Integrar Firebase (lazy)</h4>
-          <div class="m-prompt">"Integre o Firebase só quando o usuário digitar a senha. Visitantes não carregam o SDK. Config: [seu firebaseConfig]"</div>
-        </div>
-      </div>
-      <div class="m-step">
-        <div class="m-step-num">4</div>
-        <div>
-          <h4>Corrigir erro de console</h4>
-          <div class="m-prompt">"Estou recebendo esse erro: [cole o erro]. Analise e corrija sem quebrar outras funcionalidades."</div>
-        </div>
-      </div>
-      <div class="m-step">
-        <div class="m-step-num">5</div>
-        <div>
-          <h4>Adicionar vídeos editáveis</h4>
-          <div class="m-prompt">"Adicione sistema de vídeos: link oculto do YouTube ou Instagram, salvo por senha, visitante clica e abre o player."</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- DICAS RÁPIDAS -->
-    <div class="m-section">
-      <div class="m-label">Dicas importantes</div>
-      <div class="m-step">
-        <div class="m-step-num">⚠️</div>
-        <div><h4>Firebase modo de teste expira em 30 dias</h4><p>Configure as regras de segurança antes de 30 dias ou o banco vai bloquear acesso.</p></div>
-      </div>
-      <div class="m-step">
-        <div class="m-step-num">⚠️</div>
-        <div><h4>Autorize seu domínio no Firebase</h4><p>Firebase → Authentication → Settings → Domínios autorizados. Adicione sem http:// e sem barra.</p></div>
-      </div>
-      <div class="m-step">
-        <div class="m-step-num">💡</div>
-        <div><h4>DNS demora até 24h para propagar</h4><p>Após apontar o domínio para o GitHub, aguarde. Sua página já funciona no endereço github.io.</p></div>
-      </div>
-      <div class="m-step">
-        <div class="m-step-num">💡</div>
-        <div><h4>Edição no celular funciona 100%</h4><p>O modo edição foi feito para mobile. Você pode editar sua página em qualquer lugar.</p></div>
-      </div>
-    </div>
-
-    <div class="m-footer">
-      ⚡ Guia — Página HTML + GitHub + Firebase + Claude AI<br>
-      Gerado com Claude AI · eletricistapro.com.br<br>
-      <span style="color:var(--accent)">github.dev → suba o index.html → edite de qualquer lugar</span>
-    </div>
-
-  </div>
+<!-- VIDEO LIGHTBOX -->
+<div id="video-lightbox" onclick="handleLightboxClick(event)">
+  <iframe id="video-lightbox-iframe" src="" allowfullscreen allow="autoplay; encrypted-media"></iframe>
+  <button id="video-lightbox-close" onclick="closeLightbox()">✕ Fechar</button>
 </div>
 
 <script>
-/* ── TABS ── */
-function switchTab(tab){
-  document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
-  document.getElementById('page-'+tab).classList.add('active');
-  document.getElementById('tab-'+tab).classList.add('active');
-  window.scrollTo({top:0,behavior:'instant'});
-}
-
-/* ── STEP TOGGLE ── */
-function toggleStep(n){
-  const card = document.getElementById('step-'+n);
-  card.classList.toggle('open');
-}
-
-/* ── CHECK STEP ── */
-let checkedSteps = new Set();
-function toggleCheck(e, n){
-  e.stopPropagation();
-  const el = document.getElementById('check-'+n);
-  const card = document.getElementById('step-'+n);
-  if(checkedSteps.has(n)){
-    checkedSteps.delete(n);
-    el.classList.remove('checked');
-    el.textContent = '';
-    card.classList.remove('done');
-  } else {
-    checkedSteps.add(n);
-    el.classList.add('checked');
-    el.textContent = '✓';
-    card.classList.add('done');
-  }
-  updateProgress();
-}
-function updateProgress(){
-  const total = 10;
-  const done = checkedSteps.size;
-  const pct = (done/total)*100;
-  document.getElementById('progress-fill').style.width = pct+'%';
-  document.getElementById('progress-text').textContent = done+' / '+total+' etapas';
-}
-
-/* ── COPY CODE BLOCK ── */
-function copyOutput(id){
-  const el = document.getElementById(id);
-  const btn = el.querySelector('.copy-btn');
-  const text = el.innerText.replace('Copiar','').replace('Copiado!','').trim();
-  navigator.clipboard.writeText(text).then(()=>{
-    btn.textContent='Copiado!'; btn.classList.add('copied');
-    setTimeout(()=>{ btn.textContent='Copiar'; btn.classList.remove('copied'); },2000);
-  }).catch(()=>{
-    const ta=document.createElement('textarea');
-    ta.value=text; document.body.appendChild(ta); ta.select();
-    document.execCommand('copy'); ta.remove();
-    btn.textContent='Copiado!'; btn.classList.add('copied');
-    setTimeout(()=>{ btn.textContent='Copiar'; btn.classList.remove('copied'); },2000);
+  document.getElementById('edit-panel').addEventListener('click', function(e){
+    if(e.target === this) closePanel();
   });
-}
-
-/* ── COPY PROMPT ── */
-function copyPrompt(btn, text){
-  navigator.clipboard.writeText(text).then(()=>{
-    btn.textContent='Copiado!'; btn.classList.add('copied');
-    setTimeout(()=>{ btn.textContent='Copiar'; btn.classList.remove('copied'); },2000);
-  }).catch(()=>{
-    const ta=document.createElement('textarea');
-    ta.value=text; document.body.appendChild(ta); ta.select();
-    document.execCommand('copy'); ta.remove();
-    btn.textContent='Copiado!'; btn.classList.add('copied');
-    setTimeout(()=>{ btn.textContent='Copiar'; btn.classList.remove('copied'); },2000);
+  document.getElementById('video-panel').addEventListener('click', function(e){
+    if(e.target === this) closeVideoPanel();
   });
-}
-
-/* ── LAB UPDATE ── */
-function updateLab(){
-  const user = document.getElementById('lab-github-user').value.trim() || 'seuusuario';
-  const repo = document.getElementById('lab-github-repo').value.trim() || 'seurepositorio';
-  const domain = document.getElementById('lab-domain').value.trim();
-  const fbProject = document.getElementById('lab-firebase-project').value.trim() || 'seuprojeto';
-  const fbUrl = document.getElementById('lab-firebase-url').value.trim() || 'https://seuprojeto-default-rtdb.firebaseio.com';
-  const pwd = document.getElementById('lab-password').value.trim() || 'minhasenha2025';
-
-  document.getElementById('out-github-dev').innerHTML =
-    `<span style="color:var(--accent3)">github.dev/${user}/${repo}</span><button class="copy-btn" onclick="copyOutput('out-github-dev')">Copiar</button>`;
-
-  const pagesUrl = domain ? `https://${domain}` : `https://${user}.github.io/${repo}`;
-  document.getElementById('out-pages-url').innerHTML =
-    `<span style="color:var(--green)">${pagesUrl}</span><button class="copy-btn" onclick="copyOutput('out-pages-url')">Copiar</button>`;
-
-  const prompt = `Integre o Firebase Realtime Database nessa página com as seguintes regras:
-
-1) O SDK do Firebase NÃO deve carregar quando a página abre normalmente.
-2) O Firebase só carrega quando o usuário digitar a senha correta.
-3) A senha do modo de edição é: ${pwd}
-4) Após autenticação, sincronize todos os dados com o Firebase.
-5) Substitua todo localStorage por Firebase.
-
-Meu firebaseConfig:
-{
-  databaseURL: "${fbUrl}",
-  projectId: "${fbProject}"
-  // (os outros campos do config)
-}
-
-Domínios a autorizar no Firebase Authentication:
-- ${domain || user+'.github.io'}
-${domain ? '- www.'+domain : ''}
-- ${user}.github.io`;
-
-  document.getElementById('out-prompt-firebase').innerHTML =
-    prompt.replace(/</g,'&lt;').replace(/>/g,'&gt;') +
-    `\n<button class="copy-btn" onclick="copyOutput('out-prompt-firebase')">Copiar</button>`;
-}
-
-/* ── CHECKLIST LAB ── */
-function toggleCheckItem(el){
-  el.classList.toggle('checked');
-  const box = el.querySelector('.ci-box');
-  box.textContent = el.classList.contains('checked') ? '✓' : '';
-}
 </script>
 
 </body>
