@@ -217,7 +217,7 @@ footer p{font-size:13px;color:#475569}
 </section>
 
 <!-- DEMONSTRAÇÃO EM VÍDEO -->
-<section class="reveal" style="padding:80px 24px;background:#0a0f1a;">
+<section id="video-demo" class="reveal" style="padding:80px 24px;background:#0a0f1a;">
   <div class="container" style="max-width:860px;text-align:center;">
     <div class="section-label" style="justify-content:center;">&#9654; Veja na prática</div>
     <h2 style="font-family:'Bebas Neue',sans-serif;font-size:clamp(32px,5vw,52px);color:#fff;line-height:1;margin-bottom:12px;">DEMONSTRAÇÃO<br><span style="color:#16a34a;">EM VÍDEO</span></h2>
@@ -227,7 +227,7 @@ footer p{font-size:13px;color:#475569}
         <span style="color:#16a34a;font-size:14px;">&#9654;</span>
         <span style="color:#4ade80;font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;">Playlist de demonstração — Eletricista Power Grátis</span>
       </div>
-      <div style="position:relative;padding-bottom:56.25%;height:0;">
+      <div style="position:relative;padding-bottom:177.78%;height:0;max-width:380px;margin:0 auto;">
         <iframe src="https://www.youtube.com/embed/videoseries?list=PLqGGQaKyd2pl64EFjTiBu52vJ3jtXqZ0Q&rel=0&modestbranding=1" style="position:absolute;top:0;left:0;width:100%;height:100%;border:0;" allowfullscreen loading="lazy" title="Eletricista Power Grátis - Demonstração completa"></iframe>
       </div>
     </div>
@@ -304,5 +304,48 @@ footer p{font-size:13px;color:#475569}
   if(st&&cta&&'IntersectionObserver' in window){var so=new IntersectionObserver(function(en){st.style.display=en[0].isIntersecting?'none':'';});so.observe(cta);}
 })();
 </script>
+<!-- BOTAO VIDEO DEMO -->
+<style>
+#btn-video-demo{
+  position:fixed;
+  bottom:80px;
+  right:18px;
+  z-index:999;
+  display:none;
+  align-items:center;
+  gap:8px;
+  background:#16a34a;
+  color:#fff;
+  border:none;
+  border-radius:50px;
+  padding:12px 18px;
+  font-size:13px;
+  font-weight:700;
+  letter-spacing:.5px;
+  cursor:pointer;
+  box-shadow:0 8px 24px rgba(0,0,0,.4);
+  transition:transform .2s,opacity .2s;
+  text-decoration:none;
+}
+#btn-video-demo:hover{transform:scale(1.05);}
+</style>
+<a id="btn-video-demo" href="#video-demo">&#9654; V&iacute;deo demonstrando</a>
+<script>
+(function(){
+  var btn = document.getElementById('btn-video-demo');
+  var sec = document.getElementById('video-demo');
+  if(!btn||!sec) return;
+  window.addEventListener('scroll', function(){
+    var scrollY = window.scrollY || window.pageYOffset;
+    var secTop = sec.getBoundingClientRect().top + scrollY;
+    if(scrollY > 300 && scrollY < secTop - 100){
+      btn.style.display='flex';
+    } else {
+      btn.style.display='none';
+    }
+  }, {passive:true});
+})();
+</script>
+<!-- /BOTAO VIDEO DEMO -->
 </body>
 </html>
