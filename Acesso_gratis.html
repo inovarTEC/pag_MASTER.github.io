@@ -2,6 +2,14 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8" />
+ <script>
+  (function(){
+    var p = window.location.pathname;
+    if(p.endsWith('.html')){
+      history.replaceState(null,'',p.replace('.html',''));
+    }
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <title>Eletricista Power — Organize seu negócio</title>
 <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>⚡</text></svg>" />
