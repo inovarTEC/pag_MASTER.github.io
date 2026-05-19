@@ -2,6 +2,14 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+  <script>
+  (function(){
+    var p = window.location.pathname;
+    if(p.endsWith('.html')){
+      history.replaceState(null,'',p.replace('.html',''));
+    }
+  })();
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eletricista Power — Apps de Orçamentos e Calculadoras NBR 5410 para Eletricistas</title>
 <meta name="description" content="Apps offline sem mensalidade para eletricistas: orçamentos profissionais com PDF, calculadoras NBR 5410, dimensionamento e gestão de clientes. Criado por engenheiro eletricista com 25 anos de experiência.">
