@@ -3,16 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <script>
-  (function(){
-    var p = window.location.pathname;
-    if(p.endsWith('.html')){
-      p = p.replace('.html','');
-    }
-    if(p.endsWith('/index') || p === 'index'){
-      p = p.replace('index','');
-    }
-    history.replaceState(null,'',p || '/');
-  })();
+  if (window.location.href.includes('index.html')) {
+    history.replaceState(null, '', '/');
+  }
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Eletricista Power — Apps de Orçamentos e Calculadoras NBR 5410 para Eletricistas</title>
