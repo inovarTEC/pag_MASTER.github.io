@@ -6,8 +6,12 @@
   (function(){
     var p = window.location.pathname;
     if(p.endsWith('.html')){
-      history.replaceState(null,'',p.replace('.html',''));
+      p = p.replace('.html','');
     }
+    if(p.endsWith('/index') || p === 'index'){
+      p = p.replace('index','');
+    }
+    history.replaceState(null,'',p || '/');
   })();
 </script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
